@@ -6,14 +6,16 @@ high, that high and its date, the currency of its shares and the first day
 of its history. The changes are shaded red for falls and green for rises,
 each column on its own scale, as a day's moves are much smaller than a
 year's, and the distance from the high red, more strongly the further it
-is."><meta property="og:description" content="A table with a row per index of index_summary(), in the
+is. Given the history, a column after the close draws the last year of
+each index as a small line (see sparkline_svg())."><meta property="og:description" content="A table with a row per index of index_summary(), in the
 order of get_indices(): its region, last close and its date, the change
 on the day, this year and over a year, how far it is below its all-time
 high, that high and its date, the currency of its shares and the first day
 of its history. The changes are shaded red for falls and green for rises,
 each column on its own scale, as a day's moves are much smaller than a
 year's, and the distance from the high red, more strongly the further it
-is."></head><body>
+is. Given the history, a column after the close draws the last year of
+each index as a small line (see sparkline_svg())."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -54,12 +56,13 @@ high, that high and its date, the currency of its shares and the first day
 of its history. The changes are shaded red for falls and green for rises,
 each column on its own scale, as a day's moves are much smaller than a
 year's, and the distance from the high red, more strongly the further it
-is.</p>
+is. Given the history, a column after the close draws the last year of
+each index as a small line (see <code><a href="sparkline_svg.html">sparkline_svg()</a></code>).</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">overview_table</span><span class="op">(</span><span class="va">summary</span>, indices <span class="op">=</span> <span class="fu"><a href="get_indices.html">get_indices</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">overview_table</span><span class="op">(</span><span class="va">summary</span>, indices <span class="op">=</span> <span class="fu"><a href="get_indices.html">get_indices</a></span><span class="op">(</span><span class="op">)</span>, history <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,6 +77,11 @@ is.</p>
 <dd><p>Data frame of indices from <code><a href="get_indices.html">get_indices()</a></code>, for the regions
 and currencies.</p></dd>
 
+
+<dt id="arg-history">history<a class="anchor" aria-label="anchor" href="#arg-history"></a></dt>
+<dd><p>The price history the summary was made from, for the
+lines of the last year, or <code>NULL</code> for none.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -85,7 +93,7 @@ and currencies.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
 <span class="r-in"><span><span class="va">indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_indices.html">get_indices</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_history.html">get_history</a></span><span class="op">(</span><span class="va">indices</span><span class="op">$</span><span class="va">label</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"1900-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">overview_table</span><span class="op">(</span><span class="fu"><a href="index_summary.html">index_summary</a></span><span class="op">(</span><span class="va">history</span><span class="op">)</span>, <span class="va">indices</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">overview_table</span><span class="op">(</span><span class="fu"><a href="index_summary.html">index_summary</a></span><span class="op">(</span><span class="va">history</span><span class="op">)</span>, <span class="va">indices</span>, <span class="va">history</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
