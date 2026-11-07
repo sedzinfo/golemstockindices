@@ -137,7 +137,7 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ## Screenshots
 
 ### Overview
-![Where the indices stand: the last close, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+![The 16 exchanges, from Toronto to Sydney, with a dot for open or closed, and where the 22 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
 
 ### Index Chart
 ![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
