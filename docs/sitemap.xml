@@ -37,6 +37,9 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/index_summary.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/iso_week.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/kupiec_test.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/market_status.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/market_strip.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/market_table.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/minutes_since.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_about_server.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_about_ui.html</loc></url>
@@ -65,6 +68,7 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_compare.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_drawdowns.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_forecast.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_performance.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_returns_calendar.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_scales.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_seasonality.html</loc></url>
@@ -82,6 +86,7 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonal_returns.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/shade_interval.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/shift.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/sparkline_svg.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/summary_card.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/tail_probability.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/text_color.html</loc></url>

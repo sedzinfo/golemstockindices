@@ -3,18 +3,22 @@
 explore the major stock market indices
 
 An interactive R Shiny application for exploring the major stock market
-indices of the US, Europe and Asia: where each stands today, its whole
-history, how it compares with the others, its seasonality, whether its
-recent volatility is normal and how far it is below its all-time high.
+indices of the Americas, Europe and Asia-Pacific: where each stands
+today, its whole history, how it compares with the others, its
+seasonality, whether its recent volatility is normal and how far it is
+below its all-time high.
 
 ## Features
 
-- **Twelve indices**: S&P 500, Dow Jones, Nasdaq Composite, Russell
-  2000, Euro Stoxx 50, FTSE 100, DAX, CAC 40, Athens General, Nikkei
-  225, Hang Seng and the VIX
-- **Overview**: Every index in one table, with its last close, the
-  change on the day, this year and over a year, and how far it is below
-  its all-time high
+- **22 indices**: S&P 500, Dow Jones, Nasdaq Composite and Russell 2000
+  in the US; S&P/TSX Composite and Bovespa in the Americas; STOXX Europe
+  600, Euro Stoxx 50, FTSE 100, DAX, CAC 40, IBEX 35, FTSE MIB, SMI and
+  Athens General in Europe; Nikkei 225, Shanghai Composite, Hang Seng,
+  KOSPI, Sensex and ASX 200 in Asia-Pacific; and the VIX
+- **Overview**: Which exchanges are open now, every index in one table
+  with a line of its last year, its last close, the change on the day,
+  this year and over a year, and how far it is below its all-time high,
+  and a chart of their performance over a day, week, month or year
 - **Interactive Candlestick Charts**: The whole history of an index,
   back to 1927 for the S&P 500, with the volume, the 50- and 200-day
   moving averages and the drawdown
@@ -79,11 +83,16 @@ kept on disk between R sessions (see [Data Source](#data-source)).
 
 ### Overview Tab
 
+- Which exchanges are open, at lunch or closed right now, and at the
+  bottom a table of their local times, next opening or closing and
+  regular hours
 - A table of all the indices, grouped by region: the last close and its
-  date, the change on the day, this year and over a year, how far each
-  is below its all-time high, that high and its date, the currency and
-  the first day of the history
+  date, a small line of the last year, the change on the day, this year
+  and over a year, how far each is below its all-time high, that high
+  and its date, the currency and the first day of the history
 - The changes are shaded red for falls and green for rises
+- A chart of the indices side by side over the day, a week, a month,
+  this year or a year, the best at the top
 
 ### Timeseries Tab
 
@@ -149,6 +158,90 @@ kept on disk between R sessions (see [Data Source](#data-source)).
   and how its numbers are calculated
 - The text is in `inst/app/about.md`, so it can be edited without
   touching the R code
+
+## Screenshots
+
+### Overview
+
+![The 16 exchanges, from Toronto to Sydney, with a dot for open or
+closed, and where the 22 indices stand: the last close with a line of
+the last year, the change on the day, this year and over a year, and the
+distance from the all-time
+high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+
+The 16 exchanges, from Toronto to Sydney, with a dot for open or closed,
+and where the 22 indices stand: the last close with a line of the last
+year, the change on the day, this year and over a year, and the distance
+from the all-time high
+
+### Index Chart
+
+![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a
+log
+scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+
+Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a
+log scale
+
+### Zoomed In (dark mode)
+
+![The last 3 months of the S&P 500, with the vertical axes fitted to the
+days in
+view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
+
+The last 3 months of the S&P 500, with the vertical axes fitted to the
+days in view
+
+### Index Comparison
+
+![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year,
+each starting at
+100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
+
+The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year,
+each starting at 100
+
+### Returns Calendar (dark mode)
+
+![Monthly returns of the S&P 500 by year since
+1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
+
+Monthly returns of the S&P 500 by year since 1927
+
+### Seasonality
+
+![S&P 500 returns by year of the US presidential cycle since 1928, with
+the best and the worst year and a Kruskal-Wallis test of whether the
+differences could be
+chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
+
+S&P 500 returns by year of the US presidential cycle since 1928, with
+the best and the worst year and a Kruskal-Wallis test of whether the
+differences could be chance
+
+### Volatility (dark mode)
+
+![Whether the volatility of the S&P 500’s last month and the move of its
+last 2 trading days are normal, and the forecast of its next 5 trading
+days with the value at risk, with its volatility since 1927, its last 63
+trading days in GARCH standard deviations and the forecast
+range](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
+
+Whether the volatility of the S&P 500’s last month and the move of its
+last 2 trading days are normal, and the forecast of its next 5 trading
+days with the value at risk, with its volatility since 1927, its last 63
+trading days in GARCH standard deviations and the forecast range
+
+### Drawdowns
+
+![How far the S&P 500 is below its all-time high and its 12 falls of 20%
+or more since 1927, on a log-scale chart and a chart of the distance
+from the
+high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
+
+How far the S&P 500 is below its all-time high and its 12 falls of 20%
+or more since 1927, on a log-scale chart and a chart of the distance
+from the high
 
 ## Dependencies
 

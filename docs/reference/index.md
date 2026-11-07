@@ -18,6 +18,8 @@
   : Normalize close prices to 100
 - [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)
   : Where each index stands
+- [`market_status()`](https://sedzinfo.github.io/golemstockindices/reference/market_status.md)
+  : Which exchanges are open
 - [`monthly_returns()`](https://sedzinfo.github.io/golemstockindices/reference/monthly_returns.md)
   : Monthly returns of an index
 - [`moving_average()`](https://sedzinfo.github.io/golemstockindices/reference/moving_average.md)
@@ -57,6 +59,8 @@
   : Seasonality chart of an index
 - [`overview_table()`](https://sedzinfo.github.io/golemstockindices/reference/overview_table.md)
   : Table of where the indices stand
+- [`plot_performance()`](https://sedzinfo.github.io/golemstockindices/reference/plot_performance.md)
+  : Performance of the indices over a period
 - [`drawdown_table()`](https://sedzinfo.github.io/golemstockindices/reference/drawdown_table.md)
   : Table of the falls of an index
 - [`seasonality_table()`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_table.md)

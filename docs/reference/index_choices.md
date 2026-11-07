@@ -28,10 +28,13 @@ golemstockindices:::index_choices(get_indices())
 #> $US
 #> [1] "S&P 500"          "Dow Jones"        "Nasdaq Composite" "Russell 2000"     "VIX"             
 #> 
-#> $Europe
-#> [1] "Euro Stoxx 50"  "FTSE 100"       "DAX"            "CAC 40"         "Athens General"
+#> $Americas
+#> [1] "S&P/TSX Composite" "Bovespa"          
 #> 
-#> $Asia
-#> [1] "Nikkei 225" "Hang Seng" 
+#> $Europe
+#> [1] "STOXX Europe 600" "Euro Stoxx 50"    "FTSE 100"         "DAX"              "CAC 40"           "IBEX 35"          "FTSE MIB"         "SMI"              "Athens General"  
+#> 
+#> $`Asia-Pacific`
+#> [1] "Nikkei 225"         "Shanghai Composite" "Hang Seng"          "KOSPI"              "Sensex"             "ASX 200"           
 #> 
 ```
