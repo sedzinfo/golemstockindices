@@ -39,10 +39,12 @@ exchanges <- list(
 #' sessions on weekdays. Holidays are not known, so on a holiday an exchange
 #' shows as open.
 #' @param now The time to judge, now by default.
-#' @return A data frame with a row per exchange: `exchange`, `local_time`
-#'   (such as "10:42"), `state` ("open", "lunch" or "closed"), `text` (such
-#'   as "open until 16:00", "lunch break until 12:30" or "opens Mon 09:30")
-#'   and `indices`, the labels of its indices joined by commas.
+#' @return A data frame with a row per exchange, from west to east:
+#'   `exchange`, `local_time` (such as "10:42"), `state` ("open", "lunch" or
+#'   "closed"), `text`, when that changes (such as "closes 16:00", "reopens
+#'   12:30" or "opens Mon 09:30"), `hours`, the regular sessions of the day
+#'   (such as "09:00–11:30, 12:30–15:30"), `time_zone` and `indices`, the
+#'   labels of its indices joined by commas.
 #' @export
 #' @examples
 #' market_status()
@@ -66,10 +68,10 @@ market_status <- function(now = Sys.time()) {
     open <- weekday & minute >= sessions[, 1] & minute < sessions[, 2]
     if (any(open)) {
       state <- "open"
-      text <- paste("open until", clock(sessions[which(open), 2]))
+      text <- paste("closes", clock(sessions[which(open), 2]))
     } else if (weekday && minute >= sessions[1, 1] && minute < sessions[nrow(sessions), 2]) {
       state <- "lunch"
-      text <- paste("lunch break until", clock(sessions[which(sessions[, 1] > minute)[1], 1]))
+      text <- paste("reopens", clock(sessions[which(sessions[, 1] > minute)[1], 1]))
     } else {
       state <- "closed"
       # the next weekday that opens: today before the first session, or a later day
@@ -83,6 +85,7 @@ market_status <- function(now = Sys.time()) {
     }
     data.frame(
       exchange = exchange$name, local_time = clock(minute), state = state, text = text,
+      hours = paste(sub("-", "\u2013", hours, fixed = TRUE), collapse = ", "), time_zone = exchange$tz,
       indices = paste(exchange$indices, collapse = ", ")
     )
   })
@@ -94,27 +97,63 @@ market_status <- function(now = Sys.time()) {
 #' @title The strip of the exchanges that are open
 #' @description A row of small labels, one per exchange, with a green dot
 #' when it is open, an amber one at lunch and a grey one when it is closed.
-#' Hovering over a label names the indices of the exchange.
+#' Hovering over a label gives its local time, when that changes and its
+#' indices; the table of [market_table()] has them all.
 #' @param status The result of [market_status()].
+#' @param table_id The id of that table on the page, for a link to it, or
+#'   `NULL` for none.
 #' @return A `div` of Shiny UI elements.
 #' @keywords internal
 #' @examples
 #' golemstockindices:::market_strip(market_status())
-market_strip <- function(status) {
+market_strip <- function(status, table_id = NULL) {
   div(
     class = "market-strip",
     lapply(seq_len(nrow(status)), function(i) {
       row <- status[i, ]
       span(
         class = paste("market", row$state),
-        title = row$indices,
+        title = paste0(row$local_time, " local time, ", row$text, " \u00b7 ", row$indices),
         span(class = "market-dot", `aria-hidden` = "true"),
-        tags$strong(row$exchange),
-        span(class = "market-time", row$local_time),
-        span(row$text)
+        row$exchange
       )
     }),
-    span(class = "market-note", "Local times; holidays are not shown")
+    if (!is.null(table_id)) tags$a(class = "market-note", href = paste0("#", table_id), "Trading hours \u2193")
+  )
+}
+##########################################################################################
+#
+##########################################################################################
+#' @title The table of the exchanges and their trading hours
+#' @description A row per exchange, from west to east: its indices, its local
+#' time, whether it is open, at lunch or closed, with the dot of the strip of
+#' [market_strip()], when that changes, its regular sessions and its time
+#' zone.
+#' @param status The result of [market_status()].
+#' @return A `table` of Shiny UI elements.
+#' @keywords internal
+#' @examples
+#' golemstockindices:::market_table(market_status())
+market_table <- function(status) {
+  states <- c(open = "Open", lunch = "Lunch break", closed = "Closed")
+  tags$table(
+    class = "table table-sm align-middle market-table",
+    tags$thead(tags$tr(
+      tags$th("Exchange"), tags$th("Indices"), tags$th("Local time"), tags$th("Now"), tags$th("Next"),
+      tags$th("Regular hours"), tags$th("Time zone")
+    )),
+    tags$tbody(lapply(seq_len(nrow(status)), function(i) {
+      row <- status[i, ]
+      tags$tr(
+        tags$td(tags$strong(row$exchange)),
+        tags$td(row$indices),
+        tags$td(class = "market-time", row$local_time),
+        tags$td(span(class = paste("market-state", row$state), span(class = "market-dot", `aria-hidden` = "true"), states[[row$state]])),
+        tags$td(row$text),
+        tags$td(class = "market-time", row$hours),
+        tags$td(class = "text-body-secondary", row$time_zone)
+      )
+    }))
   )
 }
 ##########################################################################################
