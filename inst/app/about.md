@@ -1,4 +1,4 @@
-Stock Market Indices shows the daily prices of the major stock market indices of the US, Europe and Asia, from <a href="https://finance.yahoo.com" target="_blank" rel="noopener">Yahoo Finance</a>. This page explains what each index measures, what each tab shows and how its numbers are calculated. The CSV button of each tab downloads the data behind it, unrounded. The app is for exploring market data; it is not investment advice.
+Stock Market Indices shows the daily prices of the major stock market indices of the Americas, Europe and Asia-Pacific, from <a href="https://finance.yahoo.com" target="_blank" rel="noopener">Yahoo Finance</a>. This page explains what each index measures, what each tab shows and how its numbers are calculated. The CSV button of each tab downloads the data behind it, unrounded. The app is for exploring market data; it is not investment advice.
 
 **On this page:** [The indices](#about-indices) · [Overview](#about-overview) · [Timeseries](#about-timeseries) · [Compare](#about-compare) · [Linear and log scales](#about-scales) · [Returns calendar](#about-calendar) · [Seasonality](#about-seasonality) · [Volatility](#about-volatility) · [Drawdowns](#about-drawdowns) · [Data and updates](#about-data)
 
@@ -12,31 +12,41 @@ A stock market index follows the prices of a basket of shares as one number, in 
 | Dow Jones | 30 large US companies | share price | 1992 here, 1896 in all |
 | Nasdaq Composite | the thousands of companies listed on the Nasdaq exchange, many of them in technology | market value | 1971 |
 | Russell 2000 | 2,000 smaller US companies | market value | 1987 |
+| S&P/TSX Composite | the largest companies listed in Toronto, Canada | market value | 1979 |
+| Bovespa | the most traded companies listed in São Paulo, Brazil, with their dividends reinvested | market value | 1995 here, 1968 in all |
+| STOXX Europe 600 | 600 large, mid-sized and small companies of 17 European countries, in and outside the euro area | market value | 2004 here |
 | Euro Stoxx 50 | 50 large companies of the euro area | market value | 2007 here |
 | FTSE 100 | the 100 largest companies listed in London | market value | 1984 |
 | DAX | the 40 largest German companies, with their dividends reinvested | market value | 1987 |
 | CAC 40 | 40 large French companies | market value | 1990 |
+| IBEX 35 | the 35 most traded Spanish companies | market value | 1993 |
+| FTSE MIB | 40 large Italian companies | market value | 1997 here |
+| SMI | the 20 largest Swiss companies, such as Nestlé, Novartis and Roche | market value | 1990 |
 | Athens General | the largest companies listed on the Athens Exchange | market value | 1997 |
 | Nikkei 225 | 225 large Japanese companies | share price | 1965 |
+| Shanghai Composite | all the companies listed in Shanghai, China | market value | 1997 here |
 | Hang Seng | the largest companies listed in Hong Kong | market value | 1986 |
+| KOSPI | all the companies of the main market of South Korea, such as Samsung | market value | 1996 here |
+| Sensex | 30 large companies listed in Mumbai, India | market value | 1997 here |
+| ASX 200 | the 200 largest companies listed in Sydney, Australia | market value | 1992 |
 | VIX | the volatility of the S&P 500 that traders expect over the next 30 days, from the prices of its options | – | 1990 |
 
-Two of them are not like the rest. The **DAX** is a performance index: the dividends of its companies are added to it, while the others leave them out, so over long periods it rises faster than an index of the same shares would. The **VIX** is not a basket of shares but a measure of fear, in percent a year: it jumps when stocks fall sharply and sinks in calm markets, so its "falls" and "returns" mean something else than those of a stock index.
+A few of them are not like the rest. The **DAX** and the **Bovespa** are performance indices: the dividends of their companies are added to them, while the others leave them out, so over long periods they rise faster than an index of the same shares would. The **VIX** is not a basket of shares but a measure of fear, in percent a year: it jumps when stocks fall sharply and sinks in calm markets, so its "falls" and "returns" mean something else than those of a stock index. The **Bovespa** starts in 1995 here: before the real, Brazil's currency since July 1994, inflation ran at thousands of percent a year, and the index rose as fast in the money of the time, which would swamp every return, seasonality and volatility of its history.
 
-Each index is in the money of its shares (dollars, euros, pounds, yen or Hong Kong dollars), and none is converted, so comparing indices of different currencies mixes in the moves of the currencies.
+Each index is in the money of its shares (US, Canadian, Australian and Hong Kong dollars, euros, pounds, Swiss francs, reais, yen, yuan, won or rupees), and none is converted, so comparing indices of different currencies mixes in the moves of the currencies, and an index of a country with high inflation rises partly because its money loses value.
 
 <h3 id="about-overview">Overview</h3>
 
 Where every index stands, in one table, grouped by region, and how they compare, in a chart.
 
-**The exchanges.** The labels at the top say which exchanges are open, with a green dot, at lunch, with an amber one (Tokyo and Hong Kong pause at midday), or closed, with a grey one, and when that changes, in the local time of each exchange: New York 09:30–16:00, London 08:00–16:30, Frankfurt and Paris 09:00–17:30, Athens 10:00–17:20, Tokyo 09:00–15:30 and Hong Kong 09:30–16:00. Hover over a label for the indices of the exchange. The regular weekday sessions are all the app knows: on a holiday an exchange shows as open, and the indices are computed on their own schedules, the VIX for example also outside the hours of New York. While an exchange is open, its index shows the close of the day before.
+**The exchanges.** The labels at the top, from west to east, say which exchanges are open, with a green dot, at lunch, with an amber one (Shanghai, Hong Kong and Tokyo pause at midday), or closed, with a grey one, and when that changes, in the local time of each exchange: Toronto and New York 09:30–16:00, São Paulo 10:00–17:00 while the US is on summer time and 10:00–18:00 otherwise, London 08:00–16:30, Frankfurt, Paris, Madrid, Milan and Zurich 09:00–17:30, Athens 10:00–17:20, Mumbai 09:15–15:30, Shanghai 09:30–15:00, Hong Kong 09:30–16:00, Seoul 09:00–15:30, Tokyo 09:00–15:30 and Sydney 10:00–16:00. Hover over a label for the indices of the exchange; the Euro Stoxx 50 and the STOXX Europe 600, made of shares of many countries, go with Frankfurt. The regular weekday sessions are all the app knows: on a holiday an exchange shows as open, and the indices are computed on their own schedules, the VIX for example also outside the hours of New York. While an exchange is open, its index shows the close of the day before.
 
-**The table.** The line above it gives the date of the last closes; the exchanges of Asia close hours before those of Europe and the US, and a holiday on one exchange leaves its last close a day behind the others.
+**The table.** The line above it gives the date of the last closes; the exchanges of Asia-Pacific close hours before those of Europe and the Americas, and a holiday on one exchange leaves its last close a day behind the others.
 
 | Column | What it is |
 |---|---|
 | `Index` | The name of the index, as in the pickers of the other tabs |
-| `Region` | US, Europe or Asia |
+| `Region` | US, Americas (the rest of them), Europe or Asia-Pacific |
 | `Close` | The last close, in points |
 | `Last year` | The closes of the last 365 days as a small line, green when the year ended higher than it began and red when lower; each line has its own scale, from its lowest to its highest close |
 | `Date` | The day of that close, on the calendar of the exchange |

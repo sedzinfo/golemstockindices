@@ -31,7 +31,7 @@ mod_overview_ui <- function(id) {
         selected = "ytd", inline = TRUE
       )
     ),
-    plotly::plotlyOutput(ns("performance"), width = "100%", height = "420px")
+    plotly::plotlyOutput(ns("performance"), width = "100%", height = "560px")
   )
 }
 ##########################################################################################

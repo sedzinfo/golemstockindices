@@ -14,12 +14,32 @@ make_stale <- function(key, minutes) {
 
 test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
   all <- get_indices()
-  expect_named(all, c("label", "symbol", "region", "currency"))
-  expect_false(anyDuplicated(all$label) > 0)
+  expect_named(all, c("label", "symbol", "region", "currency", "from"))
+  expect_equal(nrow(all), 22)
+  expect_false(anyDuplicated(all$label) > 0 || anyDuplicated(all$symbol) > 0)
   expect_equal(all$symbol[all$label == "S&P 500"], "^GSPC")
   expect_equal(all$symbol[all$label == "Athens General"], "GD.AT")
+  expect_equal(all$symbol[all$label == "Shanghai Composite"], "000001.SS")
   expect_true(is.na(all$currency[all$label == "VIX"]))
-  expect_setequal(all$region, c("US", "Europe", "Asia"))
+  expect_equal(unique(all$region), c("US", "Americas", "Europe", "Asia-Pacific"))
+  # only the Bovespa leaves out the start of its history
+  expect_equal(all$from[all$label == "Bovespa"], as.Date("1995-01-01"))
+  expect_equal(sum(!is.na(all$from)), 1)
+  # every index belongs to an exchange of the strip of the open markets
+  expect_setequal(unlist(lapply(exchanges, function(exchange) exchange$indices)), all$label)
+})
+
+test_that("an index with a first day to keep is downloaded from that day", {
+  disk_cache()$reset()
+  starts <- character()
+  local_mocked_bindings(download_history = function(index, start_date) {
+    starts <<- c(starts, format(start_date))
+    daily
+  })
+  late <- indices
+  late$from <- as.Date(c("2024-01-01", NA))
+  get_history(c("Alpha (A)", "Beta (B)"), as.Date("1900-01-01"), late)
+  expect_equal(starts, c("2024-01-01", "1900-01-01"))
 })
 
 test_that("parse_chart() reads the daily prices on the dates of the exchange", {

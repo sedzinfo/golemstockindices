@@ -5,7 +5,7 @@ Authors@R: person("Dimitrios", "Zacharatos", , "dzacharatos@yahoo.com", role = c
            comment = c(ORCID = "0000-0003-1789-8294"))
 Maintainer: Dimitrios Zacharatos <dzacharatos@yahoo.com>
 Description: A 'shiny' application for exploring the major stock market
-    indices of the US, Europe and Asia, such as the S&P 500, the Euro Stoxx
+    indices of the Americas, Europe and Asia-Pacific, such as the S&P 500, the Euro Stoxx
     50 and the Nikkei 225, and the VIX. Shows where every index stands
     against its last close, the start of the year, a year ago and its
     all-time high, and plots interactive candlestick and volume charts of

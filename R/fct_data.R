@@ -50,26 +50,48 @@ disk_cache <- function() {
 #
 ##########################################################################################
 #' @title The stock market indices of the app
-#' @description The major indices of the US, Europe and Asia, and the VIX,
-#' with their symbols on Yahoo Finance. The `label` column holds the names,
-#' such as "S&P 500", that pick indices in [get_history()].
+#' @description The major indices of the US, the rest of the Americas,
+#' Europe and Asia-Pacific, and the VIX, with their symbols on Yahoo Finance.
+#' The `label` column holds the names, such as "S&P 500", that pick indices
+#' in [get_history()].
 #' @return A data frame with a row per index: `label`, `symbol` on Yahoo
-#'   Finance, `region` ("US", "Europe" or "Asia") and the `currency` of the
-#'   shares in it. The VIX is a measure of the expected volatility of the S&P
-#'   500, in percent a year, so its currency is `NA`.
+#'   Finance, `region` ("US", "Americas", "Europe" or "Asia-Pacific"), the
+#'   `currency` of the shares in it, and `from`, the first day to keep, or
+#'   `NA` to keep all of the history. The VIX is a measure of the expected
+#'   volatility of the S&P 500, in percent a year, so its currency is `NA`.
+#'   The Bovespa starts in 1995: in the hyperinflation of Brazil before the
+#'   real, its returns of thousands of percent a year in the money of the time would swamp
+#'   every analysis.
 #' @export
 #' @examples
 #' get_indices()
 get_indices <- function() {
-  data.frame(
+  indices <- data.frame(
     label = c(
-      "S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000", "Euro Stoxx 50", "FTSE 100", "DAX", "CAC 40",
-      "Athens General", "Nikkei 225", "Hang Seng", "VIX"
+      "S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000",
+      "S&P/TSX Composite", "Bovespa",
+      "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI", "Athens General",
+      "Nikkei 225", "Shanghai Composite", "Hang Seng", "KOSPI", "Sensex", "ASX 200",
+      "VIX"
     ),
-    symbol = c("^GSPC", "^DJI", "^IXIC", "^RUT", "^STOXX50E", "^FTSE", "^GDAXI", "^FCHI", "GD.AT", "^N225", "^HSI", "^VIX"),
-    region = c(rep("US", 4), rep("Europe", 5), rep("Asia", 2), "US"),
-    currency = c(rep("USD", 4), "EUR", "GBP", "EUR", "EUR", "EUR", "JPY", "HKD", NA)
+    symbol = c(
+      "^GSPC", "^DJI", "^IXIC", "^RUT",
+      "^GSPTSE", "^BVSP",
+      "^STOXX", "^STOXX50E", "^FTSE", "^GDAXI", "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI", "GD.AT",
+      "^N225", "000001.SS", "^HSI", "^KS11", "^BSESN", "^AXJO",
+      "^VIX"
+    ),
+    region = c(rep("US", 4), rep("Americas", 2), rep("Europe", 9), rep("Asia-Pacific", 6), "US"),
+    currency = c(
+      rep("USD", 4),
+      "CAD", "BRL",
+      "EUR", "EUR", "GBP", "EUR", "EUR", "EUR", "EUR", "CHF", "EUR",
+      "JPY", "CNY", "HKD", "KRW", "INR", "AUD",
+      NA
+    )
   )
+  indices$from <- as.Date(ifelse(indices$label == "Bovespa", "1995-01-01", NA))
+  indices
 }
 ##########################################################################################
 #
@@ -179,10 +201,11 @@ download_history <- function(index, start_date) {
 #
 ##########################################################################################
 #' @title Get the whole price history of one index, kept on disk and brought up to date
-#' @description The first call downloads the whole history and keeps it on
-#' disk (see [disk_cache()]). Later calls use the kept history, and once it is
-#' more than an hour old download only the last two weeks, which also replace
-#' the kept days of those weeks, in case Yahoo Finance corrected them. When
+#' @description The first call downloads the whole history, from the `from`
+#' day of the index when it has one, and keeps it on disk (see
+#' [disk_cache()]). Later calls use the kept history, and once it is more
+#' than an hour old download only the last two weeks, which also replace the
+#' kept days of those weeks, in case Yahoo Finance corrected them. When
 #' bringing it up to date fails, the kept history is used.
 #' @param index One row of [get_indices()].
 #' @return The whole price history of the index, or `NULL` when it could not
@@ -196,7 +219,8 @@ index_history <- function(index) {
   key <- paste0("history_", tolower(gsub("[^A-Za-z0-9]", "", index$symbol)))
   kept <- disk_cache()$get(key)
   if (cachem::is.key_missing(kept)) {
-    history <- download_history(index, as.Date("1900-01-01"))
+    start <- if (length(index$from) == 1 && !is.na(index$from)) index$from else as.Date("1900-01-01")
+    history <- download_history(index, start)
     if (is.null(history)) {
       return(NULL)
     }

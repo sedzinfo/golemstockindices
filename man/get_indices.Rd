@@ -8,14 +8,19 @@ get_indices()
 }
 \value{
 A data frame with a row per index: \code{label}, \code{symbol} on Yahoo
-Finance, \code{region} ("US", "Europe" or "Asia") and the \code{currency} of the
-shares in it. The VIX is a measure of the expected volatility of the S&P
-500, in percent a year, so its currency is \code{NA}.
+Finance, \code{region} ("US", "Americas", "Europe" or "Asia-Pacific"), the
+\code{currency} of the shares in it, and \code{from}, the first day to keep, or
+\code{NA} to keep all of the history. The VIX is a measure of the expected
+volatility of the S&P 500, in percent a year, so its currency is \code{NA}.
+The Bovespa starts in 1995: in the hyperinflation of Brazil before the
+real, its returns of thousands of percent a year in the money of the time would swamp
+every analysis.
 }
 \description{
-The major indices of the US, Europe and Asia, and the VIX,
-with their symbols on Yahoo Finance. The \code{label} column holds the names,
-such as "S&P 500", that pick indices in \code{\link[=get_history]{get_history()}}.
+The major indices of the US, the rest of the Americas,
+Europe and Asia-Pacific, and the VIX, with their symbols on Yahoo Finance.
+The \code{label} column holds the names, such as "S&P 500", that pick indices
+in \code{\link[=get_history]{get_history()}}.
 }
 \examples{
 get_indices()

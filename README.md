@@ -2,11 +2,11 @@
 
 explore the major stock market indices
 
-An interactive R Shiny application for exploring the major stock market indices of the US, Europe and Asia: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.
+An interactive R Shiny application for exploring the major stock market indices of the Americas, Europe and Asia-Pacific: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.
 
 ## Features
 
-- **Twelve indices**: S&P 500, Dow Jones, Nasdaq Composite, Russell 2000, Euro Stoxx 50, FTSE 100, DAX, CAC 40, Athens General, Nikkei 225, Hang Seng and the VIX
+- **22 indices**: S&P 500, Dow Jones, Nasdaq Composite and Russell 2000 in the US; S&P/TSX Composite and Bovespa in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, DAX, CAC 40, IBEX 35, FTSE MIB, SMI and Athens General in Europe; Nikkei 225, Shanghai Composite, Hang Seng, KOSPI, Sensex and ASX 200 in Asia-Pacific; and the VIX
 - **Overview**: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high, and a chart of their performance over a day, week, month or year
 - **Interactive Candlestick Charts**: The whole history of an index, back to 1927 for the S&P 500, with the volume, the 50- and 200-day moving averages and the drawdown
 - **Index Comparison**: Compare up to 10 indices, each starting at 100, on a linear or log scale
@@ -137,7 +137,7 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ## Screenshots
 
 ### Overview
-![Where the twelve indices stand: the last close, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+![Where the indices stand: the last close, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
 
 ### Index Chart
 ![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)

@@ -29,7 +29,7 @@ test_that("file_stem() turns an index label into a file name", {
 
 test_that("the index pickers group the indices by region", {
   choices <- index_choices(get_indices())
-  expect_equal(names(choices), c("US", "Europe", "Asia"))
+  expect_equal(names(choices), c("US", "Americas", "Europe", "Asia-Pacific"))
   expect_true(all(c("S&P 500", "VIX") %in% choices$US))
 })
 

@@ -48,3 +48,22 @@ test_that("sparkline_svg() draws the last year, green when it rose and red when 
   expect_match(sparkline_svg(days, seq(200, 100, length.out = 501), "Alpha"), "stroke=\"#dc3545\"", fixed = TRUE)
   expect_equal(sparkline_svg(days[1], 100, "Alpha"), "")
 })
+
+test_that("market_status() covers the exchanges from Toronto to Sydney, west to east", {
+  status <- market_status(as.POSIXct("2026-11-09 15:00", tz = "UTC"))
+  expect_equal(status$exchange[c(1, nrow(status))], c("Toronto", "Sydney"))
+  expect_equal(nrow(status), 16)
+  # Shanghai has a lunch break too: 12:00 there on a Monday
+  shanghai <- market_status(as.POSIXct("2026-11-09 04:00", tz = "UTC"))
+  expect_equal(shanghai$text[shanghai$exchange == "Shanghai"], "lunch break until 13:00")
+})
+
+test_that("market_status() moves the close of São Paulo with the summer time of the US", {
+  sao_paulo <- function(time) {
+    status <- market_status(as.POSIXct(time, tz = "UTC"))
+    status$text[status$exchange == "São Paulo"]
+  }
+  # June: New York on summer time; November: not
+  expect_equal(sao_paulo("2026-06-08 15:00"), "open until 17:00")
+  expect_equal(sao_paulo("2026-11-09 15:00"), "open until 18:00")
+})

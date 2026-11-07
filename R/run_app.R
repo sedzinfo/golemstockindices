@@ -3,7 +3,7 @@
 ##########################################################################################
 #' @title Launch the Stock Market Indices app
 #' @description Starts an interactive 'shiny' application for exploring the
-#'   major stock market indices of the US, Europe and Asia, with daily prices
+#'   major stock market indices of the Americas, Europe and Asia-Pacific, with daily prices
 #'   from Yahoo Finance.
 #' @details The application has the following tabs:
 #'   \describe{
