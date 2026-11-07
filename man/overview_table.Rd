@@ -4,13 +4,16 @@
 \alias{overview_table}
 \title{Table of where the indices stand}
 \usage{
-overview_table(summary, indices = get_indices())
+overview_table(summary, indices = get_indices(), history = NULL)
 }
 \arguments{
 \item{summary}{The result of \code{\link[=index_summary]{index_summary()}}.}
 
 \item{indices}{Data frame of indices from \code{\link[=get_indices]{get_indices()}}, for the regions
 and currencies.}
+
+\item{history}{The price history the summary was made from, for the
+lines of the last year, or \code{NULL} for none.}
 }
 \value{
 A DT datatable.
@@ -23,12 +26,13 @@ high, that high and its date, the currency of its shares and the first day
 of its history. The changes are shaded red for falls and green for rises,
 each column on its own scale, as a day's moves are much smaller than a
 year's, and the distance from the high red, more strongly the further it
-is.
+is. Given the history, a column after the close draws the last year of
+each index as a small line (see \code{\link[=sparkline_svg]{sparkline_svg()}}).
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 indices <- get_indices()
 history <- get_history(indices$label[1:3], as.Date("1900-01-01"))
-overview_table(index_summary(history), indices)
+overview_table(index_summary(history), indices, history)
 \dontshow{\}) # examplesIf}
 }

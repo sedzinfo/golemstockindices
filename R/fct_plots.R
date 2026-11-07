@@ -699,17 +699,20 @@ seasonality_table <- function(analysis) {
 #' of its history. The changes are shaded red for falls and green for rises,
 #' each column on its own scale, as a day's moves are much smaller than a
 #' year's, and the distance from the high red, more strongly the further it
-#' is.
+#' is. Given the history, a column after the close draws the last year of
+#' each index as a small line (see [sparkline_svg()]).
 #' @param summary The result of [index_summary()].
 #' @param indices Data frame of indices from [get_indices()], for the regions
 #'   and currencies.
+#' @param history The price history the summary was made from, for the
+#'   lines of the last year, or `NULL` for none.
 #' @return A DT datatable.
 #' @export
 #' @examplesIf interactive()
 #' indices <- get_indices()
 #' history <- get_history(indices$label[1:3], as.Date("1900-01-01"))
-#' overview_table(index_summary(history), indices)
-overview_table <- function(summary, indices = get_indices()) {
+#' overview_table(index_summary(history), indices, history)
+overview_table <- function(summary, indices = get_indices(), history = NULL) {
   info <- indices[match(summary$label, indices$label), ]
   table <- data.frame(
     summary$label, info$region, summary$close, summary$date, summary$day_pct, summary$ytd_pct, summary$year_pct,
@@ -718,21 +721,29 @@ overview_table <- function(summary, indices = get_indices()) {
   names(table) <- c(
     "Index", "Region", "Close", "Date", "Day", "Year to date", "1 year", "From high", "High", "High on", "Currency", "Since"
   )
+  if (!is.null(history)) {
+    lines <- vapply(summary$label, function(label) {
+      one <- history[history$label == label, ]
+      sparkline_svg(one$timestamp, one$close, label)
+    }, character(1))
+    table <- data.frame(table[1:3], "Last year" = lines, table[-(1:3)], check.names = FALSE)
+  }
   table <- table[order(match(table$Index, indices$label)), ]
+  # DT counts the columns from 0
+  column <- function(names) match(names, names(table)) - 1
   # the VIX is in percent a year, not in the money of any shares
   dash <- DT::JS("function(data, type) { return type === 'display' && data === null ? '\u2013' : data; }")
+  columns <- list(
+    list(targets = column("Currency"), render = dash),
+    list(targets = column(c("Close", "Day", "Year to date", "1 year", "From high", "High")), className = "dt-right")
+  )
+  if (!is.null(history)) columns <- c(columns, list(list(targets = column("Last year"), orderable = FALSE)))
   out <- DT::datatable(table,
     rownames = FALSE,
     selection = "none",
-    options = list(
-      dom = "t",
-      pageLength = nrow(table),
-      order = list(),
-      columnDefs = list(
-        list(targets = 10, render = dash),
-        list(targets = c(2, 4:8), className = "dt-right")
-      )
-    )
+    # the lines are SVG, the other columns text
+    escape = setdiff(names(table), "Last year"),
+    options = list(dom = "t", pageLength = nrow(table), order = list(), columnDefs = columns)
   ) %>%
     DT::formatRound(c("Close", "High"), digits = 2) %>%
     DT::formatCurrency(c("Day", "Year to date", "1 year"), currency = "%", before = FALSE, digits = 2) %>%
@@ -741,4 +752,65 @@ overview_table <- function(summary, indices = get_indices()) {
     out <- DT::formatStyle(out, column, backgroundColor = shade_interval(table[[column]], 0))
   }
   out
+}
+##########################################################################################
+#
+##########################################################################################
+#' @title Performance of the indices over a period
+#' @description One horizontal bar per index, its change over the period in
+#' percent, green for rises and red for falls, the best at the top. The VIX
+#' is left out: it measures the fear in the market rather than the value of
+#' shares, and its swings of tens of percent would squeeze the others.
+#' @param summary The result of [index_summary()].
+#' @param indices Data frame of indices from [get_indices()]; the indices
+#'   without a currency, the VIX, are left out.
+#' @param period `"day"`, `"week"`, `"month"`, `"ytd"` (year to date) or
+#'   `"year"`.
+#' @inheritParams plot_timeseries
+#' @return A plotly object.
+#' @export
+#' @examplesIf interactive()
+#' indices <- get_indices()
+#' summary <- index_summary(get_history(indices$label, as.Date("2020-01-01")))
+#' plot_performance(summary, indices, "ytd")
+plot_performance <- function(summary, indices = get_indices(), period = c("day", "week", "month", "ytd", "year"), mode = "light") {
+  period <- match.arg(period)
+  titles <- c(day = "Change on the day", week = "Change over the last week", month = "Change over the last month",
+              ytd = "Change this year", year = "Change over the last year")
+  shares <- summary[summary$label %in% indices$label[!is.na(indices$currency)], ]
+  change <- shares[[paste0(period, "_pct")]]
+  shares <- shares[!is.na(change), ]
+  change <- change[!is.na(change)]
+  # plotly draws the first category at the bottom, so the best comes last
+  sorted <- order(change)
+  labels <- shares$label[sorted]
+  change <- change[sorted]
+  # room beyond the longest bars on both sides, for their labels, which would otherwise run into the
+  # names of the indices on a narrow screen
+  span <- max(c(change, 0)) - min(c(change, 0))
+  spare <- 0.35 * (if (span > 0) span else 1)
+  # more on the left, where a label of a fall sits next to the names
+  spare_left <- 0.45 * (if (span > 0) span else 1)
+  plotly::plot_ly(
+    x = change,
+    y = labels,
+    type = "bar",
+    orientation = "h",
+    marker = list(color = ifelse(change >= 0, change_color(1, gain = TRUE), change_color(1, gain = FALSE))),
+    text = sprintf("%+.2f%%", change),
+    textposition = "outside",
+    cliponaxis = FALSE,
+    textfont = list(color = text_color(mode)),
+    hovertemplate = "%{y}: %{x:+.2f}%<extra></extra>"
+  ) %>%
+    plotly::layout(
+      title = list(text = titles[[period]], x = 0.01, xanchor = "left"),
+      xaxis = list(
+        title = "", ticksuffix = "%", zeroline = TRUE,
+        range = c(min(c(change, 0)) - if (any(change < 0)) spare_left else 0, max(c(change, 0)) + if (any(change > 0)) spare else 0)
+      ),
+      yaxis = list(title = "", type = "category", categoryorder = "array", categoryarray = labels, automargin = TRUE),
+      margin = list(t = 50)
+    ) %>%
+    plot_theme(mode)
 }

@@ -25,6 +25,7 @@ reference:
     contents:
       - normalize_prices
       - index_summary
+      - market_status
       - monthly_returns
       - moving_average
       - drawdown
@@ -45,6 +46,7 @@ reference:
       - plot_drawdowns
       - plot_seasonality
       - overview_table
+      - plot_performance
       - drawdown_table
       - seasonality_table
 

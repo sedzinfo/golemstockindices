@@ -7,7 +7,7 @@ An interactive R Shiny application for exploring the major stock market indices 
 ## Features
 
 - **Twelve indices**: S&P 500, Dow Jones, Nasdaq Composite, Russell 2000, Euro Stoxx 50, FTSE 100, DAX, CAC 40, Athens General, Nikkei 225, Hang Seng and the VIX
-- **Overview**: Every index in one table, with its last close, the change on the day, this year and over a year, and how far it is below its all-time high
+- **Overview**: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high, and a chart of their performance over a day, week, month or year
 - **Interactive Candlestick Charts**: The whole history of an index, back to 1927 for the S&P 500, with the volume, the 50- and 200-day moving averages and the drawdown
 - **Index Comparison**: Compare up to 10 indices, each starting at 100, on a linear or log scale
 - **Returns Calendar**: Monthly returns by year
@@ -93,8 +93,10 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ## Application Overview
 
 ### Overview Tab
-- A table of all the indices, grouped by region: the last close and its date, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history
+- Which exchanges are open, at lunch or closed right now, and when that changes, in their local time
+- A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history
 - The changes are shaded red for falls and green for rises
+- A chart of the indices side by side over the day, a week, a month, this year or a year, the best at the top
 
 ### Timeseries Tab
 - Pick an index; the Returns calendar, Seasonality, Volatility and Drawdowns tabs use it too

@@ -30,6 +30,75 @@
 #overview-table {
   overflow-x: auto;
 }
+
+/* the strip of the exchanges above the overview: a label per exchange, with a green dot when it
+   is open, an amber one at lunch and a grey one when it is closed, in the colors of the theme so
+   that it suits the light and the dark mode */
+.market-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.market {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.market.closed {
+  color: var(--bs-secondary-color);
+}
+
+.market-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background-color: var(--bs-secondary-color);
+}
+
+.market.open .market-dot {
+  background-color: var(--bs-success);
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.25);
+}
+
+.market.lunch .market-dot {
+  background-color: var(--bs-warning);
+}
+
+.market-time {
+  font-variant-numeric: tabular-nums;
+}
+
+.market-note {
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+}
+
+/* on a phone the exchanges stay in one row, which scrolls sideways, rather than seven */
+@media (max-width: 575.98px) {
+  .market-strip {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .market-note {
+    white-space: nowrap;
+  }
+}
+
+/* the lines of the last year in the overview table sit in the middle of their rows */
+#overview-table svg {
+  display: block;
+}
 #returns_calendar-plot {
   min-height: 500px;
 }

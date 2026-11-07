@@ -2,7 +2,7 @@
 
 * First version: a 'shiny' app for exploring twelve major stock market indices (S&P 500, Dow Jones, Nasdaq Composite, Russell 2000, Euro Stoxx 50, FTSE 100, DAX, CAC 40, Athens General, Nikkei 225, Hang Seng and the VIX), with daily prices from Yahoo Finance and no API key. Start it with `run_app()`.
 * Tabs:
-  * **Overview** shows where every index stands: its last close, the change on the day, this year and over a year, and how far it is below its all-time high.
+  * **Overview** shows which exchanges are open now, where every index stands (its last close with a line of its last year, the change on the day, this year and over a year, and how far it is below its all-time high), and a chart of their performance over a day, week, month, this year or a year. `market_status()`, `index_summary()`, `overview_table()` and `plot_performance()` do the same from R.
   * **Timeseries** plots the whole history of an index as candles, with the volume, the 50- and 200-day moving averages and the drawdown.
   * **Compare** plots up to 10 indices from a chosen start date, each starting at 100, on a linear or log scale.
   * **Returns calendar** shows the monthly returns by year.

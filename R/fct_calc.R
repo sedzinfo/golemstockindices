@@ -96,18 +96,19 @@ drawdown <- function(close) {
 ##########################################################################################
 #' @title Where each index stands
 #' @description For each index of a price history: its last close, and the
-#' change in percent since the close before, since the last close of the
-#' year before (year to date) and since the last close at least a year
-#' before, and how far it is below its highest close. Pass the whole history,
-#' as the highest close is that of the history given.
+#' change in percent since the close before, since the last close at least a
+#' week and a month before, since the last close of the year before (year to
+#' date) and since the last close at least a year before, and how far it is
+#' below its highest close. Pass the whole history, as the highest close is
+#' that of the history given.
 #' @param history Price history from [get_history()], with `label`,
 #'   `timestamp` and `close` columns.
 #' @return A data frame with a row per index, in the order of their first
 #'   rows in `history`: `label`, `date` and `close` of the last day,
-#'   `day_pct`, `ytd_pct`, `year_pct`, `high` and `high_date` of the highest
-#'   close, `from_high_pct` (from -100 to 0) and `first_date`, the first day
-#'   of the history. A change is `NA` when the history does not go back far
-#'   enough.
+#'   `day_pct`, `week_pct`, `month_pct`, `ytd_pct`, `year_pct`, `high` and
+#'   `high_date` of the highest close, `from_high_pct` (from -100 to 0) and
+#'   `first_date`, the first day of the history. A change is `NA` when the
+#'   history does not go back far enough.
 #' @export
 #' @examples
 #' history <- data.frame(
@@ -125,12 +126,15 @@ index_summary <- function(history) {
     date <- one$timestamp[n]
     change <- function(before) if (length(before) == 0) NA_real_ else (last / utils::tail(before, 1) - 1) * 100
     year_ago <- seq(date, by = "-1 year", length.out = 2)[2]
+    month_ago <- seq(date, by = "-1 month", length.out = 2)[2]
     high <- which.max(one$close)
     data.frame(
       label = label,
       date = date,
       close = last,
       day_pct = change(one$close[-n]),
+      week_pct = change(one$close[one$timestamp <= date - 7]),
+      month_pct = change(one$close[one$timestamp <= month_ago]),
       ytd_pct = change(one$close[one$timestamp < as.Date(format(date, "%Y-01-01"))]),
       year_pct = change(one$close[one$timestamp <= year_ago]),
       high = one$close[high],

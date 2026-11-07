@@ -47,3 +47,13 @@ test_that("index_summary() says where each index stands against the day, year an
   expect_equal(both$label, c("Alpha (A)", "Beta (B)"))
   expect_true(all(is.na(both$year_pct)))
 })
+
+test_that("index_summary() measures the change over a week and a month too", {
+  days <- as.Date("2026-01-01") + 0:60
+  one <- data.frame(label = "Alpha", timestamp = days, close = seq_along(days) + 99)
+  summary <- index_summary(one)
+  # the last close is on 2 March, 160; a week before, on 23 February, 153; a month before, on 2 February, 132
+  expect_equal(summary$week_pct, (160 / 153 - 1) * 100)
+  expect_equal(summary$month_pct, (160 / 132 - 1) * 100)
+  expect_equal(names(summary)[4:8], c("day_pct", "week_pct", "month_pct", "ytd_pct", "year_pct"))
+})

@@ -18,7 +18,7 @@ app_server <- function(indices) {
   function(input, output, session) {
     dark_mode <- reactive(input$dark_mode)
 
-    mod_overview_server("overview", indices)
+    mod_overview_server("overview", indices, dark_mode)
     history <- mod_timeseries_server("timeseries", indices, dark_mode)
     mod_compare_server("compare", indices, dark_mode)
     mod_returns_calendar_server("returns_calendar", history, dark_mode)

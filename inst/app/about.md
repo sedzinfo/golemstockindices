@@ -27,13 +27,18 @@ Each index is in the money of its shares (dollars, euros, pounds, yen or Hong Ko
 
 <h3 id="about-overview">Overview</h3>
 
-Where every index stands, in one table, grouped by region. The line above it gives the date of the last closes; the exchanges of Asia close hours before those of Europe and the US, and a holiday on one exchange leaves its last close a day behind the others.
+Where every index stands, in one table, grouped by region, and how they compare, in a chart.
+
+**The exchanges.** The labels at the top say which exchanges are open, with a green dot, at lunch, with an amber one (Tokyo and Hong Kong pause at midday), or closed, with a grey one, and when that changes, in the local time of each exchange: New York 09:30–16:00, London 08:00–16:30, Frankfurt and Paris 09:00–17:30, Athens 10:00–17:20, Tokyo 09:00–15:30 and Hong Kong 09:30–16:00. Hover over a label for the indices of the exchange. The regular weekday sessions are all the app knows: on a holiday an exchange shows as open, and the indices are computed on their own schedules, the VIX for example also outside the hours of New York. While an exchange is open, its index shows the close of the day before.
+
+**The table.** The line above it gives the date of the last closes; the exchanges of Asia close hours before those of Europe and the US, and a holiday on one exchange leaves its last close a day behind the others.
 
 | Column | What it is |
 |---|---|
 | `Index` | The name of the index, as in the pickers of the other tabs |
 | `Region` | US, Europe or Asia |
 | `Close` | The last close, in points |
+| `Last year` | The closes of the last 365 days as a small line, green when the year ended higher than it began and red when lower; each line has its own scale, from its lowest to its highest close |
 | `Date` | The day of that close, on the calendar of the exchange |
 | `Day` | The change from the close before, in percent |
 | `Year to date` | The change since the last close of last year |
@@ -45,6 +50,8 @@ Where every index stands, in one table, grouped by region. The line above it giv
 | `Since` | The first day of the history |
 
 The changes are shaded red for falls and green for rises, and the distance from the high red. Each column has a scale of its own, from no color near zero to the deepest shade at its largest value, as a day's moves are much smaller than a year's.
+
+**The performance chart** below the table puts the indices side by side over the period picked above it: the change on the day, over a week or a month (since the last close a week or a month before), this year or over a year, the best at the top. The VIX is left out: it measures fear rather than the value of shares, and its swings of tens of percent would squeeze the others into slivers. The CSV button downloads the table with the changes over a week and a month too.
 
 <h3 id="about-timeseries">Timeseries</h3>
 

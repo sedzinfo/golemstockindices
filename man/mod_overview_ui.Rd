@@ -13,9 +13,10 @@ mod_overview_ui(id)
 A \code{tagList} of Shiny UI elements.
 }
 \description{
-A line with the date of the last closes, a button that
-downloads the table as CSV, and the table of all the indices from
-\code{\link[=overview_table]{overview_table()}}.
+The strip of the exchanges that are open, a line with the
+date of the last closes, a button that downloads the table as CSV, the
+table of all the indices from \code{\link[=overview_table]{overview_table()}}, and the chart of their
+performance from \code{\link[=plot_performance]{plot_performance()}} with a choice of the period.
 }
 \examples{
 \dontrun{

@@ -116,3 +116,26 @@ test_that("the timeseries chart switches between a linear and a log axis and fit
   expect_match(hook, "plotly_relayout", fixed = TRUE)
   expect_match(hook, "candlestick", fixed = TRUE)
 })
+
+test_that("the performance chart sorts the indices, best at the top, and leaves the VIX out", {
+  summary <- data.frame(
+    label = c("Alpha (A)", "Beta (B)", "Gamma (C)", "VIX"),
+    day_pct = c(1, -2, 0.5, 9), week_pct = 1, month_pct = 1, ytd_pct = c(5, NA, -3, 70), year_pct = 1
+  )
+  all <- rbind(indices, data.frame(label = c("Gamma (C)", "VIX"), symbol = c("C", "^VIX"), region = "US", currency = c("EUR", NA)))
+  # in the shared test data Beta has no currency, for the dash of the overview table
+  all$currency[all$label == "Beta (B)"] <- "EUR"
+  built <- plotly::plotly_build(plot_performance(summary, all, "day"))$x
+  expect_equal(as.character(built$data[[1]]$y), c("Beta (B)", "Gamma (C)", "Alpha (A)"))
+  expect_equal(unname(unlist(built$layout$title))[1], "Change on the day")
+  # an index without the change, such as one younger than the period, is left out too
+  ytd <- plotly::plotly_build(plot_performance(summary, all, "ytd", "dark"))$x
+  expect_equal(as.character(ytd$data[[1]]$y), c("Gamma (C)", "Alpha (A)"))
+  expect_equal(as.character(ytd$data[[1]]$text), c("-3.00%", "+5.00%"))
+})
+
+test_that("the overview table draws the last year of each index when it has the history", {
+  table <- overview_table(index_summary(history), indices, history)$x$data
+  expect_equal(names(table)[1:5], c("Index", "Region", "Close", "Last year", "Date"))
+  expect_match(table[["Last year"]][1], "^<svg")
+})

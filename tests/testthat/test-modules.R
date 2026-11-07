@@ -36,7 +36,7 @@ test_that("the index pickers group the indices by region", {
 test_that("the overview module shows every index and the date of the last closes", {
   # Beta's last close is the same day as Alpha's, so the line names no index as late
   local_mocked_bindings(get_history = function(labels, start_date, indices) history[history$label %in% labels, ])
-  testServer(mod_overview_server, args = list(indices = indices), {
+  testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
     expect_equal(output$updated, "Daily closes from Yahoo Finance, up to 28 Mar 2024")
     expect_no_error(output$table)
     csv <- utils::read.csv(output$csv)
@@ -45,11 +45,11 @@ test_that("the overview module shows every index and the date of the last closes
   })
   late <- history[!(history$label == "Beta (B)" & history$timestamp == as.Date("2024-03-28")), ]
   local_mocked_bindings(get_history = function(labels, start_date, indices) late[late$label %in% labels, ])
-  testServer(mod_overview_server, args = list(indices = indices), {
+  testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
     expect_match(output$updated, "; Beta (B) closed last on an earlier day", fixed = TRUE)
   })
   local_mocked_bindings(get_history = function(labels, start_date, indices) NULL)
-  testServer(mod_overview_server, args = list(indices = indices), {
+  testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
     expect_error(output$table, "cannot be downloaded")
   })
 })
@@ -174,5 +174,17 @@ test_that("the seasonality module explains, charts and lists the returns of the 
   testServer(mod_seasonality_server, args = list(history = short, dark_mode = light), {
     session$setInputs(period = "year")
     expect_error(output$plot, "Not enough history: the returns need at least two complete years in a row")
+  })
+})
+
+test_that("the overview shows the open exchanges and the performance over the period picked", {
+  local_mocked_bindings(get_history = function(labels, start_date, indices) history[history$label %in% labels, ])
+  testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
+    expect_match(output$markets$html, "New York")
+    expect_match(output$markets$html, "Hong Kong")
+    # the test history has no close of the year before, so no change this year: an empty chart
+    expect_no_error(output$performance)
+    session$setInputs(period = "day")
+    expect_match(output$performance, "Change on the day", fixed = TRUE)
   })
 })

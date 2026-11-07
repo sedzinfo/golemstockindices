@@ -4,29 +4,34 @@
 \alias{mod_overview_server}
 \title{Overview module - server}
 \usage{
-mod_overview_server(id, indices)
+mod_overview_server(id, indices, dark_mode)
 }
 \arguments{
 \item{id}{Character. Module namespace id, must match the id used in
 \code{\link[=mod_overview_ui]{mod_overview_ui()}}.}
 
 \item{indices}{Data frame of indices from \code{\link[=get_indices]{get_indices()}}.}
+
+\item{dark_mode}{Reactive returning \code{"light"} or \code{"dark"}, the mode of the
+app.}
 }
 \value{
 None. Called for its side effect of registering the module server.
 }
 \description{
 Gets the whole history of every index, sums it up with
-\code{\link[=index_summary]{index_summary()}} and shows it as a table. The histories are brought up to
-date when they are more than an hour old, and the table follows while the
-page stays open. The CSV file, named like \verb{overview-2026-11-07.csv}, holds
-the summary unrounded.
+\code{\link[=index_summary]{index_summary()}} and shows it as a table, with a small line of each
+index's last year, and as a chart of the performance over the period
+picked. The histories are brought up to date when they are more than an
+hour old, and the table follows while the page stays open; the strip of
+the open exchanges follows the clock every minute. The CSV file, named
+like \verb{overview-2026-11-07.csv}, holds the summary unrounded.
 }
 \examples{
 \dontrun{
 # inside app_server():
 function(input, output, session) {
-  mod_overview_server("overview", get_indices())
+  mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
 }
 }
 }
