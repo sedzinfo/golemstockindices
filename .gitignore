@@ -12,11 +12,10 @@
 # Example code in package build process
 *-Ex.R
 
-# Output files from R CMD build
-/*.tar.gz
-
-# Output files from R CMD check
+# Output files from R CMD check, and from a failed R CMD Rd2pdf (the package tarball and the
+# PDF manual are committed, by the Build package tarball workflow)
 /*.Rcheck/
+.Rd2pdf*/
 
 # RStudio files
 .Rproj.user/
@@ -38,9 +37,6 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-
-# pkgdown site
-docs/
 
 # translation temp files
 po/*~
