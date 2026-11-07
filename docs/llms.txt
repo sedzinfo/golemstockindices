@@ -91,6 +91,8 @@ kept on disk between R sessions (see [Data Source](#data-source)).
   Drawdowns tabs use it too
 - Candlestick chart of the whole history, with zoom, pan, hover tooltips
   and date range buttons
+- The vertical axes follow the days in view, so a week’s candles fill
+  the chart; a Linear/Log switch shows the whole history in proportion
 - Volume chart synchronized with the main chart, when the index has
   volume
 - 50- and 200-day moving averages; click a legend entry to hide or show
