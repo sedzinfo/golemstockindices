@@ -23,8 +23,8 @@ Gets the whole history of every index, sums it up with
 \code{\link[=index_summary]{index_summary()}} and shows it as a table, with a small line of each
 index's last year, and as a chart of the performance over the period
 picked. The histories are brought up to date when they are more than an
-hour old, and the table follows while the page stays open; the strip of
-the open exchanges follows the clock every minute. The CSV file, named
+hour old, and the table follows while the page stays open; the strip and
+the table of the exchanges follow the clock every minute. The CSV file, named
 like \verb{overview-2026-11-07.csv}, holds the summary unrounded.
 }
 \examples{

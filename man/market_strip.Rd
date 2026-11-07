@@ -4,10 +4,13 @@
 \alias{market_strip}
 \title{The strip of the exchanges that are open}
 \usage{
-market_strip(status)
+market_strip(status, table_id = NULL)
 }
 \arguments{
 \item{status}{The result of \code{\link[=market_status]{market_status()}}.}
+
+\item{table_id}{The id of that table on the page, for a link to it, or
+\code{NULL} for none.}
 }
 \value{
 A \code{div} of Shiny UI elements.
@@ -15,7 +18,8 @@ A \code{div} of Shiny UI elements.
 \description{
 A row of small labels, one per exchange, with a green dot
 when it is open, an amber one at lunch and a grey one when it is closed.
-Hovering over a label names the indices of the exchange.
+Hovering over a label gives its local time, when that changes and its
+indices; the table of \code{\link[=market_table]{market_table()}} has them all.
 }
 \examples{
 golemstockindices:::market_strip(market_status())

@@ -138,20 +138,21 @@ market_table <- function(status) {
   states <- c(open = "Open", lunch = "Lunch break", closed = "Closed")
   tags$table(
     class = "table table-sm align-middle market-table",
-    tags$thead(tags$tr(
-      tags$th("Exchange"), tags$th("Indices"), tags$th("Local time"), tags$th("Now"), tags$th("Next"),
-      tags$th("Regular hours"), tags$th("Time zone")
-    )),
+    # every column but the indices on one line: on a phone the table scrolls sideways instead
+    tags$thead(tags$tr(lapply(
+      c("Exchange", "Indices", "Local time", "Now", "Next", "Regular hours", "Time zone"),
+      function(name) tags$th(class = if (name != "Indices") "text-nowrap", name)
+    ))),
     tags$tbody(lapply(seq_len(nrow(status)), function(i) {
       row <- status[i, ]
       tags$tr(
-        tags$td(tags$strong(row$exchange)),
-        tags$td(row$indices),
+        tags$td(class = "text-nowrap", tags$strong(row$exchange)),
+        tags$td(class = "market-indices", row$indices),
         tags$td(class = "market-time", row$local_time),
         tags$td(span(class = paste("market-state", row$state), span(class = "market-dot", `aria-hidden` = "true"), states[[row$state]])),
-        tags$td(row$text),
+        tags$td(class = "text-nowrap", row$text),
         tags$td(class = "market-time", row$hours),
-        tags$td(class = "text-body-secondary", row$time_zone)
+        tags$td(class = "text-body-secondary text-nowrap", row$time_zone)
       )
     }))
   )

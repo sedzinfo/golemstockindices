@@ -33,24 +33,25 @@
 
 /* the strip of the exchanges above the overview: a label per exchange, with a green dot when it
    is open, an amber one at lunch and a grey one when it is closed, in the colors of the theme so
-   that it suits the light and the dark mode */
+   that it suits the light and the dark mode; the table at the bottom of the page has the times */
 .market-strip {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   margin-bottom: 0.75rem;
 }
 
 .market {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.65rem;
+  gap: 0.35rem;
+  padding: 0.15rem 0.55rem;
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   white-space: nowrap;
+  cursor: default;
 }
 
 .market.closed {
@@ -58,28 +59,53 @@
 }
 
 .market-dot {
+  flex: none;
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
   background-color: var(--bs-secondary-color);
 }
 
-.market.open .market-dot {
+.market.open .market-dot,
+.market-state.open .market-dot {
   background-color: var(--bs-success);
   box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.25);
 }
 
-.market.lunch .market-dot {
+.market.lunch .market-dot,
+.market-state.lunch .market-dot {
   background-color: var(--bs-warning);
+}
+
+.market-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
 }
 
 .market-time {
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .market-note {
   font-size: 0.75rem;
   color: var(--bs-secondary-color);
+}
+
+/* the table of the exchanges at the bottom of the overview, which scrolls sideways on a phone */
+#overview-exchange_table {
+  overflow-x: auto;
+}
+
+.market-table {
+  font-size: 0.9rem;
+}
+
+/* the indices wrap, but not into a column of single words on a phone */
+.market-indices {
+  min-width: 12rem;
 }
 
 /* on a phone the exchanges stay in one row, which scrolls sideways, rather than seven */

@@ -10,10 +10,12 @@ market_status(now = Sys.time())
 \item{now}{The time to judge, now by default.}
 }
 \value{
-A data frame with a row per exchange: \code{exchange}, \code{local_time}
-(such as "10:42"), \code{state} ("open", "lunch" or "closed"), \code{text} (such
-as "open until 16:00", "lunch break until 12:30" or "opens Mon 09:30")
-and \code{indices}, the labels of its indices joined by commas.
+A data frame with a row per exchange, from west to east:
+\code{exchange}, \code{local_time} (such as "10:42"), \code{state} ("open", "lunch" or
+"closed"), \code{text}, when that changes (such as "closes 16:00", "reopens
+12:30" or "opens Mon 09:30"), \code{hours}, the regular sessions of the day
+(such as "09:00–11:30, 12:30–15:30"), \code{time_zone} and \code{indices}, the
+labels of its indices joined by commas.
 }
 \description{
 For each exchange of the indices: its local time, and whether

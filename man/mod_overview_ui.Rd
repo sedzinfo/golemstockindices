@@ -15,8 +15,10 @@ A \code{tagList} of Shiny UI elements.
 \description{
 The strip of the exchanges that are open, a line with the
 date of the last closes, a button that downloads the table as CSV, the
-table of all the indices from \code{\link[=overview_table]{overview_table()}}, and the chart of their
-performance from \code{\link[=plot_performance]{plot_performance()}} with a choice of the period.
+table of all the indices from \code{\link[=overview_table]{overview_table()}}, the chart of their
+performance from \code{\link[=plot_performance]{plot_performance()}} with a choice of the period, and at
+the bottom the table of the exchanges and their trading hours from
+\code{\link[=market_table]{market_table()}}.
 }
 \examples{
 \dontrun{

@@ -4,8 +4,10 @@
 #' @title Overview module - UI
 #' @description The strip of the exchanges that are open, a line with the
 #' date of the last closes, a button that downloads the table as CSV, the
-#' table of all the indices from [overview_table()], and the chart of their
-#' performance from [plot_performance()] with a choice of the period.
+#' table of all the indices from [overview_table()], the chart of their
+#' performance from [plot_performance()] with a choice of the period, and at
+#' the bottom the table of the exchanges and their trading hours from
+#' [market_table()].
 #' @param id Character. Module namespace id.
 #' @return A `tagList` of Shiny UI elements.
 #' @keywords internal
@@ -31,7 +33,14 @@ mod_overview_ui <- function(id) {
         selected = "ytd", inline = TRUE
       )
     ),
-    plotly::plotlyOutput(ns("performance"), width = "100%", height = "560px")
+    plotly::plotlyOutput(ns("performance"), width = "100%", height = "560px"),
+    div(
+      id = ns("exchanges"),
+      class = "mt-4 mb-4",
+      tags$h2(class = "h5", "Exchanges"),
+      helpText("Local times. Only the regular weekday sessions are known: on a holiday an exchange shows as open."),
+      uiOutput(ns("exchange_table"))
+    )
   )
 }
 ##########################################################################################
@@ -42,8 +51,8 @@ mod_overview_ui <- function(id) {
 #' [index_summary()] and shows it as a table, with a small line of each
 #' index's last year, and as a chart of the performance over the period
 #' picked. The histories are brought up to date when they are more than an
-#' hour old, and the table follows while the page stays open; the strip of
-#' the open exchanges follows the clock every minute. The CSV file, named
+#' hour old, and the table follows while the page stays open; the strip and
+#' the table of the exchanges follow the clock every minute. The CSV file, named
 #' like `overview-2026-11-07.csv`, holds the summary unrounded.
 #' @param id Character. Module namespace id, must match the id used in
 #'   [mod_overview_ui()].
@@ -70,10 +79,14 @@ mod_overview_server <- function(id, indices, dark_mode) {
     summary <- reactive(index_summary(history()))
     period <- reactive(if (is.null(input$period)) "ytd" else input$period)
 
-    output$markets <- renderUI({
+    status <- reactive({
       invalidateLater(60 * 1000)
-      market_strip(market_status())
+      market_status()
     })
+
+    output$markets <- renderUI(market_strip(status(), session$ns("exchanges")))
+
+    output$exchange_table <- renderUI(market_table(status()))
 
     output$updated <- renderText({
       dates <- summary()$date

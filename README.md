@@ -93,7 +93,7 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ## Application Overview
 
 ### Overview Tab
-- Which exchanges are open, at lunch or closed right now, and when that changes, in their local time
+- Which exchanges are open, at lunch or closed right now, and at the bottom a table of their local times, next opening or closing and regular hours
 - A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history
 - The changes are shaded red for falls and green for rises
 - A chart of the indices side by side over the day, a week, a month, this year or a year, the best at the top
