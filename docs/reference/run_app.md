@@ -1,8 +1,8 @@
 # Launch the Stock Market Indices app
 
 Starts an interactive 'shiny' application for exploring the major stock
-market indices of the US, Europe and Asia, with daily prices from Yahoo
-Finance.
+market indices of the Americas, Europe and Asia-Pacific, with daily
+prices from Yahoo Finance.
 
 ## Usage
 
