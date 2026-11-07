@@ -132,6 +132,32 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 - What each index measures and how it is weighted, what every tab shows and how its numbers are calculated
 - The text is in `inst/app/about.md`, so it can be edited without touching the R code
 
+## Screenshots
+
+### Overview
+![Where the twelve indices stand: the last close, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+
+### Index Chart
+![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+
+### Zoomed In (dark mode)
+![The last 3 months of the S&P 500, with the vertical axes fitted to the days in view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
+
+### Index Comparison
+![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
+
+### Returns Calendar (dark mode)
+![Monthly returns of the S&P 500 by year since 1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
+
+### Seasonality
+![S&P 500 returns by year of the US presidential cycle since 1928, with the best and the worst year and a Kruskal-Wallis test of whether the differences could be chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
+
+### Volatility (dark mode)
+![Whether the volatility of the S&P 500's last month and the move of its last 2 trading days are normal, and the forecast of its next 5 trading days with the value at risk, with its volatility since 1927, its last 63 trading days in GARCH standard deviations and the forecast range](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
+
+### Drawdowns
+![How far the S&P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart and a chart of the distance from the high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
+
 ## Dependencies
 
 This package relies on several R packages:
