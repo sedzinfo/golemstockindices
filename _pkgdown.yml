@@ -1,0 +1,72 @@
+url: https://sedzinfo.github.io/golemstockindices/
+
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  math-rendering: katex   # renders the \eqn and \deqn maths of the help pages
+  includes:
+    # cookie banner and Google Analytics, shared by every site under sedzinfo.github.io (consent.js in that repository)
+    after_body: '<script src="/consent.js" defer></script>'
+
+code:
+  width: 200
+
+destination: docs
+
+reference:
+  - title: App
+    contents:
+      - run_app
+  - title: Data
+    contents:
+      - get_indices
+      - get_history
+  - title: Calculations
+    contents:
+      - normalize_prices
+      - index_summary
+      - monthly_returns
+      - moving_average
+      - drawdown
+      - drawdown_episodes
+      - drawdown_analysis
+      - drawdown_text
+      - volatility_analysis
+      - volatility_text
+      - seasonal_returns
+      - seasonality_analysis
+      - seasonality_text
+  - title: Charts and tables
+    contents:
+      - plot_timeseries
+      - plot_compare
+      - plot_returns_calendar
+      - plot_volatility
+      - plot_drawdowns
+      - plot_seasonality
+      - overview_table
+      - drawdown_table
+      - seasonality_table
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [sedzinfo, github]
+  components:
+    sedzinfo:
+      icon: fas fa-house
+      text: home
+      href: https://sedzinfo.github.io/
+      aria-label: sedzinfo home page
+    github:
+      icon: fab fa-github
+      href: https://github.com/sedzinfo/golemstockindices
+      aria-label: GitHub
+
+footer:
+  structure:
+    left: sedzinfo
+    right: sedzinfo_home
+  components:
+    sedzinfo: '[github.com/sedzinfo](https://github.com/sedzinfo) · [Cookie settings](#cookie-settings)'
+    sedzinfo_home: '[home](https://sedzinfo.github.io/)'

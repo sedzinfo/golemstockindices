@@ -1,0 +1,39 @@
+Package: golemstockindices
+Title: Interactive Explorer of the Major Stock Market Indices
+Version: 0.1.0
+Authors@R: person("Dimitrios", "Zacharatos", , "dzacharatos@yahoo.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-1789-8294"))
+Maintainer: Dimitrios Zacharatos <dzacharatos@yahoo.com>
+Description: A 'shiny' application for exploring the major stock market
+    indices of the US, Europe and Asia, such as the S&P 500, the Euro Stoxx
+    50 and the Nikkei 225, and the VIX. Shows where every index stands
+    against its last close, the start of the year, a year ago and its
+    all-time high, and plots interactive candlestick and volume charts of
+    the whole history of each. Also compares normalized indices, and shows
+    a calendar of monthly returns, their seasonality by day of the week,
+    week of the year, month and year of the US presidential cycle, whether
+    an index's recent volatility is normal, with a GARCH forecast, and its
+    falls from its all-time high. Daily prices are retrieved from 'Yahoo
+    Finance'.
+Imports:
+    bslib,
+    cachem,
+    curl,
+    DT,
+    jsonlite,
+    plotly,
+    shiny,
+    shinycssloaders,
+    stats,
+    tools,
+    utils
+Suggests:
+    htmltools,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+License: GPL-3
+URL: https://sedzinfo.github.io/golemstockindices/, https://github.com/sedzinfo/golemstockindices
+BugReports: https://github.com/sedzinfo/golemstockindices/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.1

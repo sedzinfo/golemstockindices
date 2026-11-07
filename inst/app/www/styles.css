@@ -1,0 +1,113 @@
+/* the CSV buttons next to the pickers get the height of a Bootstrap text box, like the start
+   date, so the controls above the charts line up (the small CSV buttons that sit next to text
+   are left as they are) */
+.shiny-download-link:not(.btn-sm) {
+  height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* as a flex box, the button drops the space between the download icon and "CSV" */
+.shiny-download-link:not(.btn-sm) {
+  gap: 0.375rem;
+}
+
+/* the charts fill the window below their controls (see the modules), but no less than this,
+   so they stay readable on short screens such as phones held sideways; the timeseries chart
+   has three panels and needs more */
+#timeseries-plot {
+  min-height: 600px;
+}
+
+#compare-plot {
+  height: calc(100vh - 160px) !important;
+  min-height: 550px;
+}
+
+/* on a phone the overview table is wider than the screen, and scrolls sideways in its box */
+#overview-table {
+  overflow-x: auto;
+}
+#returns_calendar-plot {
+  min-height: 500px;
+}
+
+/* the Volatility, Drawdowns and Seasonality tabs are a column as tall as the window below the navigation bar:
+   the controls and the cards take the height of their text, and the chart grows to fill the rest,
+   like the charts of the other tabs, but no less than its minimum below, where the page scrolls.
+   The chart may shrink once the cards appear (min-height: 0), and Shiny then redraws it.
+   The tables of the Drawdowns and Seasonality tabs follow below the column */
+.fill-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 99px);   /* ends where the charts of the other tabs end */
+}
+
+.fill-page > .shiny-spinner-output-container {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;                /* three panels */
+}
+
+.fill-page.two-panels > .shiny-spinner-output-container {
+  min-height: 500px;                /* two panels */
+}
+
+#volatility-plot,
+#drawdowns-plot,
+#seasonality-plot {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+/* on a phone the seasonality table is wider than the screen, and scrolls sideways in its box */
+#seasonality-table {
+  overflow-x: auto;
+}
+
+/* a select with its label beside it, in a row of controls */
+.inline-controls .form-group {
+  margin-bottom: 0;
+}
+
+/* the About tab: a column of text that stays easy to read on wide screens, with the formulas
+   on a shaded background and lines between the rows of the table, in light and dark mode */
+.about {
+  max-width: 52rem;
+  margin: 0 auto 2rem;
+}
+
+.about h3 {
+  margin-top: 2rem;
+}
+
+.about pre {
+  padding: 0.75rem 1rem;
+  background-color: var(--bs-tertiary-bg);
+  border-radius: var(--bs-border-radius);
+}
+
+.about table {
+  margin-bottom: 1rem;
+}
+
+.about th,
+.about td {
+  padding: 0.375rem 0.75rem;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+  vertical-align: top;
+}
+
+/* the cookie banner of consent.js uses the primary color of the theme, the teal of the app;
+   use the navy of the sedzinfo.github.io sites instead, as the other apps do */
+#analytics-choice.bg-primary {
+  background-color: #2c3e50 !important;
+}
+
+/* the footer with the Cookie settings and Privacy links: more space above it moves it lower */
+div:has(> a[href="#cookie-settings"]) {
+  margin-top: 2rem;
+}

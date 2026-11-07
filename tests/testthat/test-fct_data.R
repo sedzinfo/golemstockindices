@@ -1,0 +1,129 @@
+# ten trading days of Alpha, from Monday 1 January 2024
+days <- weekdays_from("2024-01-01", 10)
+daily <- data.frame(
+  label = "Alpha (A)",
+  timestamp = days,
+  open = 1:10, high = 1:10, low = 1:10, close = 1:10, volume = 1e9
+)
+
+make_stale <- function(key, minutes) {
+  kept <- disk_cache()$get(key)
+  kept$time <- kept$time - minutes * 60
+  disk_cache()$set(key, kept)
+}
+
+test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
+  all <- get_indices()
+  expect_named(all, c("label", "symbol", "region", "currency"))
+  expect_false(anyDuplicated(all$label) > 0)
+  expect_equal(all$symbol[all$label == "S&P 500"], "^GSPC")
+  expect_equal(all$symbol[all$label == "Athens General"], "GD.AT")
+  expect_true(is.na(all$currency[all$label == "VIX"]))
+  expect_setequal(all$region, c("US", "Europe", "Asia"))
+})
+
+test_that("parse_chart() reads the daily prices on the dates of the exchange", {
+  json <- yahoo_json(days[1:3], c(4742.83, 4704.81, 4688.68), volume = c(3.7e9, 3.9e9, 3.9e9))
+  history <- parse_chart(json, indices[1, ], now = as.POSIXct("2024-01-04", tz = "UTC"))
+  expect_named(history, c("label", "timestamp", "open", "high", "low", "close", "volume"))
+  expect_equal(history$timestamp, days[1:3])
+  expect_equal(history$close, c(4742.83, 4704.81, 4688.68))
+  expect_equal(history$volume[1], 3.7e9)
+  expect_equal(unique(history$label), "Alpha (A)")
+})
+
+test_that("parse_chart() leaves out the days without a close and the day still trading", {
+  json <- yahoo_json(days[1:4], c(1, NA, 3, 4))
+  closed <- parse_chart(json, indices[1, ], now = as.POSIXct(paste(days[4], "23:00"), tz = "UTC"))
+  expect_equal(closed$timestamp, days[c(1, 3, 4)])
+  # at 15:00 in New York the session of the last day has not ended
+  open <- parse_chart(json, indices[1, ], now = as.POSIXct(paste(days[4], "20:00"), tz = "UTC"))
+  expect_equal(open$timestamp, days[c(1, 3)])
+  # before it opens, the last day is the day before, which has ended
+  session <- c(start = as.numeric(as.POSIXct(paste(days[5], "14:30"), tz = "UTC")), end = 0)
+  session[["end"]] <- session[["start"]] + 6.5 * 3600
+  early <- parse_chart(yahoo_json(days[1:4], 1:4, session = session), indices[1, ], now = as.POSIXct(paste(days[5], "12:00"), tz = "UTC"))
+  expect_equal(early$timestamp, days[1:4])
+})
+
+test_that("parse_chart() reports an error of Yahoo Finance, and an answer without days", {
+  error <- '{"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be delisted"}}}'
+  expect_error(parse_chart(error, indices[1, ]), "symbol may be delisted")
+  empty <- '{"chart":{"result":[{"meta":{"gmtoffset":0},"indicators":{"quote":[{}]}}],"error":null}}'
+  expect_null(parse_chart(empty, indices[1, ]))
+})
+
+test_that("download_history() asks Yahoo Finance for the symbol, and says when it fails", {
+  asked <- character()
+  status <- 200
+  local_mocked_bindings(
+    curl_fetch_memory = function(url, handle) {
+      asked <<- c(asked, url)
+      list(status_code = status, content = charToRaw(yahoo_json(days[1:2], c(10, 11))))
+    },
+    .package = "curl"
+  )
+  downloaded <- download_history(indices[1, ], as.Date("2024-01-01"))
+  expect_equal(downloaded$close, c(10, 11))
+  expect_match(asked, "chart/%5EALPHA?period1=1704067200&", fixed = TRUE)
+  status <- 429
+  expect_message(failed <- download_history(indices[1, ], as.Date("2024-01-01")), "The download of Alpha \\(A\\) failed: .*429")
+  expect_null(failed)
+})
+
+test_that("get_history() names the labels that match no index", {
+  expect_message(result <- get_history("Unknown (X)", indices = indices), "No index is labelled \"Unknown \\(X\\)\"")
+  expect_null(result)
+})
+
+test_that("get_history() keeps the whole history on disk and later downloads the last two weeks", {
+  disk_cache()$reset()
+  available <- daily
+  starts <- character()
+  local_mocked_bindings(download_history = function(index, start_date) {
+    starts <<- c(starts, format(start_date))
+    available[available$timestamp >= start_date, ]
+  })
+
+  expect_equal(nrow(get_history("Alpha (A)", as.Date("2024-01-01"), indices)), 10)
+  later <- get_history("Alpha (A)", as.Date("2024-01-05"), indices)
+  expect_equal(starts, "1900-01-01")
+  expect_equal(later$timestamp, days[days >= as.Date("2024-01-05")])
+
+  # an hour later, with two new days and a corrected last day
+  new_days <- weekdays_from(days[10] + 1, 2)
+  available <- rbind(daily, data.frame(label = "Alpha (A)", timestamp = new_days, open = 11:12, high = 11:12, low = 11:12, close = 11:12, volume = 1e9))
+  available$close[available$timestamp == days[10]] <- 99
+  make_stale("history_alpha", history_minutes)
+
+  updated <- get_history("Alpha (A)", as.Date("2024-01-01"), indices)
+  expect_equal(starts, c("1900-01-01", format(days[10] - 14)))
+  expect_equal(updated$timestamp, c(days, new_days))
+  expect_equal(updated$close[updated$timestamp == days[10]], 99)
+})
+
+test_that("get_history() uses the kept history when bringing it up to date fails", {
+  disk_cache()$reset()
+  offline <- FALSE
+  local_mocked_bindings(download_history = function(index, start_date) {
+    if (offline) NULL else daily[daily$timestamp >= start_date, ]
+  })
+  get_history("Alpha (A)", as.Date("2024-01-01"), indices)
+  make_stale("history_alpha", history_minutes)
+  offline <- TRUE
+  expect_equal(nrow(get_history("Alpha (A)", as.Date("2024-01-01"), indices)), 10)
+  # and keeps nothing when even the first download fails
+  disk_cache()$reset()
+  expect_null(get_history("Alpha (A)", as.Date("2024-01-01"), indices))
+  expect_false(disk_cache()$exists("history_alpha"))
+})
+
+test_that("get_history() combines several indices and leaves out the ones that fail", {
+  disk_cache()$reset()
+  local_mocked_bindings(download_history = function(index, start_date) {
+    if (index$label == "Beta (B)") NULL else daily
+  })
+  result <- get_history(c("Beta (B)", "Alpha (A)"), as.Date("2024-01-01"), indices)
+  expect_equal(unique(result$label), "Alpha (A)")
+  expect_equal(rownames(result), as.character(1:10))
+})

@@ -1,0 +1,14 @@
+.github
+.Rbuildignore
+_pkgdown.yml
+golemstockindices.pdf
+golemstockindices_0.1.0.tar.gz
+docs
+generate_package.R
+LICENSE
+man
+NEWS.md
+pkgdown
+README.md
+screenshots
+tests

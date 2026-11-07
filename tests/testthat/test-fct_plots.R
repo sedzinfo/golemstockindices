@@ -1,0 +1,107 @@
+test_that("every plot builds in light and dark mode", {
+  alpha <- history[history$label == "Alpha (A)", ]
+  for (mode in c("light", "dark")) {
+    expect_no_error(plotly::plotly_build(plot_timeseries(alpha, mode)))
+    expect_no_error(plotly::plotly_build(plot_compare(normalize_prices(history), mode)))
+    expect_no_error(plotly::plotly_build(plot_returns_calendar(monthly_returns(alpha), "Alpha (A)", mode)))
+    expect_no_error(plotly::plotly_build(plot_scales(mode)))
+  }
+})
+
+test_that("the scales example draws the same indices on a linear and a log axis", {
+  built <- plotly::plotly_build(plot_scales())$x
+  expect_equal(c(built$layout$yaxis$type, built$layout$yaxis2$type), c("linear", "log"))
+  expect_length(built$data, 4)
+  expect_equal(built$data[[1]]$y, built$data[[3]]$y)
+  # both indices end at their growth over 5 years
+  expect_equal(c(max(built$data[[1]]$y), max(built$data[[2]]$y)), c(100 * 2^5, 100 * 1.25^5))
+})
+
+test_that("the plots default to light mode, and the calendar to a title without an index", {
+  alpha <- history[history$label == "Alpha (A)", ]
+  compare <- plotly::plotly_build(plot_compare(normalize_prices(history)))$x$layout
+  calendar <- plotly::plotly_build(plot_returns_calendar(monthly_returns(alpha)))$x$layout
+  expect_equal(compare$font$color, "#212529")
+  expect_equal(unname(unlist(calendar$title))[1], "Monthly returns")
+})
+
+test_that("plot_timeseries() adds the moving averages and the drawdown, unless asked not to", {
+  alpha <- history[history$label == "Alpha (A)", ]
+  trace_names <- function(p) {
+    vapply(plotly::plotly_build(p)$x$data, function(trace) if (is.null(trace$name)) "" else trace$name, "")
+  }
+  expect_true(all(c("2-day average", "3-day average", "From high") %in% trace_names(plot_timeseries(alpha, averages = 2:3))))
+  plain <- trace_names(plot_timeseries(alpha, averages = NULL, show_drawdown = FALSE))
+  expect_false(any(grepl("average|From high", plain)))
+})
+
+test_that("dark mode dims the grid of every panel and the legend stays centred", {
+  alpha <- history[history$label == "Alpha (A)", ]
+  layout <- plotly::plotly_build(plot_timeseries(alpha, "dark"))$x$layout
+  for (axis in c("xaxis", "yaxis", "yaxis2", "yaxis3")) {
+    expect_equal(layout[[axis]]$gridcolor, "rgba(255,255,255,0.1)", label = axis)
+  }
+  expect_equal(layout$legend$x, 0.5)
+})
+
+test_that("the returns calendar has no grid", {
+  alpha <- history[history$label == "Alpha (A)", ]
+  layout <- plotly::plotly_build(plot_returns_calendar(monthly_returns(alpha), mode = "dark"))$x$layout
+  expect_false(layout$xaxis$showgrid)
+  expect_false(layout$yaxis$showgrid)
+})
+
+test_that("plot_timeseries() refuses a history of several indices", {
+  expect_error(plot_timeseries(history), "holds 2 indices")
+})
+
+test_that("plot_theme() switches the text color with the mode", {
+  point <- plotly::plot_ly(x = 1, y = 1, type = "scatter", mode = "markers")
+  font_color <- function(mode) plotly::plotly_build(plot_theme(point, mode))$x$layout$font$color
+  expect_equal(font_color("light"), "#212529")
+  expect_equal(font_color("dark"), "#dee2e6")
+})
+
+test_that("plot_timeseries() leaves out the volume panel of an index without volume, such as the VIX", {
+  alpha <- history[history$label == "Alpha (A)", ]
+  with_volume <- plotly::plotly_build(plot_timeseries(alpha))$x
+  alpha$volume <- 0
+  without <- plotly::plotly_build(plot_timeseries(alpha))$x
+  trace_names <- function(built) vapply(built$data, function(trace) if (is.null(trace$name)) "" else trace$name, "")
+  expect_true("Volume" %in% trace_names(with_volume))
+  expect_false("Volume" %in% trace_names(without))
+  expect_null(without$layout$yaxis3)
+  expect_equal(unname(unlist(with_volume$layout$yaxis$title))[1], "Points")
+})
+
+test_that("price changes are shaded with see-through colors that suit both modes", {
+  expect_equal(change_color(c(0, 1), gain = TRUE), c("rgba(25,135,84,0.000)", "rgba(25,135,84,0.750)"))
+  styles <- as.character(overview_table(index_summary(history), indices)$x$options$rowCallback)
+  expect_match(styles, "rgba(220,53,69,", fixed = TRUE)
+  expect_match(styles, "rgba(25,135,84,", fixed = TRUE)
+  expect_no_match(styles, "black")
+})
+
+test_that("overview_table() lists the indices in their order, with their region and currency", {
+  table <- overview_table(index_summary(history[order(history$label, decreasing = TRUE), ]), indices)$x$data
+  expect_equal(names(table), c(
+    "Index", "Region", "Close", "Date", "Day", "Year to date", "1 year", "From high", "High", "High on", "Currency", "Since"
+  ))
+  expect_equal(table$Index, c("Alpha (A)", "Beta (B)"))
+  expect_equal(table$Region, c("US", "Europe"))
+  expect_equal(table$Currency, c("USD", NA))
+})
+
+test_that("the seasonality chart and table have a bar and a row per group, in their natural order", {
+  analysis <- seasonality_analysis(garch_history(800), "week")
+  for (mode in c("light", "dark")) {
+    expect_no_error(plotly::plotly_build(plot_seasonality(analysis, mode)))
+  }
+  built <- plotly::plotly_build(plot_seasonality(analysis))$x
+  expect_equal(built$layout$xaxis$type, "category")
+  expect_equal(as.character(built$data[[1]]$x), as.character(analysis$groups$group))
+  expect_equal(built$layout$shapes[[1]]$y0, 50)
+  table <- seasonality_table(analysis)$x$data
+  expect_equal(names(table), c("Week of the year", "Returns", "Mean", "Median", "Up", "Best", "Worst"))
+  expect_equal(table[[1]], seq_len(nrow(analysis$groups)))
+})
