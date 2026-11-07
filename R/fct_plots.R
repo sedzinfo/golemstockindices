@@ -132,7 +132,7 @@ plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show
 #' @return A plotly object.
 #' @export
 #' @examplesIf interactive()
-#' history <- get_history(c("S&P 500", "Ethereum (ETH)", "Solana (SOL)"))
+#' history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
 #' plot_compare(normalize_prices(history))
 plot_compare <- function(prices, mode = "light") {
   plotly::plot_ly(prices,

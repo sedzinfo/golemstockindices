@@ -21,7 +21,7 @@ a linear and a log scale.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-history <- get_history(c("S&P 500", "Ethereum (ETH)", "Solana (SOL)"))
+history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
 plot_compare(normalize_prices(history))
 \dontshow{\}) # examplesIf}
 }
