@@ -13,8 +13,8 @@
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Interactive Explorer of the Major Stock Market Indices">
-<meta name="description" content="A shiny application for exploring the major stock market indices of the US, Europe and Asia, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago and its all-time high, and plots interactive candlestick and volume charts of the whole history of each. Also compares normalized indices, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
-<meta property="og:description" content="A shiny application for exploring the major stock market indices of the US, Europe and Asia, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago and its all-time high, and plots interactive candlestick and volume charts of the whole history of each. Also compares normalized indices, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
+<meta name="description" content="A shiny application for exploring the major stock market indices of the Americas, Europe and Asia-Pacific, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago and its all-time high, and plots interactive candlestick and volume charts of the whole history of each. Also compares normalized indices, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
+<meta property="og:description" content="A shiny application for exploring the major stock market indices of the Americas, Europe and Asia-Pacific, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago and its all-time high, and plots interactive candlestick and volume charts of the whole history of each. Also compares normalized indices, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -50,15 +50,15 @@
 <div class="page-header"><h1 id="stock-market-indices">Stock Market Indices<a class="anchor" aria-label="anchor" href="#stock-market-indices"></a>
 </h1></div>
 <p>explore the major stock market indices</p>
-<p>An interactive R Shiny application for exploring the major stock market indices of the US, Europe and Asia: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.</p>
+<p>An interactive R Shiny application for exploring the major stock market indices of the Americas, Europe and Asia-Pacific: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.</p>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
 <ul>
 <li>
-<strong>Twelve indices</strong>: S&amp;P 500, Dow Jones, Nasdaq Composite, Russell 2000, Euro Stoxx 50, FTSE 100, DAX, CAC 40, Athens General, Nikkei 225, Hang Seng and the VIX</li>
+<strong>22 indices</strong>: S&amp;P 500, Dow Jones, Nasdaq Composite and Russell 2000 in the US; S&amp;P/TSX Composite and Bovespa in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, DAX, CAC 40, IBEX 35, FTSE MIB, SMI and Athens General in Europe; Nikkei 225, Shanghai Composite, Hang Seng, KOSPI, Sensex and ASX 200 in Asia-Pacific; and the VIX</li>
 <li>
-<strong>Overview</strong>: Every index in one table, with its last close, the change on the day, this year and over a year, and how far it is below its all-time high</li>
+<strong>Overview</strong>: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high, and a chart of their performance over a day, week, month or year</li>
 <li>
 <strong>Interactive Candlestick Charts</strong>: The whole history of an index, back to 1927 for the S&amp;P 500, with the volume, the 50- and 200-day moving averages and the drawdown</li>
 <li>
@@ -163,8 +163,10 @@
 <h3 id="overview-tab">Overview Tab<a class="anchor" aria-label="anchor" href="#overview-tab"></a>
 </h3>
 <ul>
-<li>A table of all the indices, grouped by region: the last close and its date, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history</li>
+<li>Which exchanges are open, at lunch or closed right now, and at the bottom a table of their local times, next opening or closing and regular hours</li>
+<li>A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history</li>
 <li>The changes are shaded red for falls and green for rises</li>
+<li>A chart of the indices side by side over the day, a week, a month, this year or a year, the best at the top</li>
 </ul>
 </div>
 <div class="section level3">
@@ -230,6 +232,66 @@
 <li>What each index measures and how it is weighted, what every tab shows and how its numbers are calculated</li>
 <li>The text is in <code>inst/app/about.md</code>, so it can be edited without touching the R code</li>
 </ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="screenshots">Screenshots<a class="anchor" aria-label="anchor" href="#screenshots"></a>
+</h2>
+<div class="section level3">
+<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png" alt="The 16 exchanges, from Toronto to Sydney, with a dot for open or closed, and where the 22 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high"><div class="figcaption">The 16 exchanges, from Toronto to Sydney, with a dot for open or closed, and where the 22 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="index-chart">Index Chart<a class="anchor" aria-label="anchor" href="#index-chart"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png" alt="Candlestick, volume and drawdown chart of the S&amp;P 500 since 1927, on a log scale"><div class="figcaption">Candlestick, volume and drawdown chart of the S&amp;P 500 since 1927, on a log scale</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="zoomed-in-dark-mode">Zoomed In (dark mode)<a class="anchor" aria-label="anchor" href="#zoomed-in-dark-mode"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png" alt="The last 3 months of the S&amp;P 500, with the vertical axes fitted to the days in view"><div class="figcaption">The last 3 months of the S&amp;P 500, with the vertical axes fitted to the days in view</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="index-comparison">Index Comparison<a class="anchor" aria-label="anchor" href="#index-comparison"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png" alt="The S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100"><div class="figcaption">The S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="returns-calendar-dark-mode">Returns Calendar (dark mode)<a class="anchor" aria-label="anchor" href="#returns-calendar-dark-mode"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png" alt="Monthly returns of the S&amp;P 500 by year since 1927"><div class="figcaption">Monthly returns of the S&amp;P 500 by year since 1927</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="seasonality">Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png" alt="S&amp;P 500 returns by year of the US presidential cycle since 1928, with the best and the worst year and a Kruskal-Wallis test of whether the differences could be chance"><div class="figcaption">S&amp;P 500 returns by year of the US presidential cycle since 1928, with the best and the worst year and a Kruskal-Wallis test of whether the differences could be chance</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="volatility-dark-mode">Volatility (dark mode)<a class="anchor" aria-label="anchor" href="#volatility-dark-mode"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png" alt="Whether the volatility of the S&amp;P 500’s last month and the move of its last 2 trading days are normal, and the forecast of its next 5 trading days with the value at risk, with its volatility since 1927, its last 63 trading days in GARCH standard deviations and the forecast range"><div class="figcaption">Whether the volatility of the S&amp;P 500’s last month and the move of its last 2 trading days are normal, and the forecast of its next 5 trading days with the value at risk, with its volatility since 1927, its last 63 trading days in GARCH standard deviations and the forecast range</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="drawdowns">Drawdowns<a class="anchor" aria-label="anchor" href="#drawdowns"></a>
+</h3>
+<div class="float">
+<img src="https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png" alt="How far the S&amp;P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart and a chart of the distance from the high"><div class="figcaption">How far the S&amp;P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart and a chart of the distance from the high</div>
+</div>
 </div>
 </div>
 <div class="section level2">
