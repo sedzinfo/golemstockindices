@@ -27,7 +27,19 @@ A stock market index follows the prices of a basket of shares as one number, in 
 | SMI | the 20 largest Swiss companies, such as Nestlé, Novartis and Roche | market value |
 | Euronext 100 | the 100 largest and most traded companies listed on the Euronext exchanges of Paris, Amsterdam, Brussels, Lisbon and others | market value |
 | BEL 20 | the 20 largest companies listed in Brussels, Belgium | market value |
+| AEX | the 25 most traded companies listed in Amsterdam, the Netherlands, such as ASML and Shell | market value |
+| ATX | the 20 largest companies listed in Vienna, Austria | market value |
+| ISEQ All Share | all the Irish companies listed in Dublin, Ireland | market value |
+| PSI | the largest companies listed in Lisbon, Portugal | market value |
+| OMX Stockholm 30 | the 30 most traded companies listed in Stockholm, Sweden | market value |
+| OMX Copenhagen 25 | the 25 most traded companies listed in Copenhagen, Denmark, such as Novo Nordisk | market value |
+| OMX Helsinki 25 | the 25 most traded companies listed in Helsinki, Finland | market value |
+| OSEBX | the benchmark index of Oslo, Norway: a selection of its most traded companies, with their dividends reinvested | market value |
+| OMX Tallinn | all the companies of the main list of Tallinn, Estonia, with their dividends reinvested | market value |
+| OMX Riga | all the companies of the main list of Riga, Latvia, with their dividends reinvested | market value |
+| OMX Vilnius | all the companies of the main list of Vilnius, Lithuania, with their dividends reinvested | market value |
 | Athens General | the largest companies listed on the Athens Exchange | market value |
+| BIST 100 | the 100 largest companies listed in Istanbul, Turkey | market value |
 | Nikkei 225 | 225 large Japanese companies | share price |
 | Shanghai Composite | all the companies listed in Shanghai, China | market value |
 | Hang Seng | the largest companies listed in Hong Kong | market value |
@@ -41,15 +53,15 @@ A stock market index follows the prices of a basket of shares as one number, in 
 | IDX Composite | all the companies listed on the Indonesia Stock Exchange, in Jakarta | market value |
 | FTSE Bursa Malaysia KLCI | the 30 largest companies listed in Kuala Lumpur, Malaysia | market value |
 
-A few of them are not like the rest. The **DAX**, the **Bovespa** and the **NZX 50** are performance indices: the dividends of their companies are added to them, while the others leave them out, so over long periods they rise faster than an index of the same shares would. The **VIX** is not a basket of shares but a measure of fear, in percent a year: it jumps when stocks fall sharply and sinks in calm markets, so its "falls" and "returns" mean something else than those of a stock index. The **Bovespa** starts in 1995 here: before the real, Brazil's currency since July 1994, inflation ran at thousands of percent a year, and the index rose as fast in the money of the time, which would swamp every return, seasonality and volatility of its history.
+A few of them are not like the rest. The **DAX**, the **Bovespa**, the **NZX 50**, the **OSEBX** and the three Baltic indices, **OMX Tallinn**, **OMX Riga** and **OMX Vilnius**, are performance indices: the dividends of their companies are added to them, while the others leave them out, so over long periods they rise faster than an index of the same shares would. The **VIX** is not a basket of shares but a measure of fear, in percent a year: it jumps when stocks fall sharply and sinks in calm markets, so its "falls" and "returns" mean something else than those of a stock index. The **Bovespa** starts in 1995 here: before the real, Brazil's currency since July 1994, inflation ran at thousands of percent a year, and the index rose as fast in the money of the time, which would swamp every return, seasonality and volatility of its history.
 
-Each index is in the money of its shares (US, Canadian, Australian, New Zealand, Hong Kong, Singapore and Taiwan dollars, euros, pounds, Swiss francs, Mexican pesos, reais, yen, yuan, won, rupees, rupiah or ringgit), and none is converted, so comparing indices of different currencies mixes in the moves of the currencies, and an index of a country with high inflation rises partly because its money loses value.
+Each index is in the money of its shares (US, Canadian, Australian, New Zealand, Hong Kong, Singapore and Taiwan dollars, euros, pounds, Swiss francs, Swedish kronor, Danish and Norwegian kroner, Turkish lira, Mexican pesos, reais, yen, yuan, won, rupees, rupiah or ringgit), and none is converted, so comparing indices of different currencies mixes in the moves of the currencies, and an index of a country with high inflation rises partly because its money loses value: the BIST 100 rose from about 20 points in 1998 to thousands, while the lira lost most of its value.
 
 <h3 id="about-overview">Overview</h3>
 
 Where every index stands, in one table, grouped by region.
 
-**The exchanges.** The labels at the top, from west to east, say which exchanges are open, with a green dot, at lunch, with an amber one (Jakarta, Kuala Lumpur, Shanghai, Hong Kong and Tokyo pause at midday), or closed, with a grey one. Hover over a label for its local time, when that changes and its indices; the Euro Stoxx 50 and the STOXX Europe 600, made of shares of many countries, go with Frankfurt, and the Euronext 100, made of shares of several Euronext exchanges, with Paris. The table of the exchanges at the bottom of the page, which the link after the labels leads to, has all of it: the indices, the local time, the state now, the next opening or closing, the regular hours and the time zone of each exchange. Mexico City and São Paulo keep in step with New York: while the US is on summer time, Mexico City trades from 07:30 to 14:00 instead of 08:30 to 15:00, and São Paulo closes at 17:00 instead of 18:00. The regular weekday sessions are all the app knows: on a holiday an exchange shows as open, the longer Friday lunch of Jakarta is not known, and the indices are computed on their own schedules, the VIX for example also outside the hours of New York. While an exchange is open, its index shows the close of the day before.
+**The exchanges.** The labels at the top, from west to east, say which exchanges are open, with a green dot, at lunch, with an amber one (Jakarta, Kuala Lumpur, Shanghai, Hong Kong and Tokyo pause at midday), or closed, with a grey one. Hover over a label for its local time, when that changes and its indices; the Euro Stoxx 50 and the STOXX Europe 600, made of shares of many countries, go with Frankfurt, the Euronext 100, made of shares of several Euronext exchanges, with Paris, and the exchanges of Tallinn, Riga and Vilnius, which trade as one market, share the label Baltics. The table of the exchanges at the bottom of the page, which the link after the labels leads to, has all of it: the indices, the local time, the state now, the next opening or closing, the regular hours and the time zone of each exchange. Mexico City and São Paulo keep in step with New York: while the US is on summer time, Mexico City trades from 07:30 to 14:00 instead of 08:30 to 15:00, and São Paulo closes at 17:00 instead of 18:00. The regular weekday sessions are all the app knows: on a holiday an exchange shows as open, the longer Friday lunch of Jakarta is not known, and the indices are computed on their own schedules, the VIX for example also outside the hours of New York. While an exchange is open, its index shows the close of the day before. Yahoo Finance keeps the indices of Copenhagen and the Baltics on the hours of New York, so their close of the day shows only once New York has closed too.
 
 **The table.** The line above it gives the day most indices last closed on, and the indices whose last close is of another day: the exchanges of Asia-Pacific close hours before those of Europe and the Americas, a holiday on one exchange leaves its last close a day behind the others, and a special session can put one a day ahead, even on a weekend, such as the hour of trading of Mumbai on the evening of Diwali.
 
@@ -121,7 +133,7 @@ index(t) = 100 × close(t) / close(t₀)
 
 t₀ is the first day, on or after the start date, on which every selected index has a price; an index whose history starts after the start date moves t₀ to its first day. The chart title shows t₀. The exchanges have holidays of their own, so on some days a line has no new point.
 
-The result has no unit: it is the close as a percentage of the close on t₀. Read it as what 100 put into the index at the close of t₀ would be worth, before fees and, except for the DAX, the Bovespa and the NZX 50, without the dividends: 150 means +50% since t₀, 80 means −20%, and 1,000 means ten times as much. The ratio of two lines compares two indices: when A is at 300 and B at 150, A has done twice as well as B since t₀. Each index is in its own currency.
+The result has no unit: it is the close as a percentage of the close on t₀. Read it as what 100 put into the index at the close of t₀ would be worth, before fees and, except for the performance indices (see [The indices](#about-indices)), without the dividends: 150 means +50% since t₀, 80 means −20%, and 1,000 means ten times as much. The ratio of two lines compares two indices: when A is at 300 and B at 150, A has done twice as well as B since t₀. Each index is in its own currency.
 
 The average growth per year (the compound annual growth rate) after d calendar days is
 
