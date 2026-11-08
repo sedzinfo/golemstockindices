@@ -97,8 +97,8 @@ get_indices <- function() {
     
     region = c(rep("US", 6),
                rep("Americas", 3),
-               rep("Europe", 10),
-               rep("Asia-Pacific", 13)),
+               rep("Europe", 11),
+               rep("Asia-Pacific", 12)),
     
     currency = c("USD", "USD", "USD", "USD", "USD", NA,
                  "CAD", "BRL", "MXN",
