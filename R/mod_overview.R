@@ -77,15 +77,7 @@ mod_overview_server <- function(id, indices, dark_mode) {
 
     output$exchange_table <- renderUI(market_table(status()))
 
-    output$updated <- renderText({
-      dates <- summary()$date
-      newest <- max(dates)
-      older <- summary()$label[dates < newest]
-      paste0(
-        "Daily closes from Yahoo Finance, up to ", long_date(newest),
-        if (length(older) > 0) paste0("; ", and_list(older), " closed last on an earlier day") else ""
-      )
-    })
+    output$updated <- renderText(closes_text(summary(), indices))
 
     output$table <- DT::renderDT(overview_table(summary(), indices, history()))
 

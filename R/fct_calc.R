@@ -178,3 +178,53 @@ performance_data <- function(summary, indices, period = c("day", "week", "month"
   rownames(data) <- NULL
   data
 }
+##########################################################################################
+#
+##########################################################################################
+#' @title The line above the overview table: the days of the last closes
+#' @description The day most indices last closed on, and then the indices
+#' whose last close is of another day, by day, newest first. The exchanges of
+#' Asia-Pacific close hours before those of Europe and the Americas, a holiday
+#' leaves an index a day behind, and a special session, such as the hour of
+#' trading of Mumbai on the evening of Diwali, can put one ahead, even on a
+#' weekend. A region whose indices all share a day is named as a region, a
+#' few indices by their labels, and more by their number, as the Date column
+#' of the table has the day of each.
+#' @param summary The result of [index_summary()].
+#' @param indices Data frame of indices from [get_indices()], for the
+#'   regions.
+#' @return A string, such as "Daily closes from Yahoo Finance, up to 6 Nov
+#'   2026; 8 Nov 2026 for Sensex".
+#' @noRd
+closes_text <- function(summary, indices) {
+  dates <- summary$date
+  counts <- table(format(dates))
+  # the day most indices share, the newest of a tie
+  main <- max(as.Date(names(counts)[counts == max(counts)]))
+  text <- paste0("Daily closes from Yahoo Finance, up to ", long_date(main))
+  others <- sort(unique(dates[dates != main]), decreasing = TRUE)
+  if (length(others) == 0) {
+    return(text)
+  }
+  regions <- c(
+    US = "the US indices", Americas = "the other indices of the Americas",
+    Europe = "the European indices", "Asia-Pacific" = "the Asia-Pacific indices"
+  )
+  known <- indices[indices$label %in% summary$label, ]
+  parts <- character(length(others))
+  for (i in seq_along(others)) {
+    labels <- summary$label[dates == others[i]]
+    whole <- Filter(function(region) {
+      members <- known$label[known$region == region]
+      length(members) > 0 && all(members %in% labels)
+    }, names(regions))
+    rest <- setdiff(labels, known$label[known$region %in% whole])
+    who <- if (length(rest) > 4) {
+      c(regions[whole], paste(length(rest), if (length(whole) > 0) "other indices" else "indices"))
+    } else {
+      c(regions[whole], rest)
+    }
+    parts[i] <- paste(long_date(others[i]), "for", and_list(unname(who)))
+  }
+  paste0(text, "; ", paste(parts, collapse = "; "))
+}

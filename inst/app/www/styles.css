@@ -1,5 +1,11 @@
 /* every CSV button is a small one; next to the pickers of the Timeseries and Compare tabs it
    sits in a box as tall as their text boxes, centred on them, so the controls line up */
+.shiny-download-link {
+  /* in a row with a long line of text, a flex box would squeeze it until its icon sits above "CSV" */
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .csv-beside-inputs {
   height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
   display: flex;
