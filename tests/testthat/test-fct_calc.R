@@ -57,3 +57,25 @@ test_that("index_summary() measures the change over a week and a month too", {
   expect_equal(summary$month_pct, (160 / 132 - 1) * 100)
   expect_equal(names(summary)[4:8], c("day_pct", "week_pct", "month_pct", "ytd_pct", "year_pct"))
 })
+
+test_that("closes_text() gives the day most indices closed on, and the others by day", {
+  all <- get_indices()
+  friday <- as.Date("2026-11-06")
+  summary <- data.frame(label = all$label, date = friday)
+  expect_equal(closes_text(summary, all), "Daily closes from Yahoo Finance, up to 6 Nov 2026")
+  # the hour of trading of Mumbai on Diwali, a Sunday, puts the Sensex ahead of the rest
+  summary$date[summary$label == "Sensex"] <- as.Date("2026-11-08")
+  expect_equal(closes_text(summary, all), "Daily closes from Yahoo Finance, up to 6 Nov 2026; 8 Nov 2026 for Sensex")
+  # a weekday morning in Europe: Asia-Pacific has closed today, and a holiday keeps the Bovespa behind
+  summary$date <- as.Date("2026-11-09")
+  summary$date[all$region == "Asia-Pacific"] <- as.Date("2026-11-10")
+  summary$date[summary$label == "Bovespa"] <- friday
+  expect_equal(
+    closes_text(summary, all),
+    "Daily closes from Yahoo Finance, up to 9 Nov 2026; 10 Nov 2026 for the Asia-Pacific indices; 6 Nov 2026 for Bovespa"
+  )
+  # more than four indices that are not a whole region are counted, as the table has their days
+  summary$date <- friday
+  summary$date[summary$label %in% c("DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI")] <- as.Date("2026-11-05")
+  expect_equal(closes_text(summary, all), "Daily closes from Yahoo Finance, up to 6 Nov 2026; 5 Nov 2026 for 5 indices")
+})
