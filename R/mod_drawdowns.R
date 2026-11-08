@@ -33,12 +33,13 @@ mod_drawdowns_ui <- function(id) {
         ),
         downloadButton(ns("csv"), "CSV", class = "btn-sm")
       ),
-      uiOutput(ns("summary")),
+      # uiOutput(ns("summary")),
       shinycssloaders::withSpinner(
         plotly::plotlyOutput(ns("plot"), width = "100%", height = "100%")
       )
     ),
-    div(class = "mt-3 mb-4", DT::DTOutput(ns("table")))
+    div(class = "mt-3 mb-4", DT::DTOutput(ns("table"))),
+  div(class = "mt-3 mb-4", uiOutput(ns("summary")))
   )
 }
 ##########################################################################################

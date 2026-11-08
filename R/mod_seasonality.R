@@ -5,9 +5,9 @@
 #' @description For the index selected in the Timeseries tab: a choice of
 #' the returns to compare (days by day of the week, weeks by week of the
 #' year, months by month or years by year of the US presidential cycle), a button
-#' that downloads the numbers as CSV, two cards that name the best and the
-#' worst group and say whether the differences could be chance, the
-#' seasonality chart and the table of the groups.
+#' that downloads the numbers as CSV, the seasonality chart, the table of the
+#' groups, and under it two cards that name the best and the worst group and
+#' say whether the differences could be chance.
 #' @param id Character. Module namespace id.
 #' @return A `tagList` of Shiny UI elements.
 #' @keywords internal
@@ -18,7 +18,7 @@
 mod_seasonality_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    # the cards and the chart fill the window, as in the Drawdowns tab, and the table follows
+    # the chart fills the window, as in the Volatility tab, and the table and the cards follow
     div(
       class = "fill-page two-panels",
       div(
@@ -28,23 +28,23 @@ mod_seasonality_ui <- function(id) {
           class = "d-flex align-items-center gap-2",
           tags$label(`for` = ns("period"), class = "form-label mb-0", "Returns of"),
           selectInput(ns("period"), NULL,
-            choices = c(
-              "days, by day of the week" = "day",
-              "weeks, by week of the year" = "week",
-              "months, by month" = "month",
-              "years, by presidential cycle" = "year"
-            ),
-            selected = "month", selectize = FALSE, width = "17rem"
+                      choices = c(
+                        "days, by day of the week" = "day",
+                        "weeks, by week of the year" = "week",
+                        "months, by month" = "month",
+                        "years, by presidential cycle" = "year"
+                      ),
+                      selected = "month", selectize = FALSE, width = "17rem"
           )
         ),
         downloadButton(ns("csv"), "CSV", class = "btn-sm")
       ),
-      uiOutput(ns("summary")),
       shinycssloaders::withSpinner(
         plotly::plotlyOutput(ns("plot"), width = "100%", height = "100%")
       )
     ),
-    div(class = "mt-3 mb-4", DT::DTOutput(ns("table")))
+    div(class = "mt-3", DT::DTOutput(ns("table"))),
+    div(class = "mt-3 mb-4", uiOutput(ns("summary")))
   )
 }
 ##########################################################################################
@@ -77,7 +77,7 @@ mod_seasonality_ui <- function(id) {
 mod_seasonality_server <- function(id, history, dark_mode) {
   moduleServer(id, function(input, output, session) {
     period <- reactive(if (is.null(input$period)) "month" else input$period)
-
+    
     analysis <- reactive({
       validate(need(history(), "Data not available for this index"))
       analysis <- seasonality_analysis(history(), period())
@@ -85,7 +85,7 @@ mod_seasonality_server <- function(id, history, dark_mode) {
       validate(need(analysis, paste0("Not enough history: the returns need at least two complete ", units, " in a row")))
       analysis
     })
-
+    
     output$summary <- renderUI({
       text <- seasonality_text(analysis())
       bslib::layout_columns(
@@ -95,11 +95,11 @@ mod_seasonality_server <- function(id, history, dark_mode) {
         summary_card(text$chance)
       )
     })
-
+    
     output$plot <- plotly::renderPlotly(plot_seasonality(analysis(), dark_mode()))
-
+    
     output$table <- DT::renderDT(seasonality_table(analysis()))
-
+    
     output$csv <- csv_download(
       reactive(seasonality_csv(analysis())),
       reactive(paste0(file_stem(analysis()$index), "-seasonality-", analysis()$period))
