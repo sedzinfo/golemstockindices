@@ -24,9 +24,9 @@ mod_performance_ui <- function(id) {
       ),
       downloadButton(ns("csv"), "CSV", class = "btn-sm")
     ),
-    # a bar per index, each tall enough for its name
     shinycssloaders::withSpinner(
-      plotly::plotlyOutput(ns("plot"), width = "100%", height = "780px")
+      # the rest of the window below the controls, with a minimum in styles.css for a bar per index
+      plotly::plotlyOutput(ns("plot"), width = "100%", height = "calc(100vh - 130px)")
     )
   )
 }
