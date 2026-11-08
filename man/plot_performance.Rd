@@ -7,7 +7,7 @@
 plot_performance(
   summary,
   indices = get_indices(),
-  period = c("day", "week", "month", "ytd", "year"),
+  period = performance_periods,
   mode = "light"
 )
 }
@@ -17,8 +17,8 @@ plot_performance(
 \item{indices}{Data frame of indices from \code{\link[=get_indices]{get_indices()}}; the indices
 without a currency, the VIX, are left out.}
 
-\item{period}{\code{"day"}, \code{"week"}, \code{"month"}, \code{"ytd"} (year to date) or
-\code{"year"}.}
+\item{period}{\code{"day"}, \code{"week"}, \code{"month"}, \code{"month3"}, \code{"month6"},
+\code{"month9"} (3, 6 and 9 months), \code{"ytd"} (year to date) or \code{"year"}.}
 
 \item{mode}{\code{"light"} (the default) or \code{"dark"}, to suit a light or dark
 page.}

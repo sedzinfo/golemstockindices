@@ -19,7 +19,10 @@ mod_performance_ui <- function(id) {
       class = "d-flex flex-wrap align-items-center gap-3 inline-controls",
       tags$label(`for` = ns("period"), class = "form-label mb-0", "Performance over"),
       radioButtons(ns("period"), NULL,
-        choices = c("the day" = "day", "a week" = "week", "a month" = "month", "this year" = "ytd", "a year" = "year"),
+        choices = c(
+          "the day" = "day", "a week" = "week", "a month" = "month", "3 months" = "month3",
+          "6 months" = "month6", "9 months" = "month9", "this year" = "ytd", "a year" = "year"
+        ),
         selected = "ytd", inline = TRUE
       ),
       downloadButton(ns("csv"), "CSV", class = "btn-sm")

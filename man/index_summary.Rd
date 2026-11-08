@@ -13,7 +13,8 @@ index_summary(history)
 \value{
 A data frame with a row per index, in the order of their first
 rows in \code{history}: \code{label}, \code{date} and \code{close} of the last day,
-\code{day_pct}, \code{week_pct}, \code{month_pct}, \code{ytd_pct}, \code{year_pct}, \code{high} and
+\code{day_pct}, \code{week_pct}, \code{month_pct}, \code{month3_pct}, \code{month6_pct},
+\code{month9_pct}, \code{ytd_pct}, \code{year_pct}, \code{high} and
 \code{high_date} of the highest close, \code{from_high_pct} (from -100 to 0) and
 \code{first_date}, the first day of the history. A change is \code{NA} when the
 history does not go back far enough.
@@ -21,8 +22,8 @@ history does not go back far enough.
 \description{
 For each index of a price history: its last close, and the
 change in percent since the close before, since the last close at least a
-week and a month before, since the last close of the year before (year to
-date) and since the last close at least a year before, and how far it is
+week and 1, 3, 6 and 9 months before, since the last close of the year
+before (year to date) and since the last close at least a year before, and how far it is
 below its highest close. Pass the whole history, as the highest close is
 that of the history given.
 }

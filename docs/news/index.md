@@ -25,8 +25,8 @@
     and
     [`overview_table()`](https://sedzinfo.github.io/golemstockindices/reference/overview_table.md)
     do the same from R.
-  - **Performance** charts the indices side by side over a day, week,
-    month, this year or a year, the best at the top.
+  - **Performance** charts the indices side by side over a day, a week,
+    1, 3, 6 or 9 months, this year or a year, the best at the top.
     [`plot_performance()`](https://sedzinfo.github.io/golemstockindices/reference/plot_performance.md)
     does the same from R.
   - **Timeseries** plots the whole history of an index as candles, with

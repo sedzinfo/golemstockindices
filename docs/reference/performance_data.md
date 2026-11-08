@@ -10,11 +10,7 @@ the period.
 ## Usage
 
 ``` r
-performance_data(
-  summary,
-  indices,
-  period = c("day", "week", "month", "ytd", "year")
-)
+performance_data(summary, indices, period = performance_periods)
 ```
 
 ## Arguments
@@ -31,7 +27,8 @@ performance_data(
 
 - period:
 
-  `"day"`, `"week"`, `"month"`, `"ytd"` (year to date) or `"year"`.
+  `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`, `"month9"` (3, 6
+  and 9 months), `"ytd"` (year to date) or `"year"`.
 
 ## Value
 
@@ -44,8 +41,11 @@ change over the period in percent.
 ``` r
 summary <- data.frame(
   label = c("S&P 500", "DAX", "VIX"), date = as.Date("2026-11-06"), close = c(6700, 23500, 19),
-  day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, ytd_pct = c(14, 18, -10), year_pct = 15
+  day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, month3_pct = 4, month6_pct = 8,
+  month9_pct = 12, ytd_pct = c(14, 18, -10), year_pct = 15
 )
 golemstockindices:::performance_data(summary, get_indices(), "day")
-#> Error: object 'performance_data' not found
+#>     label region currency       date close change_pct
+#> 1 S&P 500     US      USD 2026-11-06  6700        0.4
+#> 2     DAX Europe      EUR 2026-11-06 23500       -0.8
 ```

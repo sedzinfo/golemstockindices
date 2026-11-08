@@ -8,7 +8,7 @@ An interactive R Shiny application for exploring the major stock market indices 
 
 - **44 indices**: S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000 and the VIX in the US; S&P/TSX Composite, Bovespa and IPC Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, DAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, BEL 20, AEX, ATX, ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki 25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST 100 in Europe; Nikkei 225, Shanghai Composite, Hang Seng, KOSPI, Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific
 - **Overview**: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high
-- **Performance**: The indices side by side in one chart, the best at the top, over the day, a week, a month, this year or a year
+- **Performance**: The indices side by side in one chart, the best at the top, over the day, a week, 1, 3, 6 or 9 months, this year or a year
 - **Interactive Candlestick Charts**: The whole history of an index, back to 1927 for the S&P 500, with the volume, the 50- and 200-day moving averages and the drawdown
 - **Index Comparison**: Compare up to 10 indices, each starting at 100, on a linear or log scale
 - **Returns Calendar**: Monthly returns by year
@@ -99,7 +99,7 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 - The changes are shaded red for falls and green for rises
 
 ### Performance Tab
-- A chart of the indices side by side over the day, a week, a month, this year or a year, the best at the top, green for rises and red for falls
+- A chart of the indices side by side over the day, a week, 1, 3, 6 or 9 months, this year or a year, the best at the top, green for rises and red for falls
 - The VIX, and any index whose history is shorter than the period, is left out
 
 ### Timeseries Tab

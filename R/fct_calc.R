@@ -97,15 +97,16 @@ drawdown <- function(close) {
 #' @title Where each index stands
 #' @description For each index of a price history: its last close, and the
 #' change in percent since the close before, since the last close at least a
-#' week and a month before, since the last close of the year before (year to
-#' date) and since the last close at least a year before, and how far it is
+#' week and 1, 3, 6 and 9 months before, since the last close of the year
+#' before (year to date) and since the last close at least a year before, and how far it is
 #' below its highest close. Pass the whole history, as the highest close is
 #' that of the history given.
 #' @param history Price history from [get_history()], with `label`,
 #'   `timestamp` and `close` columns.
 #' @return A data frame with a row per index, in the order of their first
 #'   rows in `history`: `label`, `date` and `close` of the last day,
-#'   `day_pct`, `week_pct`, `month_pct`, `ytd_pct`, `year_pct`, `high` and
+#'   `day_pct`, `week_pct`, `month_pct`, `month3_pct`, `month6_pct`,
+#'   `month9_pct`, `ytd_pct`, `year_pct`, `high` and
 #'   `high_date` of the highest close, `from_high_pct` (from -100 to 0) and
 #'   `first_date`, the first day of the history. A change is `NA` when the
 #'   history does not go back far enough.
@@ -126,7 +127,7 @@ index_summary <- function(history) {
     date <- one$timestamp[n]
     change <- function(before) if (length(before) == 0) NA_real_ else (last / utils::tail(before, 1) - 1) * 100
     year_ago <- seq(date, by = "-1 year", length.out = 2)[2]
-    month_ago <- seq(date, by = "-1 month", length.out = 2)[2]
+    months_ago <- function(n) seq(date, by = paste0("-", n, " month"), length.out = 2)[2]
     high <- which.max(one$close)
     data.frame(
       label = label,
@@ -134,7 +135,10 @@ index_summary <- function(history) {
       close = last,
       day_pct = change(one$close[-n]),
       week_pct = change(one$close[one$timestamp <= date - 7]),
-      month_pct = change(one$close[one$timestamp <= month_ago]),
+      month_pct = change(one$close[one$timestamp <= months_ago(1)]),
+      month3_pct = change(one$close[one$timestamp <= months_ago(3)]),
+      month6_pct = change(one$close[one$timestamp <= months_ago(6)]),
+      month9_pct = change(one$close[one$timestamp <= months_ago(9)]),
       ytd_pct = change(one$close[one$timestamp < as.Date(format(date, "%Y-01-01"))]),
       year_pct = change(one$close[one$timestamp <= year_ago]),
       high = one$close[high],
@@ -148,6 +152,15 @@ index_summary <- function(history) {
 ##########################################################################################
 #
 ##########################################################################################
+#' @title The periods of the Performance tab
+#' @description The periods of [index_summary()] that [performance_data()]
+#' and [plot_performance()] take, shortest first, with "ytd", this year,
+#' before the year.
+#' @noRd
+performance_periods <- c("day", "week", "month", "month3", "month6", "month9", "ytd", "year")
+##########################################################################################
+#
+##########################################################################################
 #' @title The change of each index over a period, the best first
 #' @description The data of the Performance tab: the chart of
 #' [plot_performance()] and its CSV file. The indices without a currency, the
@@ -156,8 +169,8 @@ index_summary <- function(history) {
 #' younger than the period.
 #' @param summary The result of [index_summary()].
 #' @param indices Data frame of indices from [get_indices()].
-#' @param period `"day"`, `"week"`, `"month"`, `"ytd"` (year to date) or
-#'   `"year"`.
+#' @param period `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`,
+#'   `"month9"` (3, 6 and 9 months), `"ytd"` (year to date) or `"year"`.
 #' @return A data frame with a row per index, the best first: `label`,
 #'   `region`, `currency`, `date` and `close` of the last day, and
 #'   `change_pct`, the change over the period in percent.
@@ -165,10 +178,11 @@ index_summary <- function(history) {
 #' @examples
 #' summary <- data.frame(
 #'   label = c("S&P 500", "DAX", "VIX"), date = as.Date("2026-11-06"), close = c(6700, 23500, 19),
-#'   day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, ytd_pct = c(14, 18, -10), year_pct = 15
+#'   day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, month3_pct = 4, month6_pct = 8,
+#'   month9_pct = 12, ytd_pct = c(14, 18, -10), year_pct = 15
 #' )
 #' golemstockindices:::performance_data(summary, get_indices(), "day")
-performance_data <- function(summary, indices, period = c("day", "week", "month", "ytd", "year")) {
+performance_data <- function(summary, indices, period = performance_periods) {
   period <- match.arg(period)
   shares <- indices[!is.na(indices$currency), c("label", "region", "currency")]
   data <- merge(summary[c("label", "date", "close", paste0(period, "_pct"))], shares, by = "label")

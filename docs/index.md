@@ -23,7 +23,8 @@ below its all-time high.
   with a line of its last year, its last close, the change on the day,
   this year and over a year, and how far it is below its all-time high
 - **Performance**: The indices side by side in one chart, the best at
-  the top, over the day, a week, a month, this year or a year
+  the top, over the day, a week, 1, 3, 6 or 9 months, this year or a
+  year
 - **Interactive Candlestick Charts**: The whole history of an index,
   back to 1927 for the S&P 500, with the volume, the 50- and 200-day
   moving averages and the drawdown
@@ -99,9 +100,9 @@ kept on disk between R sessions (see [Data Source](#data-source)).
 
 ### Performance Tab
 
-- A chart of the indices side by side over the day, a week, a month,
-  this year or a year, the best at the top, green for rises and red for
-  falls
+- A chart of the indices side by side over the day, a week, 1, 3, 6 or 9
+  months, this year or a year, the best at the top, green for rises and
+  red for falls
 - The VIX, and any index whose history is shorter than the period, is
   left out
 

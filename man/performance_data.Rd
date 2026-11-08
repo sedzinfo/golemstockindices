@@ -4,19 +4,15 @@
 \alias{performance_data}
 \title{The change of each index over a period, the best first}
 \usage{
-performance_data(
-  summary,
-  indices,
-  period = c("day", "week", "month", "ytd", "year")
-)
+performance_data(summary, indices, period = performance_periods)
 }
 \arguments{
 \item{summary}{The result of \code{\link[=index_summary]{index_summary()}}.}
 
 \item{indices}{Data frame of indices from \code{\link[=get_indices]{get_indices()}}.}
 
-\item{period}{\code{"day"}, \code{"week"}, \code{"month"}, \code{"ytd"} (year to date) or
-\code{"year"}.}
+\item{period}{\code{"day"}, \code{"week"}, \code{"month"}, \code{"month3"}, \code{"month6"},
+\code{"month9"} (3, 6 and 9 months), \code{"ytd"} (year to date) or \code{"year"}.}
 }
 \value{
 A data frame with a row per index, the best first: \code{label},
@@ -33,7 +29,8 @@ younger than the period.
 \examples{
 summary <- data.frame(
   label = c("S&P 500", "DAX", "VIX"), date = as.Date("2026-11-06"), close = c(6700, 23500, 19),
-  day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, ytd_pct = c(14, 18, -10), year_pct = 15
+  day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, month3_pct = 4, month6_pct = 8,
+  month9_pct = 12, ytd_pct = c(14, 18, -10), year_pct = 15
 )
 golemstockindices:::performance_data(summary, get_indices(), "day")
 }

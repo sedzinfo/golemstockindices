@@ -765,8 +765,8 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
 #' @param summary The result of [index_summary()].
 #' @param indices Data frame of indices from [get_indices()]; the indices
 #'   without a currency, the VIX, are left out.
-#' @param period `"day"`, `"week"`, `"month"`, `"ytd"` (year to date) or
-#'   `"year"`.
+#' @param period `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`,
+#'   `"month9"` (3, 6 and 9 months), `"ytd"` (year to date) or `"year"`.
 #' @inheritParams plot_timeseries
 #' @return A plotly object.
 #' @export
@@ -774,10 +774,11 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
 #' indices <- get_indices()
 #' summary <- index_summary(get_history(indices$label, as.Date("2020-01-01")))
 #' plot_performance(summary, indices, "ytd")
-plot_performance <- function(summary, indices = get_indices(), period = c("day", "week", "month", "ytd", "year"), mode = "light") {
+plot_performance <- function(summary, indices = get_indices(), period = performance_periods, mode = "light") {
   period <- match.arg(period)
   titles <- c(day = "Change on the day", week = "Change over the last week", month = "Change over the last month",
-              ytd = "Change this year", year = "Change over the last year")
+              month3 = "Change over the last 3 months", month6 = "Change over the last 6 months",
+              month9 = "Change over the last 9 months", ytd = "Change this year", year = "Change over the last year")
   # plotly draws the first category at the bottom, so the best comes last
   data <- performance_data(summary, indices, period)
   data <- data[rev(seq_len(nrow(data))), ]

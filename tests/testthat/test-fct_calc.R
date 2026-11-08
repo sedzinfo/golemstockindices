@@ -48,14 +48,26 @@ test_that("index_summary() says where each index stands against the day, year an
   expect_true(all(is.na(both$year_pct)))
 })
 
-test_that("index_summary() measures the change over a week and a month too", {
+test_that("index_summary() measures the change over a week and 1, 3, 6 and 9 months too", {
   days <- as.Date("2026-01-01") + 0:60
   one <- data.frame(label = "Alpha", timestamp = days, close = seq_along(days) + 99)
   summary <- index_summary(one)
   # the last close is on 2 March, 160; a week before, on 23 February, 153; a month before, on 2 February, 132
   expect_equal(summary$week_pct, (160 / 153 - 1) * 100)
   expect_equal(summary$month_pct, (160 / 132 - 1) * 100)
-  expect_equal(names(summary)[4:8], c("day_pct", "week_pct", "month_pct", "ytd_pct", "year_pct"))
+  expect_equal(
+    names(summary)[4:11],
+    c("day_pct", "week_pct", "month_pct", "month3_pct", "month6_pct", "month9_pct", "ytd_pct", "year_pct")
+  )
+  # two months of history: no change over 3 months or more
+  expect_true(is.na(summary$month3_pct))
+  # 300 days from 1 January 2026 end on 27 October; 3, 6 and 9 months before are 27 July, 27 April
+  # and 27 January, the 208th, 117th and 27th days
+  long <- data.frame(label = "Alpha", timestamp = as.Date("2026-01-01") + 0:299, close = 1:300)
+  months <- index_summary(long)
+  expect_equal(months$month3_pct, (300 / 208 - 1) * 100)
+  expect_equal(months$month6_pct, (300 / 117 - 1) * 100)
+  expect_equal(months$month9_pct, (300 / 27 - 1) * 100)
 })
 
 test_that("closes_text() gives the day most indices closed on, and the others by day", {

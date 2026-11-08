@@ -83,11 +83,11 @@ Where every index stands, in one table, grouped by region.
 
 The changes are shaded red for falls and green for rises, and the distance from the high red. Each column has a scale of its own, from no color near zero to the deepest shade at its largest value, as a day's moves are much smaller than a year's.
 
-The CSV button downloads the table with the changes over a week and a month too.
+The CSV button downloads the table with the changes over a week and 1, 3, 6 and 9 months too.
 
 <h3 id="about-performance">Performance</h3>
 
-How the indices compare, in one chart: the change of each over the period picked above it, the best at the top, green for rises and red for falls. The periods are those of the Overview table: the day (since the close before), a week or a month (since the last close a week or a month before), this year (since the last close of last year) or a year (since the last close a year or more ago). Each index counts from its own last close, so after a holiday on one exchange its day can be a day older than the others'. An index whose history is shorter than the period is left out, and so is the VIX: it measures fear rather than the value of shares, and its swings of tens of percent would squeeze the others into slivers. Each change is in the currency of the index (see [The indices](#about-indices)). The CSV button downloads the changes of the chart, best first, with the region, currency, date and close of each index.
+How the indices compare, in one chart: the change of each over the period picked above it, the best at the top, green for rises and red for falls. The periods are the day (since the close before), a week, a month, 3, 6 or 9 months (since the last close that long before or earlier: for 3 months, from 6 November, the last close on or before 6 August), this year (since the last close of last year) or a year (since the last close a year or more ago). Each index counts from its own last close, so after a holiday on one exchange its day can be a day older than the others'. An index whose history is shorter than the period is left out, and so is the VIX: it measures fear rather than the value of shares, and its swings of tens of percent would squeeze the others into slivers. Each change is in the currency of the index (see [The indices](#about-indices)). The CSV button downloads the changes of the chart, best first, with the region, currency, date and close of each index.
 
 <h3 id="about-timeseries">Timeseries</h3>
 

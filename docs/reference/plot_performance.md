@@ -13,7 +13,7 @@ others.
 plot_performance(
   summary,
   indices = get_indices(),
-  period = c("day", "week", "month", "ytd", "year"),
+  period = performance_periods,
   mode = "light"
 )
 ```
@@ -33,7 +33,8 @@ plot_performance(
 
 - period:
 
-  `"day"`, `"week"`, `"month"`, `"ytd"` (year to date) or `"year"`.
+  `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`, `"month9"` (3, 6
+  and 9 months), `"ytd"` (year to date) or `"year"`.
 
 - mode:
 
