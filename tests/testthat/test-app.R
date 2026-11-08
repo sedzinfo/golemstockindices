@@ -18,3 +18,11 @@ test_that("the keep-alive pings can be turned off", {
   expect_no_match(off$head, "keep_alive.js", fixed = TRUE)
   expect_no_match(off$html, "keep_alive", fixed = TRUE)
 })
+
+test_that("the page describes the app to search engines and link previews", {
+  head <- htmltools::renderTags(app_ui(indices))$head
+  expect_match(head, "<meta name=\"description\" content=\"Follow the major stock market indices", fixed = TRUE)
+  expect_match(head, "<meta property=\"og:url\" content=\"https://sedzinfo-golemstockindices.share.connect.posit.cloud/\"", fixed = TRUE)
+  expect_match(head, "property=\"og:image\"", fixed = TRUE)
+  expect_lte(nchar(app_description), 160)
+})

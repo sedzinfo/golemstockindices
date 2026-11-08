@@ -2,6 +2,10 @@
 
 explore the major stock market indices
 
+**[Open the live
+app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/)** ·
+[Website](https://sedzinfo.github.io/golemstockindices/)
+
 An interactive R Shiny application for exploring the major stock market
 indices of the Americas, Europe and Asia-Pacific: where each stands
 today, its whole history, how it compares with the others, its
@@ -175,22 +179,31 @@ kept on disk between R sessions (see [Data Source](#data-source)).
 
 ### Overview
 
-![The 16 exchanges, from Toronto to Sydney, with a dot for open or
-closed, and where the 22 indices stand: the last close with a line of
+![The 33 exchanges, from Mexico City to Wellington, with a dot for open
+or closed, and where the 44 indices stand: the last close with a line of
 the last year, the change on the day, this year and over a year, and the
 distance from the all-time
 high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
 
-The 16 exchanges, from Toronto to Sydney, with a dot for open or closed,
-and where the 22 indices stand: the last close with a line of the last
-year, the change on the day, this year and over a year, and the distance
-from the all-time high
+The 33 exchanges, from Mexico City to Wellington, with a dot for open or
+closed, and where the 44 indices stand: the last close with a line of
+the last year, the change on the day, this year and over a year, and the
+distance from the all-time high
+
+### Performance (dark mode)
+
+![The 43 stock indices side by side by their change this year, the best
+at the top, green for rises and red for
+falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+
+The 43 stock indices side by side by their change this year, the best at
+the top, green for rises and red for falls
 
 ### Index Chart
 
 ![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a
 log
-scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
 
 Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a
 log scale
@@ -199,7 +212,7 @@ log scale
 
 ![The last 3 months of the S&P 500, with the vertical axes fitted to the
 days in
-view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
+view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
 
 The last 3 months of the S&P 500, with the vertical axes fitted to the
 days in view
@@ -208,7 +221,7 @@ days in view
 
 ![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year,
 each starting at
-100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
+100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
 
 The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year,
 each starting at 100
@@ -216,44 +229,44 @@ each starting at 100
 ### Returns Calendar (dark mode)
 
 ![Monthly returns of the S&P 500 by year since
-1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
+1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
 
 Monthly returns of the S&P 500 by year since 1927
 
 ### Seasonality
 
 ![S&P 500 returns by year of the US presidential cycle since 1928, with
-the best and the worst year and a Kruskal-Wallis test of whether the
-differences could be
-chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
+a table of the years, the best and the worst year, and a Kruskal-Wallis
+test of whether the differences could be
+chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
 
-S&P 500 returns by year of the US presidential cycle since 1928, with
-the best and the worst year and a Kruskal-Wallis test of whether the
-differences could be chance
+S&P 500 returns by year of the US presidential cycle since 1928, with a
+table of the years, the best and the worst year, and a Kruskal-Wallis
+test of whether the differences could be chance
 
 ### Volatility (dark mode)
 
-![Whether the volatility of the S&P 500’s last month and the move of its
-last 2 trading days are normal, and the forecast of its next 5 trading
-days with the value at risk, with its volatility since 1927, its last 63
-trading days in GARCH standard deviations and the forecast
-range](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
+![The volatility of the S&P 500 since 1927, its last 63 trading days in
+GARCH standard deviations and the forecast of its next 5 trading days,
+with whether the volatility of its last month and the move of its last 2
+trading days are normal, and the value at
+risk](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
 
-Whether the volatility of the S&P 500’s last month and the move of its
-last 2 trading days are normal, and the forecast of its next 5 trading
-days with the value at risk, with its volatility since 1927, its last 63
-trading days in GARCH standard deviations and the forecast range
+The volatility of the S&P 500 since 1927, its last 63 trading days in
+GARCH standard deviations and the forecast of its next 5 trading days,
+with whether the volatility of its last month and the move of its last 2
+trading days are normal, and the value at risk
 
 ### Drawdowns
 
 ![How far the S&P 500 is below its all-time high and its 12 falls of 20%
-or more since 1927, on a log-scale chart and a chart of the distance
-from the
-high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
+or more since 1927, on a log-scale chart, a chart of the distance from
+the high and a table of the
+falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock9.png)
 
 How far the S&P 500 is below its all-time high and its 12 falls of 20%
-or more since 1927, on a log-scale chart and a chart of the distance
-from the high
+or more since 1927, on a log-scale chart, a chart of the distance from
+the high and a table of the falls
 
 ## Dependencies
 

@@ -47,9 +47,26 @@ app_ui <- function(indices, analytics = FALSE, keep_alive = TRUE) {
 ##########################################################################################
 # 
 ##########################################################################################
+#' @title Where the app lives, and how it describes itself to search engines and link previews
+#' @description The address of the live app, a sentence of at most 160
+#' characters for the description and Open Graph tags of the page, and the
+#' screenshot of the Overview tab on GitHub for the preview image.
+#' @noRd
+app_url <- "https://sedzinfo-golemstockindices.share.connect.posit.cloud/"
+#' @noRd
+app_description <- paste(
+  "Follow the major stock market indices of the Americas, Europe and Asia-Pacific:",
+  "where each stands, its history, seasonality, volatility and falls."
+)
+#' @noRd
+app_image <- "https://raw.githubusercontent.com/sedzinfo/golemstockindices/main/screenshots/stock1.png"
+##########################################################################################
+# 
+##########################################################################################
 #' @title Add external resources to the application
 #' @description Serves `inst/app/www` under the `www/` path and adds the
-#' favicon and the stylesheet to the head of the page, and the keep-alive
+#' description and Open Graph tags of the page, the favicon and the
+#' stylesheet to its head, and the keep-alive
 #' script and Google Analytics when asked for.
 #' @param analytics `TRUE` to add Google Analytics and its cookie banner.
 #' @param keep_alive `TRUE` to add the script that pings the server every 15
@@ -64,6 +81,14 @@ app_ui <- function(indices, analytics = FALSE, keep_alive = TRUE) {
 add_external_resources <- function(analytics = FALSE, keep_alive = TRUE) {
   addResourcePath("www", app_sys("app/www"))
   tags$head(
+    tags$meta(name = "description", content = app_description),
+    tags$meta(property = "og:type", content = "website"),
+    tags$meta(property = "og:site_name", content = "sedzinfo"),
+    tags$meta(property = "og:title", content = "Stock Market Indices"),
+    tags$meta(property = "og:description", content = app_description),
+    tags$meta(property = "og:url", content = app_url),
+    tags$meta(property = "og:image", content = app_image),
+    tags$meta(name = "twitter:card", content = "summary_large_image"),
     tags$link(rel = "icon", type = "image/svg+xml", href = "www/favicon.svg"),
     tags$link(rel = "stylesheet", href = "www/styles.css"),
     if (keep_alive) tags$script(src = "www/keep_alive.js"),

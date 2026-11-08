@@ -2,6 +2,8 @@
 
 explore the major stock market indices
 
+**[Open the live app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/)** · [Website](https://sedzinfo.github.io/golemstockindices/)
+
 An interactive R Shiny application for exploring the major stock market indices of the Americas, Europe and Asia-Pacific: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.
 
 ## Features
@@ -141,28 +143,31 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ## Screenshots
 
 ### Overview
-![The 16 exchanges, from Toronto to Sydney, with a dot for open or closed, and where the 22 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+![The 33 exchanges, from Mexico City to Wellington, with a dot for open or closed, and where the 44 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+
+### Performance (dark mode)
+![The 43 stock indices side by side by their change this year, the best at the top, green for rises and red for falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
 
 ### Index Chart
-![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
 
 ### Zoomed In (dark mode)
-![The last 3 months of the S&P 500, with the vertical axes fitted to the days in view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
+![The last 3 months of the S&P 500, with the vertical axes fitted to the days in view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
 
 ### Index Comparison
-![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
+![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
 
 ### Returns Calendar (dark mode)
-![Monthly returns of the S&P 500 by year since 1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
+![Monthly returns of the S&P 500 by year since 1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
 
 ### Seasonality
-![S&P 500 returns by year of the US presidential cycle since 1928, with the best and the worst year and a Kruskal-Wallis test of whether the differences could be chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
+![S&P 500 returns by year of the US presidential cycle since 1928, with a table of the years, the best and the worst year, and a Kruskal-Wallis test of whether the differences could be chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
 
 ### Volatility (dark mode)
-![Whether the volatility of the S&P 500's last month and the move of its last 2 trading days are normal, and the forecast of its next 5 trading days with the value at risk, with its volatility since 1927, its last 63 trading days in GARCH standard deviations and the forecast range](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
+![The volatility of the S&P 500 since 1927, its last 63 trading days in GARCH standard deviations and the forecast of its next 5 trading days, with whether the volatility of its last month and the move of its last 2 trading days are normal, and the value at risk](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
 
 ### Drawdowns
-![How far the S&P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart and a chart of the distance from the high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
+![How far the S&P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart, a chart of the distance from the high and a table of the falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock9.png)
 
 ## Dependencies
 
