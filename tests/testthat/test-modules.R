@@ -46,7 +46,7 @@ test_that("the overview module shows every index and the date of the last closes
   late <- history[!(history$label == "Beta (B)" & history$timestamp == as.Date("2024-03-28")), ]
   local_mocked_bindings(get_history = function(labels, start_date, indices) late[late$label %in% labels, ])
   testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
-    expect_equal(output$updated, "Daily closes from Yahoo Finance, up to 28 Mar 2024; 27 Mar 2024 for the European indices")
+    expect_equal(output$updated, "Daily closes from Yahoo Finance, up to 28 Mar 2024; 1 Mar 2024 for the European indices")
   })
   local_mocked_bindings(get_history = function(labels, start_date, indices) NULL)
   testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
