@@ -65,29 +65,39 @@ every analysis.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_indices</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 label     symbol       region currency       from</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             S&amp;P 500      ^GSPC           US      USD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2           Dow Jones       ^DJI           US      USD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    Nasdaq Composite      ^IXIC           US      USD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Russell 2000       ^RUT           US      USD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   S&amp;P/TSX Composite    ^GSPTSE     Americas      CAD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6             Bovespa      ^BVSP     Americas      BRL 1995-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    STOXX Europe 600     ^STOXX       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       Euro Stoxx 50  ^STOXX50E       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9            FTSE 100      ^FTSE       Europe      GBP       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                DAX     ^GDAXI       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11             CAC 40      ^FCHI       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12            IBEX 35      ^IBEX       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13           FTSE MIB FTSEMIB.MI       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                SMI      ^SSMI       Europe      CHF       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     Athens General      GD.AT       Europe      EUR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16         Nikkei 225      ^N225 Asia-Pacific      JPY       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 Shanghai Composite  000001.SS Asia-Pacific      CNY       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18          Hang Seng       ^HSI Asia-Pacific      HKD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19              KOSPI      ^KS11 Asia-Pacific      KRW       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20             Sensex     ^BSESN Asia-Pacific      INR       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21            ASX 200      ^AXJO Asia-Pacific      AUD       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22                VIX       ^VIX           US     &lt;NA&gt;       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       label     symbol       region currency       from</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   S&amp;P 500      ^GSPC           US      USD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 Dow Jones       ^DJI           US      USD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          Nasdaq Composite      ^IXIC           US      USD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            NYSE Composite       ^NYA           US      USD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5              Russell 2000       ^RUT           US      USD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       VIX       ^VIX           US     &lt;NA&gt;       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         S&amp;P/TSX Composite    ^GSPTSE     Americas      CAD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                   Bovespa      ^BVSP     Americas      BRL 1995-01-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                IPC Mexico       ^MXX     Americas      MXN       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         STOXX Europe 600     ^STOXX       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11            Euro Stoxx 50  ^STOXX50E       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                 FTSE 100      ^FTSE       Europe      GBP       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                      DAX     ^GDAXI       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                   CAC 40      ^FCHI       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                  IBEX 35      ^IBEX       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                 FTSE MIB FTSEMIB.MI       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                      SMI      ^SSMI       Europe      CHF       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18             Euronext 100      ^N100       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                   BEL 20       ^BFX       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20           Athens General      GD.AT       Europe      EUR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21               Nikkei 225      ^N225 Asia-Pacific      JPY       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       Shanghai Composite  000001.SS Asia-Pacific      CNY       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                Hang Seng       ^HSI Asia-Pacific      HKD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                    KOSPI      ^KS11 Asia-Pacific      KRW       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25          Taiwan Weighted      ^TWII Asia-Pacific      TWD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                   Sensex     ^BSESN Asia-Pacific      INR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27            Straits Times       ^STI Asia-Pacific      SGD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                  ASX 200      ^AXJO Asia-Pacific      AUD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29           All Ordinaries      ^AORD Asia-Pacific      AUD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                   NZX 50      ^NZ50 Asia-Pacific      NZD       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31            IDX Composite      ^JKSE Asia-Pacific      IDR       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 FTSE Bursa Malaysia KLCI      ^KLSE Asia-Pacific      MYR       &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

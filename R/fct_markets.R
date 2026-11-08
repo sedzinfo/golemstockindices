@@ -3,32 +3,43 @@
 ##########################################################################################
 #' @title The exchanges of the indices and their trading hours
 #' @description The regular sessions of each exchange in its own time zone,
-#' with the lunch breaks of Shanghai, Hong Kong and Tokyo, and the indices
-#' that follow its shares, from west to east. The Euro Stoxx 50 and the STOXX
-#' Europe 600 are computed while the exchanges of Europe trade, so they go
-#' with Frankfurt, and the VIX with New York. São Paulo moves its hours with
-#' the summer time of the US: `sessions_us_summer` while New York is on it.
-#' Holidays are not known.
+#' with the lunch breaks of Jakarta, Kuala Lumpur, Shanghai, Hong Kong and
+#' Tokyo, and the indices that follow its shares, from west to east. The Euro
+#' Stoxx 50 and the STOXX Europe 600 are computed while the exchanges of
+#' Europe trade, so they go with Frankfurt, the Euronext 100, of the shares of
+#' several Euronext exchanges, with Paris, and the VIX with New York. Mexico
+#' City and São Paulo move their hours with the summer time of the US:
+#' `sessions_us_summer` while New York is on it. Holidays, and the longer
+#' Friday lunch of Jakarta, are not known.
 #' @noRd
 exchanges <- list(
+  list(name = "Mexico City", tz = "America/Mexico_City", sessions = "08:30-15:00", sessions_us_summer = "07:30-14:00",
+       indices = "IPC Mexico"),
   list(name = "Toronto", tz = "America/Toronto", sessions = "09:30-16:00", indices = "S&P/TSX Composite"),
   list(name = "New York", tz = "America/New_York", sessions = "09:30-16:00",
-       indices = c("S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000", "VIX")),
+       indices = c("S&P 500", "Dow Jones", "Nasdaq Composite", "NYSE Composite", "Russell 2000", "VIX")),
   list(name = "S\u00e3o Paulo", tz = "America/Sao_Paulo", sessions = "10:00-18:00", sessions_us_summer = "10:00-17:00",
        indices = "Bovespa"),
   list(name = "London", tz = "Europe/London", sessions = "08:00-16:30", indices = "FTSE 100"),
   list(name = "Frankfurt", tz = "Europe/Berlin", sessions = "09:00-17:30", indices = c("DAX", "Euro Stoxx 50", "STOXX Europe 600")),
-  list(name = "Paris", tz = "Europe/Paris", sessions = "09:00-17:30", indices = "CAC 40"),
+  list(name = "Paris", tz = "Europe/Paris", sessions = "09:00-17:30", indices = c("CAC 40", "Euronext 100")),
+  list(name = "Brussels", tz = "Europe/Brussels", sessions = "09:00-17:30", indices = "BEL 20"),
   list(name = "Madrid", tz = "Europe/Madrid", sessions = "09:00-17:30", indices = "IBEX 35"),
   list(name = "Milan", tz = "Europe/Rome", sessions = "09:00-17:30", indices = "FTSE MIB"),
   list(name = "Zurich", tz = "Europe/Zurich", sessions = "09:00-17:30", indices = "SMI"),
   list(name = "Athens", tz = "Europe/Athens", sessions = "10:00-17:20", indices = "Athens General"),
   list(name = "Mumbai", tz = "Asia/Kolkata", sessions = "09:15-15:30", indices = "Sensex"),
+  list(name = "Jakarta", tz = "Asia/Jakarta", sessions = c("09:00-12:00", "13:30-15:50"), indices = "IDX Composite"),
+  list(name = "Kuala Lumpur", tz = "Asia/Kuala_Lumpur", sessions = c("09:00-12:30", "14:30-17:00"),
+       indices = "FTSE Bursa Malaysia KLCI"),
+  list(name = "Singapore", tz = "Asia/Singapore", sessions = "09:00-17:00", indices = "Straits Times"),
   list(name = "Shanghai", tz = "Asia/Shanghai", sessions = c("09:30-11:30", "13:00-15:00"), indices = "Shanghai Composite"),
   list(name = "Hong Kong", tz = "Asia/Hong_Kong", sessions = c("09:30-12:00", "13:00-16:00"), indices = "Hang Seng"),
+  list(name = "Taipei", tz = "Asia/Taipei", sessions = "09:00-13:30", indices = "Taiwan Weighted"),
   list(name = "Seoul", tz = "Asia/Seoul", sessions = "09:00-15:30", indices = "KOSPI"),
   list(name = "Tokyo", tz = "Asia/Tokyo", sessions = c("09:00-11:30", "12:30-15:30"), indices = "Nikkei 225"),
-  list(name = "Sydney", tz = "Australia/Sydney", sessions = "10:00-16:00", indices = "ASX 200")
+  list(name = "Sydney", tz = "Australia/Sydney", sessions = "10:00-16:00", indices = c("ASX 200", "All Ordinaries")),
+  list(name = "Wellington", tz = "Pacific/Auckland", sessions = "10:00-16:45", indices = "NZX 50")
 )
 ##########################################################################################
 #
