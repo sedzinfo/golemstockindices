@@ -67,22 +67,77 @@ disk_cache <- function() {
 #' get_indices()
 get_indices <- function() {
   indices <- data.frame(
-    label = c("S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000", "S&P/TSX Composite", "Bovespa",
-              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
-              "Athens General", "Nikkei 225", "Shanghai Composite", "Hang Seng", "KOSPI", "Sensex", "ASX 200",
-              "VIX"),
-    symbol = c("^GSPC", "^DJI", "^IXIC", "^RUT", "^GSPTSE", "^BVSP", "^STOXX", "^STOXX50E", "^FTSE",
-               "^GDAXI", "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI", "GD.AT", "^N225", "000001.SS",
-               "^HSI", "^KS11", "^BSESN", "^AXJO",  "^VIX"),
-    region = c(rep("US", 4), rep("Americas", 2), rep("Europe", 9), rep("Asia-Pacific", 6), "US"),
-    currency = c(rep("USD", 4),
-                 "CAD", "BRL",
-                 "EUR", "EUR", "GBP", "EUR", "EUR", "EUR", "EUR", "CHF", "EUR",
-                 "JPY", "CNY", "HKD", "KRW", "INR", "AUD", NA)
+    label = c("S&P 500", "Dow Jones", "Nasdaq Composite", "NYSE Composite",
+              "Russell 2000", "VIX",
+              
+              "S&P/TSX Composite", "Bovespa", "IPC Mexico",
+              
+              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX",
+              "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
+              "Euronext 100", "BEL 20", "Athens General",
+              
+              "Nikkei 225", "Shanghai Composite", "Hang Seng",
+              "KOSPI", "Taiwan Weighted", "Sensex",
+              "Straits Times", "ASX 200", "All Ordinaries",
+              "NZX 50", "IDX Composite", "FTSE Bursa Malaysia KLCI"),
+    
+    symbol = c("^GSPC", "^DJI", "^IXIC", "^NYA",
+               "^RUT", "^VIX",
+               
+               "^GSPTSE", "^BVSP", "^MXX",
+               
+               "^STOXX", "^STOXX50E", "^FTSE", "^GDAXI",
+               "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI",
+               "^N100", "^BFX", "GD.AT",
+               
+               "^N225", "000001.SS", "^HSI",
+               "^KS11", "^TWII", "^BSESN",
+               "^STI", "^AXJO", "^AORD",
+               "^NZ50", "^JKSE", "^KLSE"),
+    
+    region = c(rep("US", 6),
+               rep("Americas", 3),
+               rep("Europe", 10),
+               rep("Asia-Pacific", 13)),
+    
+    currency = c("USD", "USD", "USD", "USD", "USD", NA,
+                 "CAD", "BRL", "MXN",
+                 "EUR", "EUR", "GBP", "EUR",
+                 "EUR", "EUR", "EUR", "CHF",
+                 "EUR", "EUR", "EUR",
+                 
+                 "JPY", "CNY", "HKD",
+                 "KRW", "TWD", "INR",
+                 "SGD", "AUD", "AUD",
+                 "NZD", "IDR", "MYR"),
+    
+    stringsAsFactors = FALSE
   )
-  indices$from <- as.Date(ifelse(indices$label == "Bovespa", "1995-01-01", NA))
+  
+  indices$from <- as.Date(
+    ifelse(indices$label == "Bovespa", "1995-01-01", NA)
+  )
+  
   indices
 }
+# get_indices <- function() {
+#   indices <- data.frame(
+#     label = c("S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000", "S&P/TSX Composite", "Bovespa",
+#               "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
+#               "Athens General", "Nikkei 225", "Shanghai Composite", "Hang Seng", "KOSPI", "Sensex", "ASX 200",
+#               "VIX"),
+#     symbol = c("^GSPC", "^DJI", "^IXIC", "^RUT", "^GSPTSE", "^BVSP", "^STOXX", "^STOXX50E", "^FTSE",
+#                "^GDAXI", "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI", "GD.AT", "^N225", "000001.SS",
+#                "^HSI", "^KS11", "^BSESN", "^AXJO",  "^VIX"),
+#     region = c(rep("US", 4), rep("Americas", 2), rep("Europe", 9), rep("Asia-Pacific", 6), "US"),
+#     currency = c(rep("USD", 4),
+#                  "CAD", "BRL",
+#                  "EUR", "EUR", "GBP", "EUR", "EUR", "EUR", "EUR", "CHF", "EUR",
+#                  "JPY", "CNY", "HKD", "KRW", "INR", "AUD", NA)
+#   )
+#   indices$from <- as.Date(ifelse(indices$label == "Bovespa", "1995-01-01", NA))
+#   indices
+# }
 ##########################################################################################
 #
 ##########################################################################################
