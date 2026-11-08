@@ -67,28 +67,18 @@ disk_cache <- function() {
 #' get_indices()
 get_indices <- function() {
   indices <- data.frame(
-    label = c(
-      "S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000",
-      "S&P/TSX Composite", "Bovespa",
-      "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI", "Athens General",
-      "Nikkei 225", "Shanghai Composite", "Hang Seng", "KOSPI", "Sensex", "ASX 200",
-      "VIX"
-    ),
-    symbol = c(
-      "^GSPC", "^DJI", "^IXIC", "^RUT",
-      "^GSPTSE", "^BVSP",
-      "^STOXX", "^STOXX50E", "^FTSE", "^GDAXI", "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI", "GD.AT",
-      "^N225", "000001.SS", "^HSI", "^KS11", "^BSESN", "^AXJO",
-      "^VIX"
-    ),
+    label = c("S&P 500", "Dow Jones", "Nasdaq Composite", "Russell 2000", "S&P/TSX Composite", "Bovespa",
+              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
+              "Athens General", "Nikkei 225", "Shanghai Composite", "Hang Seng", "KOSPI", "Sensex", "ASX 200",
+              "VIX"),
+    symbol = c("^GSPC", "^DJI", "^IXIC", "^RUT", "^GSPTSE", "^BVSP", "^STOXX", "^STOXX50E", "^FTSE",
+               "^GDAXI", "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI", "GD.AT", "^N225", "000001.SS",
+               "^HSI", "^KS11", "^BSESN", "^AXJO",  "^VIX"),
     region = c(rep("US", 4), rep("Americas", 2), rep("Europe", 9), rep("Asia-Pacific", 6), "US"),
-    currency = c(
-      rep("USD", 4),
-      "CAD", "BRL",
-      "EUR", "EUR", "GBP", "EUR", "EUR", "EUR", "EUR", "CHF", "EUR",
-      "JPY", "CNY", "HKD", "KRW", "INR", "AUD",
-      NA
-    )
+    currency = c(rep("USD", 4),
+                 "CAD", "BRL",
+                 "EUR", "EUR", "GBP", "EUR", "EUR", "EUR", "EUR", "CHF", "EUR",
+                 "JPY", "CNY", "HKD", "KRW", "INR", "AUD", NA)
   )
   indices$from <- as.Date(ifelse(indices$label == "Bovespa", "1995-01-01", NA))
   indices
