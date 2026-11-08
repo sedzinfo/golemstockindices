@@ -10,11 +10,13 @@ below its all-time high.
 
 ## Features
 
-- **32 indices**: S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite,
+- **44 indices**: S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite,
   Russell 2000 and the VIX in the US; S&P/TSX Composite, Bovespa and IPC
   Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100,
-  DAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, BEL 20 and Athens
-  General in Europe; Nikkei 225, Shanghai Composite, Hang Seng, KOSPI,
+  DAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, BEL 20, AEX, ATX,
+  ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki
+  25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST
+  100 in Europe; Nikkei 225, Shanghai Composite, Hang Seng, KOSPI,
   Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX
   50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific
 - **Overview**: Which exchanges are open now, every index in one table

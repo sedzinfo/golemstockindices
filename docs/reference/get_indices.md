@@ -26,37 +26,27 @@ swamp every analysis.
 
 ``` r
 get_indices()
-#>                       label     symbol       region currency       from
-#> 1                   S&P 500      ^GSPC           US      USD       <NA>
-#> 2                 Dow Jones       ^DJI           US      USD       <NA>
-#> 3          Nasdaq Composite      ^IXIC           US      USD       <NA>
-#> 4            NYSE Composite       ^NYA           US      USD       <NA>
-#> 5              Russell 2000       ^RUT           US      USD       <NA>
-#> 6                       VIX       ^VIX           US     <NA>       <NA>
-#> 7         S&P/TSX Composite    ^GSPTSE     Americas      CAD       <NA>
-#> 8                   Bovespa      ^BVSP     Americas      BRL 1995-01-01
-#> 9                IPC Mexico       ^MXX     Americas      MXN       <NA>
-#> 10         STOXX Europe 600     ^STOXX       Europe      EUR       <NA>
-#> 11            Euro Stoxx 50  ^STOXX50E       Europe      EUR       <NA>
-#> 12                 FTSE 100      ^FTSE       Europe      GBP       <NA>
-#> 13                      DAX     ^GDAXI       Europe      EUR       <NA>
-#> 14                   CAC 40      ^FCHI       Europe      EUR       <NA>
-#> 15                  IBEX 35      ^IBEX       Europe      EUR       <NA>
-#> 16                 FTSE MIB FTSEMIB.MI       Europe      EUR       <NA>
-#> 17                      SMI      ^SSMI       Europe      CHF       <NA>
-#> 18             Euronext 100      ^N100       Europe      EUR       <NA>
-#> 19                   BEL 20       ^BFX       Europe      EUR       <NA>
-#> 20           Athens General      GD.AT       Europe      EUR       <NA>
-#> 21               Nikkei 225      ^N225 Asia-Pacific      JPY       <NA>
-#> 22       Shanghai Composite  000001.SS Asia-Pacific      CNY       <NA>
-#> 23                Hang Seng       ^HSI Asia-Pacific      HKD       <NA>
-#> 24                    KOSPI      ^KS11 Asia-Pacific      KRW       <NA>
-#> 25          Taiwan Weighted      ^TWII Asia-Pacific      TWD       <NA>
-#> 26                   Sensex     ^BSESN Asia-Pacific      INR       <NA>
-#> 27            Straits Times       ^STI Asia-Pacific      SGD       <NA>
-#> 28                  ASX 200      ^AXJO Asia-Pacific      AUD       <NA>
-#> 29           All Ordinaries      ^AORD Asia-Pacific      AUD       <NA>
-#> 30                   NZX 50      ^NZ50 Asia-Pacific      NZD       <NA>
-#> 31            IDX Composite      ^JKSE Asia-Pacific      IDR       <NA>
-#> 32 FTSE Bursa Malaysia KLCI      ^KLSE Asia-Pacific      MYR       <NA>
+#>                 label     symbol       region currency       from
+#> 1             S&P 500      ^GSPC           US      USD       <NA>
+#> 2           Dow Jones       ^DJI           US      USD       <NA>
+#> 3    Nasdaq Composite      ^IXIC           US      USD       <NA>
+#> 4        Russell 2000       ^RUT           US      USD       <NA>
+#> 5   S&P/TSX Composite    ^GSPTSE     Americas      CAD       <NA>
+#> 6             Bovespa      ^BVSP     Americas      BRL 1995-01-01
+#> 7    STOXX Europe 600     ^STOXX       Europe      EUR       <NA>
+#> 8       Euro Stoxx 50  ^STOXX50E       Europe      EUR       <NA>
+#> 9            FTSE 100      ^FTSE       Europe      GBP       <NA>
+#> 10                DAX     ^GDAXI       Europe      EUR       <NA>
+#> 11             CAC 40      ^FCHI       Europe      EUR       <NA>
+#> 12            IBEX 35      ^IBEX       Europe      EUR       <NA>
+#> 13           FTSE MIB FTSEMIB.MI       Europe      EUR       <NA>
+#> 14                SMI      ^SSMI       Europe      CHF       <NA>
+#> 15     Athens General      GD.AT       Europe      EUR       <NA>
+#> 16         Nikkei 225      ^N225 Asia-Pacific      JPY       <NA>
+#> 17 Shanghai Composite  000001.SS Asia-Pacific      CNY       <NA>
+#> 18          Hang Seng       ^HSI Asia-Pacific      HKD       <NA>
+#> 19              KOSPI      ^KS11 Asia-Pacific      KRW       <NA>
+#> 20             Sensex     ^BSESN Asia-Pacific      INR       <NA>
+#> 21            ASX 200      ^AXJO Asia-Pacific      AUD       <NA>
+#> 22                VIX       ^VIX           US     <NA>       <NA>
 ```

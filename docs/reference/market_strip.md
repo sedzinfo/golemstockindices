@@ -34,97 +34,69 @@ A `div` of Shiny UI elements.
 ``` r
 golemstockindices:::market_strip(market_status())
 #> <div class="market-strip">
-#>   <span class="market closed" title="12:28 local time, opens Mon 08:30 · IPC Mexico">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Mexico City
-#>   </span>
-#>   <span class="market closed" title="13:28 local time, opens Mon 09:30 · S&amp;P/TSX Composite">
+#>   <span class="market closed" title="13:48 local time, opens Mon 09:30 · S&amp;P/TSX Composite">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Toronto
 #>   </span>
-#>   <span class="market closed" title="13:28 local time, opens Mon 09:30 · S&amp;P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000, VIX">
+#>   <span class="market closed" title="13:48 local time, opens Mon 09:30 · S&amp;P 500, Dow Jones, Nasdaq Composite, Russell 2000, VIX">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     New York
 #>   </span>
-#>   <span class="market closed" title="15:28 local time, opens Mon 10:00 · Bovespa">
+#>   <span class="market closed" title="15:48 local time, opens Mon 10:00 · Bovespa">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     São Paulo
 #>   </span>
-#>   <span class="market closed" title="18:28 local time, opens Mon 08:00 · FTSE 100">
+#>   <span class="market closed" title="18:48 local time, opens Mon 08:00 · FTSE 100">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     London
 #>   </span>
-#>   <span class="market closed" title="19:28 local time, opens Mon 09:00 · DAX, Euro Stoxx 50, STOXX Europe 600">
+#>   <span class="market closed" title="19:48 local time, opens Mon 09:00 · DAX, Euro Stoxx 50, STOXX Europe 600">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Frankfurt
 #>   </span>
-#>   <span class="market closed" title="19:28 local time, opens Mon 09:00 · CAC 40, Euronext 100">
+#>   <span class="market closed" title="19:48 local time, opens Mon 09:00 · CAC 40">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Paris
 #>   </span>
-#>   <span class="market closed" title="19:28 local time, opens Mon 09:00 · BEL 20">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Brussels
-#>   </span>
-#>   <span class="market closed" title="19:28 local time, opens Mon 09:00 · IBEX 35">
+#>   <span class="market closed" title="19:48 local time, opens Mon 09:00 · IBEX 35">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Madrid
 #>   </span>
-#>   <span class="market closed" title="19:28 local time, opens Mon 09:00 · FTSE MIB">
+#>   <span class="market closed" title="19:48 local time, opens Mon 09:00 · FTSE MIB">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Milan
 #>   </span>
-#>   <span class="market closed" title="19:28 local time, opens Mon 09:00 · SMI">
+#>   <span class="market closed" title="19:48 local time, opens Mon 09:00 · SMI">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Zurich
 #>   </span>
-#>   <span class="market closed" title="20:28 local time, opens Mon 10:00 · Athens General">
+#>   <span class="market closed" title="20:48 local time, opens Mon 10:00 · Athens General">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Athens
 #>   </span>
-#>   <span class="market closed" title="23:58 local time, opens Mon 09:15 · Sensex">
+#>   <span class="market closed" title="00:18 local time, opens 09:15 · Sensex">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Mumbai
 #>   </span>
-#>   <span class="market closed" title="01:28 local time, opens 09:00 · IDX Composite">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Jakarta
-#>   </span>
-#>   <span class="market closed" title="02:28 local time, opens 09:00 · FTSE Bursa Malaysia KLCI">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Kuala Lumpur
-#>   </span>
-#>   <span class="market closed" title="02:28 local time, opens 09:00 · Straits Times">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Singapore
-#>   </span>
-#>   <span class="market closed" title="02:28 local time, opens 09:30 · Shanghai Composite">
+#>   <span class="market closed" title="02:48 local time, opens 09:30 · Shanghai Composite">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Shanghai
 #>   </span>
-#>   <span class="market closed" title="02:28 local time, opens 09:30 · Hang Seng">
+#>   <span class="market closed" title="02:48 local time, opens 09:30 · Hang Seng">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Hong Kong
 #>   </span>
-#>   <span class="market closed" title="02:28 local time, opens 09:00 · Taiwan Weighted">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Taipei
-#>   </span>
-#>   <span class="market closed" title="03:28 local time, opens 09:00 · KOSPI">
+#>   <span class="market closed" title="03:48 local time, opens 09:00 · KOSPI">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Seoul
 #>   </span>
-#>   <span class="market closed" title="03:28 local time, opens 09:00 · Nikkei 225">
+#>   <span class="market closed" title="03:48 local time, opens 09:00 · Nikkei 225">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Tokyo
 #>   </span>
-#>   <span class="market closed" title="05:28 local time, opens 10:00 · ASX 200, All Ordinaries">
+#>   <span class="market closed" title="05:48 local time, opens 10:00 · ASX 200">
 #>     <span class="market-dot" aria-hidden="true"></span>
 #>     Sydney
-#>   </span>
-#>   <span class="market closed" title="07:28 local time, opens 10:00 · NZX 50">
-#>     <span class="market-dot" aria-hidden="true"></span>
-#>     Wellington
 #>   </span>
 #> </div>
 ```

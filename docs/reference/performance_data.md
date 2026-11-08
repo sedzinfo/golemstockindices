@@ -47,7 +47,5 @@ summary <- data.frame(
   day_pct = c(0.4, -0.8, 5), week_pct = 1, month_pct = 2, ytd_pct = c(14, 18, -10), year_pct = 15
 )
 golemstockindices:::performance_data(summary, get_indices(), "day")
-#>     label region currency       date close change_pct
-#> 1 S&P 500     US      USD 2026-11-06  6700        0.4
-#> 2     DAX Europe      EUR 2026-11-06 23500       -0.8
+#> Error: object 'performance_data' not found
 ```
