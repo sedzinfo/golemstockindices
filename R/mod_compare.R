@@ -30,7 +30,7 @@ mod_compare_ui <- function(id, indices, selected = c("S&P 500", "Euro Stoxx 50",
         options = list(maxItems = 10, plugins = list("remove_button"))
       ),
       dateInput(ns("start"), label = "Start date", value = Sys.Date() - 365, max = Sys.Date() - 1),
-      div(class = "mb-3", downloadButton(ns("csv"), "CSV"))
+      div(class = "mb-3 csv-beside-inputs", downloadButton(ns("csv"), "CSV", class = "btn-sm"))
     ),
     shinycssloaders::withSpinner(
       # the rest of the window below the controls, with a minimum in styles.css

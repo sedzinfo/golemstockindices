@@ -95,7 +95,7 @@ test_that("the returns calendar needs at least two months of history", {
 
 test_that("the about tab explains every tab, every column of the overview and every index", {
   page <- htmltools::renderTags(mod_about_ui("about"))$html
-  for (tab in c("Overview", "Timeseries", "Compare", "Returns calendar", "Seasonality", "Volatility", "Drawdowns")) {
+  for (tab in c("Overview", "Performance", "Timeseries", "Compare", "Returns calendar", "Seasonality", "Volatility", "Drawdowns")) {
     expect_match(page, paste0(">", tab, "</h3>"), fixed = TRUE, label = tab)
   }
   for (column in names(overview_table(index_summary(history), indices)$x$data)) {
@@ -177,14 +177,24 @@ test_that("the seasonality module explains, charts and lists the returns of the 
   })
 })
 
-test_that("the overview shows the open exchanges and the performance over the period picked", {
+test_that("the overview shows the open exchanges and returns the summary for the Performance tab", {
   local_mocked_bindings(get_history = function(labels, start_date, indices) history[history$label %in% labels, ])
   testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
     expect_match(output$markets$html, "New York")
     expect_match(output$markets$html, "Hong Kong")
+    expect_equal(session$getReturned()()$label, indices$label)
+  })
+})
+
+test_that("the performance tab charts the change over the period picked, and downloads it", {
+  summary <- reactive(index_summary(history))
+  testServer(mod_performance_server, args = list(summary = summary, indices = indices, dark_mode = light), {
     # the test history has no close of the year before, so no change this year: an empty chart
-    expect_no_error(output$performance)
+    expect_no_error(output$plot)
     session$setInputs(period = "day")
-    expect_match(output$performance, "Change on the day", fixed = TRUE)
+    expect_match(output$plot, "Change on the day", fixed = TRUE)
+    csv <- utils::read.csv(output$csv)
+    expect_equal(names(csv), c("label", "region", "currency", "date", "close", "change_pct"))
+    expect_equal(csv$change_pct, sort(csv$change_pct, decreasing = TRUE))
   })
 })

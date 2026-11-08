@@ -1,17 +1,9 @@
-/* the CSV buttons next to the pickers get the height of a Bootstrap text box, like the start
-   date, so the controls above the charts line up (the small CSV buttons that sit next to text
-   are left as they are) */
-.shiny-download-link:not(.btn-sm) {
+/* every CSV button is a small one; next to the pickers of the Timeseries and Compare tabs it
+   sits in a box as tall as their text boxes, centred on them, so the controls line up */
+.csv-beside-inputs {
   height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
-  padding-top: 0;
-  padding-bottom: 0;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-}
-
-/* as a flex box, the button drops the space between the download icon and "CSV" */
-.shiny-download-link:not(.btn-sm) {
-  gap: 0.375rem;
 }
 
 /* the charts fill the window below their controls (see the modules), but no less than this,

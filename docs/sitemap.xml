@@ -49,6 +49,8 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_drawdowns_ui.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_overview_server.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_overview_ui.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_performance_server.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_performance_ui.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_returns_calendar_server.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_returns_calendar_ui.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_seasonality_server.html</loc></url>
@@ -64,6 +66,7 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/overview_table.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/parse_chart.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/performance_data.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/period_bounds.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_compare.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_drawdowns.html</loc></url>

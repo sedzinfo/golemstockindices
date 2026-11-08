@@ -29,6 +29,7 @@ app_ui <- function(indices, analytics = FALSE, keep_alive = TRUE) {
       fillable = FALSE,
       footer = if (analytics) analytics_footer(),
       tabPanel("Overview", mod_overview_ui("overview")),
+      tabPanel("Performance", mod_performance_ui("performance")),
       tabPanel("Timeseries", mod_timeseries_ui("timeseries", indices)),
       tabPanel("Compare", mod_compare_ui("compare", indices)),
       tabPanel("Returns calendar", mod_returns_calendar_ui("returns_calendar")),

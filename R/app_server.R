@@ -2,9 +2,10 @@
 #
 ##########################################################################################
 #' @title The application server logic
-#' @description Wires up the module of each tab. The price history of the
-#' index picked in the Timeseries tab is shared with the Returns calendar,
-#' Seasonality, Volatility and Drawdowns tabs.
+#' @description Wires up the module of each tab. The summary of every index
+#' of the Overview tab is shared with the Performance tab, and the price
+#' history of the index picked in the Timeseries tab with the Returns
+#' calendar, Seasonality, Volatility and Drawdowns tabs.
 #' @param indices Data frame of indices from `get_indices()`.
 #' @return A shiny server function, with the usual `input`, `output` and
 #'   `session` arguments.
@@ -18,7 +19,8 @@ app_server <- function(indices) {
   function(input, output, session) {
     dark_mode <- reactive(input$dark_mode)
 
-    mod_overview_server("overview", indices, dark_mode)
+    summary <- mod_overview_server("overview", indices, dark_mode)
+    mod_performance_server("performance", summary, indices, dark_mode)
     history <- mod_timeseries_server("timeseries", indices, dark_mode)
     mod_compare_server("compare", indices, dark_mode)
     mod_returns_calendar_server("returns_calendar", history, dark_mode)

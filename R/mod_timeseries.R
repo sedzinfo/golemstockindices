@@ -33,7 +33,7 @@ mod_timeseries_ui <- function(id, indices) {
     div(
       class = "d-flex flex-wrap align-items-end gap-3",
       selectInput(ns("index"), label = "Index", choices = index_choices(indices), selectize = FALSE, width = "14rem"),
-      div(class = "mb-3", downloadButton(ns("csv"), "CSV"))
+      div(class = "mb-3 csv-beside-inputs", downloadButton(ns("csv"), "CSV", class = "btn-sm"))
     ),
     shinycssloaders::withSpinner(
       # the rest of the window below the controls, with a minimum in styles.css

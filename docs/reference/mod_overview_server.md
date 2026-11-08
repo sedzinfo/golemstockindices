@@ -2,12 +2,11 @@
 
 Gets the whole history of every index, sums it up with
 [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)
-and shows it as a table, with a small line of each index's last year,
-and as a chart of the performance over the period picked. The histories
-are brought up to date when they are more than an hour old, and the
-table follows while the page stays open; the strip and the table of the
-exchanges follow the clock every minute. The CSV file, named like
-`overview-2026-11-07.csv`, holds the summary unrounded.
+and shows it as a table, with a small line of each index's last year.
+The histories are brought up to date when they are more than an hour
+old, and the table follows while the page stays open; the strip and the
+table of the exchanges follow the clock every minute. The CSV file,
+named like `overview-2026-11-07.csv`, holds the summary unrounded.
 
 ## Usage
 
@@ -33,7 +32,10 @@ mod_overview_server(id, indices, dark_mode)
 
 ## Value
 
-None. Called for its side effect of registering the module server.
+A reactive returning the
+[`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)
+of every index, for
+[`mod_performance_server()`](https://sedzinfo.github.io/golemstockindices/reference/mod_performance_server.md).
 
 ## Examples
 
@@ -41,7 +43,7 @@ None. Called for its side effect of registering the module server.
 if (FALSE) { # \dontrun{
 # inside app_server():
 function(input, output, session) {
-  mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
+  summary <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
 }
 } # }
 ```

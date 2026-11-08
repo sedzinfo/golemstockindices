@@ -28,9 +28,10 @@ A plotly object.
 }
 \description{
 One horizontal bar per index, its change over the period in
-percent, green for rises and red for falls, the best at the top. The VIX
-is left out: it measures the fear in the market rather than the value of
-shares, and its swings of tens of percent would squeeze the others.
+percent, green for rises and red for falls, the best at the top, from
+\code{\link[=performance_data]{performance_data()}}. The VIX is left out: it measures the fear in the
+market rather than the value of shares, and its swings of tens of percent
+would squeeze the others.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

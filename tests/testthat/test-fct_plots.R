@@ -119,7 +119,7 @@ test_that("the timeseries chart switches between a linear and a log axis and fit
 
 test_that("the performance chart sorts the indices, best at the top, and leaves the VIX out", {
   summary <- data.frame(
-    label = c("Alpha (A)", "Beta (B)", "Gamma (C)", "VIX"),
+    label = c("Alpha (A)", "Beta (B)", "Gamma (C)", "VIX"), date = as.Date("2024-03-28"), close = 100,
     day_pct = c(1, -2, 0.5, 9), week_pct = 1, month_pct = 1, ytd_pct = c(5, NA, -3, 70), year_pct = 1
   )
   all <- rbind(indices, data.frame(label = c("Gamma (C)", "VIX"), symbol = c("C", "^VIX"), region = "US", currency = c("EUR", NA)))
@@ -132,6 +132,11 @@ test_that("the performance chart sorts the indices, best at the top, and leaves 
   ytd <- plotly::plotly_build(plot_performance(summary, all, "ytd", "dark"))$x
   expect_equal(as.character(ytd$data[[1]]$y), c("Gamma (C)", "Alpha (A)"))
   expect_equal(as.character(ytd$data[[1]]$text), c("-3.00%", "+5.00%"))
+  # the same rows, best first, are the data of the CSV file
+  data <- performance_data(summary, all, "ytd")
+  expect_equal(names(data), c("label", "region", "currency", "date", "close", "change_pct"))
+  expect_equal(data$label, c("Alpha (A)", "Gamma (C)"))
+  expect_equal(data$change_pct, c(5, -3))
 })
 
 test_that("the overview table draws the last year of each index when it has the history", {

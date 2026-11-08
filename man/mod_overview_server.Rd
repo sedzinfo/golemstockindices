@@ -16,14 +16,14 @@ mod_overview_server(id, indices, dark_mode)
 app.}
 }
 \value{
-None. Called for its side effect of registering the module server.
+A reactive returning the \code{\link[=index_summary]{index_summary()}} of every index, for
+\code{\link[=mod_performance_server]{mod_performance_server()}}.
 }
 \description{
 Gets the whole history of every index, sums it up with
 \code{\link[=index_summary]{index_summary()}} and shows it as a table, with a small line of each
-index's last year, and as a chart of the performance over the period
-picked. The histories are brought up to date when they are more than an
-hour old, and the table follows while the page stays open; the strip and
+index's last year. The histories are brought up to date when they are more
+than an hour old, and the table follows while the page stays open; the strip and
 the table of the exchanges follow the clock every minute. The CSV file, named
 like \verb{overview-2026-11-07.csv}, holds the summary unrounded.
 }
@@ -31,7 +31,7 @@ like \verb{overview-2026-11-07.csv}, holds the summary unrounded.
 \dontrun{
 # inside app_server():
 function(input, output, session) {
-  mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
+  summary <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
 }
 }
 }

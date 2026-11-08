@@ -2,7 +2,8 @@
 
 * First version: a 'shiny' app for exploring 32 major stock market indices of the US (S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000), the rest of the Americas (S&P/TSX Composite, Bovespa, IPC Mexico), Europe (STOXX Europe 600, Euro Stoxx 50, FTSE 100, DAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, BEL 20, Athens General) and Asia-Pacific (Nikkei 225, Shanghai Composite, Hang Seng, KOSPI, Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite, FTSE Bursa Malaysia KLCI), and the VIX, with daily prices from Yahoo Finance and no API key. The Bovespa starts in 1995, after Brazil's hyperinflation. Start it with `run_app()`.
 * Tabs:
-  * **Overview** shows which exchanges are open now, where every index stands (its last close with a line of its last year, the change on the day, this year and over a year, and how far it is below its all-time high), and a chart of their performance over a day, week, month, this year or a year. `market_status()`, `index_summary()`, `overview_table()` and `plot_performance()` do the same from R.
+  * **Overview** shows which exchanges are open now and where every index stands (its last close with a line of its last year, the change on the day, this year and over a year, and how far it is below its all-time high). `market_status()`, `index_summary()` and `overview_table()` do the same from R.
+  * **Performance** charts the indices side by side over a day, week, month, this year or a year, the best at the top. `plot_performance()` does the same from R.
   * **Timeseries** plots the whole history of an index as candles, with the volume, the 50- and 200-day moving averages and the drawdown.
   * **Compare** plots up to 10 indices from a chosen start date, each starting at 100, on a linear or log scale.
   * **Returns calendar** shows the monthly returns by year.

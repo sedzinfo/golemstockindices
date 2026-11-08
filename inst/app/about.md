@@ -1,6 +1,6 @@
 Stock Market Indices shows the daily prices of the major stock market indices of the Americas, Europe and Asia-Pacific, from <a href="https://finance.yahoo.com" target="_blank" rel="noopener">Yahoo Finance</a>. This page explains what each index measures, what each tab shows and how its numbers are calculated. The CSV button of each tab downloads the data behind it, unrounded. The app is for exploring market data; it is not investment advice.
 
-**On this page:** [The indices](#about-indices) · [Overview](#about-overview) · [Timeseries](#about-timeseries) · [Compare](#about-compare) · [Linear and log scales](#about-scales) · [Returns calendar](#about-calendar) · [Seasonality](#about-seasonality) · [Volatility](#about-volatility) · [Drawdowns](#about-drawdowns) · [Data and updates](#about-data)
+**On this page:** [The indices](#about-indices) · [Overview](#about-overview) · [Performance](#about-performance) · [Timeseries](#about-timeseries) · [Compare](#about-compare) · [Linear and log scales](#about-scales) · [Returns calendar](#about-calendar) · [Seasonality](#about-seasonality) · [Volatility](#about-volatility) · [Drawdowns](#about-drawdowns) · [Data and updates](#about-data)
 
 <h3 id="about-indices">The indices</h3>
 
@@ -47,7 +47,7 @@ Each index is in the money of its shares (US, Canadian, Australian, New Zealand,
 
 <h3 id="about-overview">Overview</h3>
 
-Where every index stands, in one table, grouped by region, and how they compare, in a chart.
+Where every index stands, in one table, grouped by region.
 
 **The exchanges.** The labels at the top, from west to east, say which exchanges are open, with a green dot, at lunch, with an amber one (Jakarta, Kuala Lumpur, Shanghai, Hong Kong and Tokyo pause at midday), or closed, with a grey one. Hover over a label for its local time, when that changes and its indices; the Euro Stoxx 50 and the STOXX Europe 600, made of shares of many countries, go with Frankfurt, and the Euronext 100, made of shares of several Euronext exchanges, with Paris. The table of the exchanges at the bottom of the page, which the link after the labels leads to, has all of it: the indices, the local time, the state now, the next opening or closing, the regular hours and the time zone of each exchange. Mexico City and São Paulo keep in step with New York: while the US is on summer time, Mexico City trades from 07:30 to 14:00 instead of 08:30 to 15:00, and São Paulo closes at 17:00 instead of 18:00. The regular weekday sessions are all the app knows: on a holiday an exchange shows as open, the longer Friday lunch of Jakarta is not known, and the indices are computed on their own schedules, the VIX for example also outside the hours of New York. While an exchange is open, its index shows the close of the day before.
 
@@ -71,7 +71,11 @@ Where every index stands, in one table, grouped by region, and how they compare,
 
 The changes are shaded red for falls and green for rises, and the distance from the high red. Each column has a scale of its own, from no color near zero to the deepest shade at its largest value, as a day's moves are much smaller than a year's.
 
-**The performance chart** below the table puts the indices side by side over the period picked above it: the change on the day, over a week or a month (since the last close a week or a month before), this year or over a year, the best at the top. The VIX is left out: it measures fear rather than the value of shares, and its swings of tens of percent would squeeze the others into slivers. The CSV button downloads the table with the changes over a week and a month too.
+The CSV button downloads the table with the changes over a week and a month too.
+
+<h3 id="about-performance">Performance</h3>
+
+How the indices compare, in one chart: the change of each over the period picked above it, the best at the top, green for rises and red for falls. The periods are those of the Overview table: the day (since the close before), a week or a month (since the last close a week or a month before), this year (since the last close of last year) or a year (since the last close a year or more ago). Each index counts from its own last close, so after a holiday on one exchange its day can be a day older than the others'. An index whose history is shorter than the period is left out, and so is the VIX: it measures fear rather than the value of shares, and its swings of tens of percent would squeeze the others into slivers. Each change is in the currency of the index (see [The indices](#about-indices)). The CSV button downloads the changes of the chart, best first, with the region, currency, date and close of each index.
 
 <h3 id="about-timeseries">Timeseries</h3>
 

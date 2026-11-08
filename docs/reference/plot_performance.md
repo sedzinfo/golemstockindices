@@ -1,9 +1,11 @@
 # Performance of the indices over a period
 
 One horizontal bar per index, its change over the period in percent,
-green for rises and red for falls, the best at the top. The VIX is left
-out: it measures the fear in the market rather than the value of shares,
-and its swings of tens of percent would squeeze the others.
+green for rises and red for falls, the best at the top, from
+[`performance_data()`](https://sedzinfo.github.io/golemstockindices/reference/performance_data.md).
+The VIX is left out: it measures the fear in the market rather than the
+value of shares, and its swings of tens of percent would squeeze the
+others.
 
 ## Usage
 

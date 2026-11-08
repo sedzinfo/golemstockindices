@@ -19,8 +19,9 @@ below its all-time high.
   50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific
 - **Overview**: Which exchanges are open now, every index in one table
   with a line of its last year, its last close, the change on the day,
-  this year and over a year, and how far it is below its all-time high,
-  and a chart of their performance over a day, week, month or year
+  this year and over a year, and how far it is below its all-time high
+- **Performance**: The indices side by side in one chart, the best at
+  the top, over the day, a week, a month, this year or a year
 - **Interactive Candlestick Charts**: The whole history of an index,
   back to 1927 for the S&P 500, with the volume, the 50- and 200-day
   moving averages and the drawdown
@@ -93,8 +94,14 @@ kept on disk between R sessions (see [Data Source](#data-source)).
   and over a year, how far each is below its all-time high, that high
   and its date, the currency and the first day of the history
 - The changes are shaded red for falls and green for rises
+
+### Performance Tab
+
 - A chart of the indices side by side over the day, a week, a month,
-  this year or a year, the best at the top
+  this year or a year, the best at the top, green for rises and red for
+  falls
+- The VIX, and any index whose history is shorter than the period, is
+  left out
 
 ### Timeseries Tab
 

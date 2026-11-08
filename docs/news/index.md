@@ -14,17 +14,19 @@
   starts in 1995, after Brazil’s hyperinflation. Start it with
   [`run_app()`](https://sedzinfo.github.io/golemstockindices/reference/run_app.md).
 - Tabs:
-  - **Overview** shows which exchanges are open now, where every index
-    stands (its last close with a line of its last year, the change on
-    the day, this year and over a year, and how far it is below its
-    all-time high), and a chart of their performance over a day, week,
-    month, this year or a year.
+  - **Overview** shows which exchanges are open now and where every
+    index stands (its last close with a line of its last year, the
+    change on the day, this year and over a year, and how far it is
+    below its all-time high).
     [`market_status()`](https://sedzinfo.github.io/golemstockindices/reference/market_status.md),
-    [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md),
-    [`overview_table()`](https://sedzinfo.github.io/golemstockindices/reference/overview_table.md)
+    [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)
     and
-    [`plot_performance()`](https://sedzinfo.github.io/golemstockindices/reference/plot_performance.md)
+    [`overview_table()`](https://sedzinfo.github.io/golemstockindices/reference/overview_table.md)
     do the same from R.
+  - **Performance** charts the indices side by side over a day, week,
+    month, this year or a year, the best at the top.
+    [`plot_performance()`](https://sedzinfo.github.io/golemstockindices/reference/plot_performance.md)
+    does the same from R.
   - **Timeseries** plots the whole history of an index as candles, with
     the volume, the 50- and 200-day moving averages and the drawdown.
   - **Compare** plots up to 10 indices from a chosen start date, each

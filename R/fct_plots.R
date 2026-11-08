@@ -758,9 +758,10 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
 ##########################################################################################
 #' @title Performance of the indices over a period
 #' @description One horizontal bar per index, its change over the period in
-#' percent, green for rises and red for falls, the best at the top. The VIX
-#' is left out: it measures the fear in the market rather than the value of
-#' shares, and its swings of tens of percent would squeeze the others.
+#' percent, green for rises and red for falls, the best at the top, from
+#' [performance_data()]. The VIX is left out: it measures the fear in the
+#' market rather than the value of shares, and its swings of tens of percent
+#' would squeeze the others.
 #' @param summary The result of [index_summary()].
 #' @param indices Data frame of indices from [get_indices()]; the indices
 #'   without a currency, the VIX, are left out.
@@ -777,14 +778,11 @@ plot_performance <- function(summary, indices = get_indices(), period = c("day",
   period <- match.arg(period)
   titles <- c(day = "Change on the day", week = "Change over the last week", month = "Change over the last month",
               ytd = "Change this year", year = "Change over the last year")
-  shares <- summary[summary$label %in% indices$label[!is.na(indices$currency)], ]
-  change <- shares[[paste0(period, "_pct")]]
-  shares <- shares[!is.na(change), ]
-  change <- change[!is.na(change)]
   # plotly draws the first category at the bottom, so the best comes last
-  sorted <- order(change)
-  labels <- shares$label[sorted]
-  change <- change[sorted]
+  data <- performance_data(summary, indices, period)
+  data <- data[rev(seq_len(nrow(data))), ]
+  labels <- data$label
+  change <- data$change_pct
   # room beyond the longest bars on both sides, for their labels, which would otherwise run into the
   # names of the indices on a narrow screen
   span <- max(c(change, 0)) - min(c(change, 0))
