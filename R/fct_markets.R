@@ -7,8 +7,10 @@
 #' Tokyo, and the indices that follow its shares, from west to east. The Euro
 #' Stoxx 50 and the STOXX Europe 600 are computed while the exchanges of
 #' Europe trade, so they go with Frankfurt, the Euronext 100, of the shares of
-#' several Euronext exchanges, with Paris, and the VIX with New York. Mexico
-#' City and São Paulo move their hours with the summer time of the US:
+#' several Euronext exchanges, with Paris, and the VIX with New York. The
+#' exchanges of Tallinn, Riga and Vilnius trade as one market, on the same
+#' hours, so they share a label. Mexico City and São Paulo move their hours
+#' with the summer time of the US:
 #' `sessions_us_summer` while New York is on it. Holidays, and the longer
 #' Friday lunch of Jakarta, are not known.
 #' @noRd
@@ -20,14 +22,24 @@ exchanges <- list(
        indices = c("S&P 500", "Dow Jones", "Nasdaq Composite", "NYSE Composite", "Russell 2000", "VIX")),
   list(name = "S\u00e3o Paulo", tz = "America/Sao_Paulo", sessions = "10:00-18:00", sessions_us_summer = "10:00-17:00",
        indices = "Bovespa"),
+  list(name = "Lisbon", tz = "Europe/Lisbon", sessions = "08:00-16:30", indices = "PSI"),
+  list(name = "Dublin", tz = "Europe/Dublin", sessions = "08:00-16:30", indices = "ISEQ All Share"),
   list(name = "London", tz = "Europe/London", sessions = "08:00-16:30", indices = "FTSE 100"),
   list(name = "Frankfurt", tz = "Europe/Berlin", sessions = "09:00-17:30", indices = c("DAX", "Euro Stoxx 50", "STOXX Europe 600")),
   list(name = "Paris", tz = "Europe/Paris", sessions = "09:00-17:30", indices = c("CAC 40", "Euronext 100")),
   list(name = "Brussels", tz = "Europe/Brussels", sessions = "09:00-17:30", indices = "BEL 20"),
+  list(name = "Amsterdam", tz = "Europe/Amsterdam", sessions = "09:00-17:30", indices = "AEX"),
   list(name = "Madrid", tz = "Europe/Madrid", sessions = "09:00-17:30", indices = "IBEX 35"),
   list(name = "Milan", tz = "Europe/Rome", sessions = "09:00-17:30", indices = "FTSE MIB"),
   list(name = "Zurich", tz = "Europe/Zurich", sessions = "09:00-17:30", indices = "SMI"),
+  list(name = "Oslo", tz = "Europe/Oslo", sessions = "09:00-16:20", indices = "OSEBX"),
+  list(name = "Copenhagen", tz = "Europe/Copenhagen", sessions = "09:00-17:00", indices = "OMX Copenhagen 25"),
+  list(name = "Vienna", tz = "Europe/Vienna", sessions = "09:00-17:30", indices = "ATX"),
+  list(name = "Stockholm", tz = "Europe/Stockholm", sessions = "09:00-17:30", indices = "OMX Stockholm 30"),
+  list(name = "Baltics", tz = "Europe/Riga", sessions = "10:00-16:00", indices = c("OMX Tallinn", "OMX Riga", "OMX Vilnius")),
+  list(name = "Helsinki", tz = "Europe/Helsinki", sessions = "10:00-18:30", indices = "OMX Helsinki 25"),
   list(name = "Athens", tz = "Europe/Athens", sessions = "10:00-17:20", indices = "Athens General"),
+  list(name = "Istanbul", tz = "Europe/Istanbul", sessions = "10:00-18:00", indices = "BIST 100"),
   list(name = "Mumbai", tz = "Asia/Kolkata", sessions = "09:15-15:30", indices = "Sensex"),
   list(name = "Jakarta", tz = "Asia/Jakarta", sessions = c("09:00-12:00", "13:30-15:50"), indices = "IDX Composite"),
   list(name = "Kuala Lumpur", tz = "Asia/Kuala_Lumpur", sessions = c("09:00-12:30", "14:30-17:00"),

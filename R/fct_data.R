@@ -74,7 +74,11 @@ get_indices <- function() {
               
               "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX",
               "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
-              "Euronext 100", "BEL 20", "Athens General",
+              "Euronext 100", "BEL 20", "AEX", "ATX",
+              "ISEQ All Share", "PSI",
+              "OMX Stockholm 30", "OMX Copenhagen 25", "OMX Helsinki 25", "OSEBX",
+              "OMX Tallinn", "OMX Riga", "OMX Vilnius",
+              "Athens General", "BIST 100",
               
               "Nikkei 225", "Shanghai Composite", "Hang Seng",
               "KOSPI", "Taiwan Weighted", "Sensex",
@@ -88,7 +92,11 @@ get_indices <- function() {
                
                "^STOXX", "^STOXX50E", "^FTSE", "^GDAXI",
                "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI",
-               "^N100", "^BFX", "GD.AT",
+               "^N100", "^BFX", "^AEX", "^ATX",
+               "^ISEQ", "PSI20.LS",
+               "^OMX", "^OMXC25", "^OMXH25", "OSEBX.OL",
+               "^OMXTGI", "^OMXRGI", "^OMXVGI",
+               "GD.AT", "XU100.IS",
                
                "^N225", "000001.SS", "^HSI",
                "^KS11", "^TWII", "^BSESN",
@@ -97,14 +105,18 @@ get_indices <- function() {
     
     region = c(rep("US", 6),
                rep("Americas", 3),
-               rep("Europe", 11),
+               rep("Europe", 23),
                rep("Asia-Pacific", 12)),
     
     currency = c("USD", "USD", "USD", "USD", "USD", NA,
                  "CAD", "BRL", "MXN",
                  "EUR", "EUR", "GBP", "EUR",
                  "EUR", "EUR", "EUR", "CHF",
+                 "EUR", "EUR", "EUR", "EUR",
+                 "EUR", "EUR",
+                 "SEK", "DKK", "EUR", "NOK",
                  "EUR", "EUR", "EUR",
+                 "EUR", "TRY",
                  
                  "JPY", "CNY", "HKD",
                  "KRW", "TWD", "INR",
