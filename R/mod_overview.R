@@ -74,15 +74,10 @@ mod_overview_server <- function(id, indices, dark_mode) {
     })
 
     output$markets <- renderUI(market_strip(status(), session$ns("exchanges")))
-
     output$exchange_table <- renderUI(market_table(status()))
-
     output$updated <- renderText(closes_text(summary(), indices))
-
     output$table <- DT::renderDT(overview_table(summary(), indices, history()))
-
     output$csv <- csv_download(summary, "overview")
-
     summary
   })
 }
