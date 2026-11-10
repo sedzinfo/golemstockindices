@@ -2363,6 +2363,9 @@
     ".Rbuildignore": {
       "checksum": "87f9d4ec0ffedff42d9aa1a7e04c6c96"
     },
+    ".RData": {
+      "checksum": "18ddc5ea1dca9010aae09894af34bea9"
+    },
     "app.R": {
       "checksum": "f4099bfccf6bd05c4eac45e7ff9b3d2e"
     },
