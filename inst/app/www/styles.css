@@ -237,15 +237,11 @@ div:has(> a[href="#cookie-settings"]) {
 
 /* phones: on a phone the browser bars come and go, so the charts that fill the window use the
    visible height (100dvh, with 100vh for older browsers), and the Compare chart, whose controls
-   wrap onto more lines here, keeps more room above it; the tables and the long code of the About
-   tab stay inside the screen instead of widening the page */
+   wrap onto more lines here, keeps more room above it; the drawdowns table scrolls sideways in its
+   box instead of widening the page */
 @media (max-width: 767.98px) {
   #drawdowns-table {
     overflow-x: auto;
-  }
-
-  .about :not(pre) > code {
-    overflow-wrap: anywhere;
   }
 
   #timeseries-plot {
