@@ -91,6 +91,16 @@ add_external_resources <- function(analytics = FALSE, keep_alive = TRUE) {
     tags$meta(name = "twitter:card", content = "summary_large_image"),
     tags$link(rel = "icon", type = "image/svg+xml", href = "www/favicon.svg"),
     tags$link(rel = "stylesheet", href = "www/styles.css"),
+    # on a phone the tabs are in a menu behind the navbar toggle, which Bootstrap leaves open after
+    # a tab is picked, covering the tab: close it when a tab link in it is clicked
+    # (on wider screens the tabs are not in an opened menu, and nothing happens)
+    tags$script(HTML(
+      "document.addEventListener('click', function (e) {
+        var menu = document.querySelector('.navbar-collapse.show');
+        if (menu && e.target.closest('.navbar-collapse a[data-bs-toggle=\"tab\"]'))
+          bootstrap.Collapse.getOrCreateInstance(menu).hide();
+      });"
+    )),
     if (keep_alive) tags$script(src = "www/keep_alive.js"),
     if (analytics) analytics_resources()
   )

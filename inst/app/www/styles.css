@@ -225,3 +225,47 @@
 div:has(> a[href="#cookie-settings"]) {
   margin-top: 2rem;
 }
+
+/* phones and small tablets: the box of the exchanges table is a uiOutput, which Shiny shows as
+   display: contents, so its overflow-x above does nothing and the 900px table widened the whole
+   page; as a block it scrolls sideways in its box, as meant (desktop keeps display: contents) */
+@media (max-width: 991.98px) {
+  #overview-exchange_table {
+    display: block;
+  }
+}
+
+/* phones: on a phone the browser bars come and go, so the charts that fill the window use the
+   visible height (100dvh, with 100vh for older browsers), and the Compare chart, whose controls
+   wrap onto more lines here, keeps more room above it; the tables and the long code of the About
+   tab stay inside the screen instead of widening the page */
+@media (max-width: 767.98px) {
+  #drawdowns-table {
+    overflow-x: auto;
+  }
+
+  .about :not(pre) > code {
+    overflow-wrap: anywhere;
+  }
+
+  #timeseries-plot {
+    height: calc(100vh - 170px) !important;
+    height: calc(100dvh - 170px) !important;
+  }
+
+  #compare-plot {
+    height: calc(100vh - 255px) !important;
+    height: calc(100dvh - 255px) !important;
+  }
+
+  #performance-plot,
+  #returns_calendar-plot {
+    height: calc(100vh - 130px) !important;
+    height: calc(100dvh - 130px) !important;
+  }
+
+  .fill-page {
+    min-height: calc(100vh - 99px);
+    min-height: calc(100dvh - 99px);
+  }
+}
