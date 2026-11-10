@@ -219,10 +219,96 @@ parse_chart <- function(json, index, now = Sys.time()) {
 ##########################################################################################
 #
 ##########################################################################################
+#' @title Downloads that run at the same time
+#' @description How many requests go to Yahoo Finance at once. More finish
+#' sooner, but too many in a row can make it answer 429 (too many requests).
+#' @noRd
+parallel_downloads <- 8
+##########################################################################################
+#
+##########################################################################################
+#' @title Fetch several addresses at the same time
+#' @description Sends every request at once, at most `parallel_downloads` at a
+#' time, and waits for all of them, so 44 indices take about as long as the
+#' slowest few instead of the sum of all of them.
+#' @param urls Character vector of addresses.
+#' @return A list with an element per address, in the same order: a list with
+#'   the `status_code` and the raw `content` of the answer, or with the
+#'   `error` message when the request could not be made.
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' golemstockindices:::fetch_all(c("https://example.com", "https://example.org"))
+#' }
+fetch_all <- function(urls) {
+  answers <- vector("list", length(urls))
+  pool <- curl::new_pool(host_con = parallel_downloads)
+  for (i in seq_along(urls)) {
+    local({
+      j <- i
+      handle <- curl::new_handle()
+      curl::handle_setheaders(handle, "User-Agent" = user_agent)
+      curl::curl_fetch_multi(
+        urls[j], handle = handle, pool = pool,
+        done = function(response) answers[[j]] <<- list(status_code = response$status_code, content = response$content),
+        fail = function(message) answers[[j]] <<- list(error = message)
+      )
+    })
+  }
+  curl::multi_run(pool = pool)
+  answers
+}
+##########################################################################################
+#
+##########################################################################################
+#' @title Download the daily prices of several indices at the same time
+#' @description Asks Yahoo Finance for the daily prices of each index from its
+#' start date to now, one request per index, all sent at once (see
+#' [fetch_all()]). A failed download is reported as a message instead of an
+#' error, and the other indices are still read.
+#' @param indices Rows of [get_indices()].
+#' @param starts Dates, one per row: the first day to download.
+#' @return A list with an element per row: the prices, as described in
+#'   [parse_chart()], or `NULL` when nothing could be downloaded.
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' golemstockindices:::download_histories(get_indices()[1:3, ], rep(Sys.Date() - 30, 3))
+#' }
+download_histories <- function(indices, starts) {
+  if (nrow(indices) == 0) {
+    return(list())
+  }
+  urls <- sprintf(
+    "%s%s?period1=%.0f&period2=%.0f&interval=1d&includePrePost=false",
+    yahoo_url, vapply(indices$symbol, utils::URLencode, "", reserved = TRUE),
+    as.numeric(as.POSIXct(as.character(starts), tz = "UTC")), as.numeric(Sys.time()) + 24 * 3600
+  )
+  answers <- fetch_all(urls)
+  lapply(seq_len(nrow(indices)), function(i) {
+    answer <- answers[[i]]
+    tryCatch(
+      {
+        if (!is.null(answer$error)) {
+          stop(answer$error, call. = FALSE)
+        }
+        if (answer$status_code != 200) {
+          stop("Yahoo Finance answered with status ", answer$status_code, call. = FALSE)
+        }
+        parse_chart(rawToChar(answer$content), indices[i, ])
+      },
+      error = function(e) {
+        message("The download of ", indices$label[i], " failed: ", conditionMessage(e))
+        NULL
+      }
+    )
+  })
+}
+##########################################################################################
+#
+##########################################################################################
 #' @title Download the daily prices of an index
-#' @description Asks Yahoo Finance for the daily prices from `start_date` to
-#' now, in one request. A failed download is reported as a message instead of
-#' an error.
+#' @description [download_histories()] for one index.
 #' @param index One row of [get_indices()].
 #' @param start_date Date. The first day to download.
 #' @return The prices, as described in [parse_chart()], or `NULL` when
@@ -233,37 +319,68 @@ parse_chart <- function(json, index, now = Sys.time()) {
 #' golemstockindices:::download_history(get_indices()[1, ], Sys.Date() - 30)
 #' }
 download_history <- function(index, start_date) {
-  tryCatch(
-    {
-      url <- sprintf(
-        "%s%s?period1=%.0f&period2=%.0f&interval=1d&includePrePost=false",
-        yahoo_url, utils::URLencode(index$symbol, reserved = TRUE),
-        as.numeric(as.POSIXct(as.character(start_date), tz = "UTC")), as.numeric(Sys.time()) + 24 * 3600
-      )
-      handle <- curl::new_handle()
-      curl::handle_setheaders(handle, "User-Agent" = user_agent)
-      response <- curl::curl_fetch_memory(url, handle)
-      if (response$status_code != 200) {
-        stop("Yahoo Finance answered with status ", response$status_code, call. = FALSE)
-      }
-      parse_chart(rawToChar(response$content), index)
-    },
-    error = function(e) {
-      message("The download of ", index$label, " failed: ", conditionMessage(e))
-      NULL
+  download_histories(index, start_date)[[1]]
+}
+##########################################################################################
+#
+##########################################################################################
+#' @title Get the whole price histories of indices, kept on disk and brought up to date
+#' @description For an index not kept yet, the whole history is downloaded,
+#' from its `from` day when it has one, and kept on disk (see
+#' [disk_cache()]). A kept history more than an hour old is brought up to date
+#' with its last two weeks, which also replace the kept days of those weeks, in
+#' case Yahoo Finance corrected them; when that fails, the kept history is
+#' used. The downloads of all the indices run at the same time (see
+#' [download_histories()]).
+#' @param indices Rows of [get_indices()].
+#' @return A list with an element per row: the whole price history of the
+#'   index, or `NULL` when it could not be downloaded.
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' golemstockindices:::index_histories(get_indices()[1:3, ])
+#' }
+index_histories <- function(indices) {
+  if (nrow(indices) == 0) {
+    return(list())
+  }
+  keys <- paste0("history_", tolower(gsub("[^A-Za-z0-9]", "", indices$symbol)))
+  kept <- lapply(keys, function(key) disk_cache()$get(key))
+  missing <- vapply(kept, cachem::is.key_missing, logical(1))
+  stale <- !missing & vapply(kept, function(k) !cachem::is.key_missing(k) && minutes_since(k$time) >= history_minutes, logical(1))
+  # what to download: the whole history of the missing ones, the last two weeks of the stale ones
+  starts <- rep(as.Date(NA), length(keys))
+  for (i in which(missing)) {
+    starts[i] <- if (length(indices$from[i]) == 1 && !is.na(indices$from[i])) indices$from[i] else as.Date("1900-01-01")
+  }
+  for (i in which(stale)) {
+    starts[i] <- max(kept[[i]]$history$timestamp) - 14
+  }
+  wanted <- which(missing | stale)
+  downloaded <- vector("list", length(keys))
+  if (length(wanted) > 0) {
+    downloaded[wanted] <- download_histories(indices[wanted, , drop = FALSE], starts[wanted])
+  }
+
+  lapply(seq_along(keys), function(i) {
+    new <- downloaded[[i]]
+    if (missing[i]) {
+      if (!is.null(new)) disk_cache()$set(keys[i], list(history = new, time = Sys.time()))
+      return(new)
     }
-  )
+    if (stale[i] && !is.null(new)) {
+      older <- kept[[i]]$history[kept[[i]]$history$timestamp < min(new$timestamp), ]
+      kept[[i]] <- list(history = rbind(older, new), time = Sys.time())
+      disk_cache()$set(keys[i], kept[[i]])
+    }
+    kept[[i]]$history
+  })
 }
 ##########################################################################################
 #
 ##########################################################################################
 #' @title Get the whole price history of one index, kept on disk and brought up to date
-#' @description The first call downloads the whole history, from the `from`
-#' day of the index when it has one, and keeps it on disk (see
-#' [disk_cache()]). Later calls use the kept history, and once it is more
-#' than an hour old download only the last two weeks, which also replace the
-#' kept days of those weeks, in case Yahoo Finance corrected them. When
-#' bringing it up to date fails, the kept history is used.
+#' @description [index_histories()] for one index.
 #' @param index One row of [get_indices()].
 #' @return The whole price history of the index, or `NULL` when it could not
 #'   be downloaded.
@@ -273,26 +390,7 @@ download_history <- function(index, start_date) {
 #' golemstockindices:::index_history(get_indices()[1, ])
 #' }
 index_history <- function(index) {
-  key <- paste0("history_", tolower(gsub("[^A-Za-z0-9]", "", index$symbol)))
-  kept <- disk_cache()$get(key)
-  if (cachem::is.key_missing(kept)) {
-    start <- if (length(index$from) == 1 && !is.na(index$from)) index$from else as.Date("1900-01-01")
-    history <- download_history(index, start)
-    if (is.null(history)) {
-      return(NULL)
-    }
-    disk_cache()$set(key, list(history = history, time = Sys.time()))
-    return(history)
-  }
-  if (minutes_since(kept$time) >= history_minutes) {
-    recent <- download_history(index, max(kept$history$timestamp) - 14)
-    if (!is.null(recent)) {
-      older <- kept$history[kept$history$timestamp < min(recent$timestamp), ]
-      kept <- list(history = rbind(older, recent), time = Sys.time())
-      disk_cache()$set(key, kept)
-    }
-  }
-  kept$history
+  index_histories(index)[[1]]
 }
 ##########################################################################################
 #
@@ -301,8 +399,9 @@ index_history <- function(index) {
 #' @description Returns the daily prices of one or more stock market indices
 #' from Yahoo Finance, in index points. Each index's history is kept on disk
 #' between R sessions, and once it is more than an hour old only its last two
-#' weeks are downloaded again, so calls are fast. An index is priced on the
-#' days its exchange trades, so weekends and holidays have no prices.
+#' weeks are downloaded again, so calls are fast. The downloads of several
+#' indices run at the same time. An index is priced on the days its exchange
+#' trades, so weekends and holidays have no prices.
 #' @param labels Character vector of index labels, such as "S&P 500", from
 #'   the `label` column of [get_indices()].
 #' @param start_date Date. The first day to get, a year ago by default.
@@ -327,9 +426,8 @@ get_history <- function(labels, start_date = Sys.Date() - 365, indices = get_ind
   if (length(unknown) > 0) {
     message("No index is labelled ", paste0("\"", unknown, "\"", collapse = ", "), ", see get_indices()$label")
   }
-  matched <- indices[match(unique(labels), indices$label, nomatch = 0), ]
-  history <- do.call(rbind, lapply(seq_len(nrow(matched)), function(i) {
-    one <- index_history(matched[i, ])
+  matched <- indices[match(unique(labels), indices$label, nomatch = 0), , drop = FALSE]
+  history <- do.call(rbind, lapply(index_histories(matched), function(one) {
     if (!is.null(one)) one[one$timestamp >= start_date, ]
   }))
   if (is.null(history) || nrow(history) == 0) {

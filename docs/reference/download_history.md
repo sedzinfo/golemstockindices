@@ -1,7 +1,7 @@
 # Download the daily prices of an index
 
-Asks Yahoo Finance for the daily prices from `start_date` to now, in one
-request. A failed download is reported as a message instead of an error.
+[`download_histories()`](https://sedzinfo.github.io/golemstockindices/reference/download_histories.md)
+for one index.
 
 ## Usage
 

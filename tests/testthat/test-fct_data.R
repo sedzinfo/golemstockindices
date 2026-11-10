@@ -32,10 +32,10 @@ test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
 test_that("an index with a first day to keep is downloaded from that day", {
   disk_cache()$reset()
   starts <- character()
-  local_mocked_bindings(download_history = function(index, start_date) {
+  local_mocked_bindings(download_histories = per_index(function(index, start_date) {
     starts <<- c(starts, format(start_date))
     daily
-  })
+  }))
   late <- indices
   late$from <- as.Date(c("2024-01-01", NA))
   get_history(c("Alpha (A)", "Beta (B)"), as.Date("1900-01-01"), late)
@@ -75,20 +75,52 @@ test_that("parse_chart() reports an error of Yahoo Finance, and an answer withou
 
 test_that("download_history() asks Yahoo Finance for the symbol, and says when it fails", {
   asked <- character()
-  status <- 200
-  local_mocked_bindings(
-    curl_fetch_memory = function(url, handle) {
-      asked <<- c(asked, url)
-      list(status_code = status, content = charToRaw(yahoo_json(days[1:2], c(10, 11))))
-    },
-    .package = "curl"
-  )
+  answer <- list(status_code = 200, content = charToRaw(yahoo_json(days[1:2], c(10, 11))))
+  local_mocked_bindings(fetch_all = function(urls) {
+    asked <<- c(asked, urls)
+    rep(list(answer), length(urls))
+  })
   downloaded <- download_history(indices[1, ], as.Date("2024-01-01"))
   expect_equal(downloaded$close, c(10, 11))
   expect_match(asked, "chart/%5EALPHA?period1=1704067200&", fixed = TRUE)
-  status <- 429
+  answer$status_code <- 429
   expect_message(failed <- download_history(indices[1, ], as.Date("2024-01-01")), "The download of Alpha \\(A\\) failed: .*429")
   expect_null(failed)
+  answer <- list(error = "Could not resolve host")
+  expect_message(failed <- download_history(indices[1, ], as.Date("2024-01-01")), "Could not resolve host")
+  expect_null(failed)
+})
+
+test_that("the indices are downloaded together, and one failing leaves the others", {
+  asked <- list()
+  local_mocked_bindings(fetch_all = function(urls) {
+    asked <<- c(asked, list(urls))
+    list(list(status_code = 200, content = charToRaw(yahoo_json(days[1:2], c(10, 11)))), list(status_code = 404, content = raw()))
+  })
+  expect_message(both <- download_histories(indices, as.Date(c("2024-01-01", "2024-01-02"))), "Beta \\(B\\) failed: .*404")
+  # one call with both addresses, in the order of the indices
+  expect_length(asked, 1)
+  expect_match(asked[[1]][1], "%5EALPHA?period1=1704067200&", fixed = TRUE)
+  expect_match(asked[[1]][2], "BETA.X?period1=1704153600&", fixed = TRUE)
+  expect_equal(both[[1]]$close, c(10, 11))
+  expect_null(both[[2]])
+})
+
+test_that("get_history() downloads only what is missing or old, all at once", {
+  disk_cache()$reset()
+  calls <- list()
+  local_mocked_bindings(download_histories = function(indices, starts) {
+    calls <<- c(calls, list(indices$label))
+    lapply(seq_len(nrow(indices)), function(i) daily)
+  })
+  get_history("Alpha (A)", as.Date("2024-01-01"), indices)
+  get_history(c("Alpha (A)", "Beta (B)"), as.Date("2024-01-01"), indices)
+  make_stale("history_alpha", history_minutes)
+  make_stale("history_betax", history_minutes)
+  get_history(c("Alpha (A)", "Beta (B)"), as.Date("2024-01-01"), indices)
+  get_history(c("Alpha (A)", "Beta (B)"), as.Date("2024-01-01"), indices)
+  # Alpha alone, then only Beta (Alpha is kept), then both together (both an hour old), then nothing
+  expect_equal(calls, list("Alpha (A)", "Beta (B)", c("Alpha (A)", "Beta (B)")))
 })
 
 test_that("get_history() names the labels that match no index", {
@@ -100,10 +132,10 @@ test_that("get_history() keeps the whole history on disk and later downloads the
   disk_cache()$reset()
   available <- daily
   starts <- character()
-  local_mocked_bindings(download_history = function(index, start_date) {
+  local_mocked_bindings(download_histories = per_index(function(index, start_date) {
     starts <<- c(starts, format(start_date))
     available[available$timestamp >= start_date, ]
-  })
+  }))
 
   expect_equal(nrow(get_history("Alpha (A)", as.Date("2024-01-01"), indices)), 10)
   later <- get_history("Alpha (A)", as.Date("2024-01-05"), indices)
@@ -125,9 +157,9 @@ test_that("get_history() keeps the whole history on disk and later downloads the
 test_that("get_history() uses the kept history when bringing it up to date fails", {
   disk_cache()$reset()
   offline <- FALSE
-  local_mocked_bindings(download_history = function(index, start_date) {
+  local_mocked_bindings(download_histories = per_index(function(index, start_date) {
     if (offline) NULL else daily[daily$timestamp >= start_date, ]
-  })
+  }))
   get_history("Alpha (A)", as.Date("2024-01-01"), indices)
   make_stale("history_alpha", history_minutes)
   offline <- TRUE
@@ -140,9 +172,9 @@ test_that("get_history() uses the kept history when bringing it up to date fails
 
 test_that("get_history() combines several indices and leaves out the ones that fail", {
   disk_cache()$reset()
-  local_mocked_bindings(download_history = function(index, start_date) {
+  local_mocked_bindings(download_histories = per_index(function(index, start_date) {
     if (index$label == "Beta (B)") NULL else daily
-  })
+  }))
   result <- get_history(c("Beta (B)", "Alpha (A)"), as.Date("2024-01-01"), indices)
   expect_equal(unique(result$label), "Alpha (A)")
   expect_equal(rownames(result), as.character(1:10))

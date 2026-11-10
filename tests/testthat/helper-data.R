@@ -24,6 +24,12 @@ history$high <- history$close * 1.1
 history$low <- history$close * 0.9
 history$volume <- 1000
 
+# a mock of download_histories() from one of a single index: the indices are downloaded
+# together, each as `one(index, start_date)` answers
+per_index <- function(one) {
+  function(indices, starts) lapply(seq_len(nrow(indices)), function(i) one(indices[i, ], starts[i]))
+}
+
 # the first n weekdays from a date on
 weekdays_from <- function(start, n) {
   days <- as.Date(start) + 0:(2 * n + 7)

@@ -14,12 +14,7 @@ The whole price history of the index, or \code{NULL} when it could not
 be downloaded.
 }
 \description{
-The first call downloads the whole history, from the \code{from}
-day of the index when it has one, and keeps it on disk (see
-\code{\link[=disk_cache]{disk_cache()}}). Later calls use the kept history, and once it is more
-than an hour old download only the last two weeks, which also replace the
-kept days of those weeks, in case Yahoo Finance corrected them. When
-bringing it up to date fails, the kept history is used.
+\code{\link[=index_histories]{index_histories()}} for one index.
 }
 \examples{
 \dontrun{

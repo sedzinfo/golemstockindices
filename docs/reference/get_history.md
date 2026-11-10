@@ -3,8 +3,9 @@
 Returns the daily prices of one or more stock market indices from Yahoo
 Finance, in index points. Each index's history is kept on disk between R
 sessions, and once it is more than an hour old only its last two weeks
-are downloaded again, so calls are fast. An index is priced on the days
-its exchange trades, so weekends and holidays have no prices.
+are downloaded again, so calls are fast. The downloads of several
+indices run at the same time. An index is priced on the days its
+exchange trades, so weekends and holidays have no prices.
 
 ## Usage
 

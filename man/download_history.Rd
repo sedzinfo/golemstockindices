@@ -16,9 +16,7 @@ The prices, as described in \code{\link[=parse_chart]{parse_chart()}}, or \code{
 nothing could be downloaded.
 }
 \description{
-Asks Yahoo Finance for the daily prices from \code{start_date} to
-now, in one request. A failed download is reported as a message instead of
-an error.
+\code{\link[=download_histories]{download_histories()}} for one index.
 }
 \examples{
 \dontrun{

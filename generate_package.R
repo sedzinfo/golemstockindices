@@ -24,5 +24,9 @@ pkgdown::build_site(getwd(), lazy = TRUE)
 system("R CMD Rd2pdf . --force --no-preview --output=golemstockindices.pdf")
 if (.Platform$OS.type == "windows") shell.exec("golemstockindices.pdf") else system("evince golemstockindices.pdf")
 system("R CMD build . --resave-data")
+rsconnect::writeManifest(appDir = ".", appPrimaryDoc = "app.R")
 
-run_app()
+golemstockindices::run_app()
+
+
+

@@ -47,6 +47,10 @@
     of the falls.
   - **About** explains what each index measures and how every number of
     the app is calculated.
+- The prices of the indices are downloaded at the same time (8 requests
+  at once) instead of one after the other, so the Overview opens in
+  about 4 seconds the first time instead of 13, and in about 2 instead
+  of 6 when the kept prices are more than an hour old.
 - The analysis code comes from golemcrypto, adapted to markets that
   close at weekends and on holidays: the windows count trading days, a
   year is 252 of them, a day’s return runs from the trading day before,
