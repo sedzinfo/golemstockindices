@@ -11,6 +11,7 @@
   * **Volatility** says whether the volatility of the last weeks and the move of the last days are normal, against the index's history and a GARCH(1,1) model, and forecasts the next 5 trading days with the value at risk.
   * **Drawdowns** says how far the index is below its all-time high and how long its earlier falls took to recover, with a chart and a table of the falls.
   * **About** explains what each index measures and how every number of the app is calculated.
+* Five more indices of Europe: FTSE 250, MDAX, SDAX, TecDAX and Next 150 (49 in all). Yahoo Finance has no history of the indices of Warsaw, Budapest and Reykjavik (only the last day), and its OMX Nordic 40 stops in 2015, so they are not included.
 * The prices of the indices are downloaded at the same time (8 requests at once) instead of one after the other, so the Overview opens in about 4 seconds the first time instead of 13, and in about 2 instead of 6 when the kept prices are more than an hour old.
 * The analysis code comes from golemcrypto, adapted to markets that close at weekends and on holidays: the windows count trading days, a year is 252 of them, a day's return runs from the trading day before, and the forecast skips weekends.
 * The data, calculations and charts can be used directly from R: `get_indices()`, `get_history()`, `index_summary()`, `normalize_prices()`, `monthly_returns()`, `seasonality_analysis()`, `volatility_analysis()`, `drawdown_analysis()`, their `*_text()` functions, and the `plot_*()` and `*_table()` functions.

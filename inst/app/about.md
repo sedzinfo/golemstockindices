@@ -20,12 +20,17 @@ A stock market index follows the prices of a basket of shares as one number, in 
 | STOXX Europe 600 | 600 large, mid-sized and small companies of 17 European countries, in and outside the euro area | market value |
 | Euro Stoxx 50 | 50 large companies of the euro area | market value |
 | FTSE 100 | the 100 largest companies listed in London | market value |
+| FTSE 250 | the 250 next largest companies listed in London, after those of the FTSE 100 | market value |
 | DAX | the 40 largest German companies, with their dividends reinvested | market value |
+| MDAX | the 50 German companies that come after those of the DAX, without their dividends | market value |
+| SDAX | the 70 smaller German companies that come after those of the MDAX, without their dividends | market value |
+| TecDAX | the 30 largest German technology companies, without their dividends | market value |
 | CAC 40 | 40 large French companies | market value |
 | IBEX 35 | the 35 most traded Spanish companies | market value |
 | FTSE MIB | 40 large Italian companies | market value |
 | SMI | the 20 largest Swiss companies, such as Nestlé, Novartis and Roche | market value |
 | Euronext 100 | the 100 largest and most traded companies listed on the Euronext exchanges of Paris, Amsterdam, Brussels, Lisbon and others | market value |
+| Next 150 | the 150 companies of the Euronext exchanges that come after those of the Euronext 100 | market value |
 | BEL 20 | the 20 largest companies listed in Brussels, Belgium | market value |
 | AEX | the 25 most traded companies listed in Amsterdam, the Netherlands, such as ASML and Shell | market value |
 | ATX | the 20 largest companies listed in Vienna, Austria | market value |

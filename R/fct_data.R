@@ -72,9 +72,10 @@ get_indices <- function() {
               
               "S&P/TSX Composite", "Bovespa", "IPC Mexico",
               
-              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "DAX",
+              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "FTSE 250",
+              "DAX", "MDAX", "SDAX", "TecDAX",
               "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
-              "Euronext 100", "BEL 20", "AEX", "ATX",
+              "Euronext 100", "Next 150", "BEL 20", "AEX", "ATX",
               "ISEQ All Share", "PSI",
               "OMX Stockholm 30", "OMX Copenhagen 25", "OMX Helsinki 25", "OSEBX",
               "OMX Tallinn", "OMX Riga", "OMX Vilnius",
@@ -90,9 +91,10 @@ get_indices <- function() {
                
                "^GSPTSE", "^BVSP", "^MXX",
                
-               "^STOXX", "^STOXX50E", "^FTSE", "^GDAXI",
+               "^STOXX", "^STOXX50E", "^FTSE", "^FTMC",
+               "^GDAXI", "^MDAXI", "^SDAXI", "^TECDAX",
                "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI",
-               "^N100", "^BFX", "^AEX", "^ATX",
+               "^N100", "^N150", "^BFX", "^AEX", "^ATX",
                "^ISEQ", "PSI20.LS",
                "^OMX", "^OMXC25", "^OMXH25", "OSEBX.OL",
                "^OMXTGI", "^OMXRGI", "^OMXVGI",
@@ -105,14 +107,15 @@ get_indices <- function() {
     
     region = c(rep("US", 6),
                rep("Americas", 3),
-               rep("Europe", 23),
+               rep("Europe", 28),
                rep("Asia-Pacific", 12)),
     
     currency = c("USD", "USD", "USD", "USD", "USD", NA,
                  "CAD", "BRL", "MXN",
-                 "EUR", "EUR", "GBP", "EUR",
-                 "EUR", "EUR", "EUR", "CHF",
+                 "EUR", "EUR", "GBP", "GBP",
                  "EUR", "EUR", "EUR", "EUR",
+                 "EUR", "EUR", "EUR", "CHF",
+                 "EUR", "EUR", "EUR", "EUR", "EUR",
                  "EUR", "EUR",
                  "SEK", "DKK", "EUR", "NOK",
                  "EUR", "EUR", "EUR",
@@ -229,7 +232,7 @@ parallel_downloads <- 8
 ##########################################################################################
 #' @title Fetch several addresses at the same time
 #' @description Sends every request at once, at most `parallel_downloads` at a
-#' time, and waits for all of them, so 44 indices take about as long as the
+#' time, and waits for all of them, so 49 indices take about as long as the
 #' slowest few instead of the sum of all of them.
 #' @param urls Character vector of addresses.
 #' @return A list with an element per address, in the same order: a list with

@@ -15,7 +15,7 @@ make_stale <- function(key, minutes) {
 test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
   all <- get_indices()
   expect_named(all, c("label", "symbol", "region", "currency", "from"))
-  expect_equal(nrow(all), 44)
+  expect_equal(nrow(all), 49)
   expect_false(anyDuplicated(all$label) > 0 || anyDuplicated(all$symbol) > 0)
   expect_equal(all$symbol[all$label == "S&P 500"], "^GSPC")
   expect_equal(all$symbol[all$label == "Athens General"], "GD.AT")

@@ -16,7 +16,7 @@ the \code{status_code} and the raw \code{content} of the answer, or with the
 }
 \description{
 Sends every request at once, at most \code{parallel_downloads} at a
-time, and waits for all of them, so 44 indices take about as long as the
+time, and waits for all of them, so 49 indices take about as long as the
 slowest few instead of the sum of all of them.
 }
 \examples{
