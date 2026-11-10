@@ -1,13 +1,27 @@
-/* every CSV button is a small one; next to the pickers of the Timeseries and Compare tabs it
+/* the height of the theme's dropdowns and text boxes (a line of its 15px text, their padding and
+   border): every control that has to line up with them uses it, so a change of the theme is one
+   change here */
+:root {
+  --control-height: calc(1.5 * 0.9375rem + 0.75rem + calc(var(--bs-border-width) * 2));  /* 36.5px */
+}
+
+/* every CSV button is a small one, but as tall as the dropdowns on every tab (--control-height;
+   it keeps its smaller text), with its text centred; next to the pickers of the Timeseries and Compare tabs it
    sits in a box as tall as their text boxes, centred on them, so the controls line up */
 .shiny-download-link {
   /* in a row with a long line of text, a flex box would squeeze it until its icon sits above "CSV" */
   flex-shrink: 0;
   white-space: nowrap;
+  height: var(--control-height);
+  padding-top: 0;
+  padding-bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
 }
 
 .csv-beside-inputs {
-  height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
+  height: var(--control-height);
   display: flex;
   align-items: center;
 }
