@@ -2384,7 +2384,7 @@
       "checksum": "84de9cc0ea9c7d485fd4c993ededf1a1"
     },
     "inst/app/www/styles.css": {
-      "checksum": "7d81c8d2227baf702618f230634301d9"
+      "checksum": "b86ebc96e0bb4a68882b7cabb76458ec"
     },
     "inst/js/fit_y_axes.js": {
       "checksum": "c06d4f15deccdf0d538d8daec0906577"
@@ -2417,7 +2417,7 @@
       "checksum": "d8043185fee561aeeaece4cad69a4ab5"
     },
     "R/fct_plots.R": {
-      "checksum": "454df01f54bb7187e6f76b3e1353be5c"
+      "checksum": "33e5c0d927b83892f155d7ab9efa9c8d"
     },
     "R/fct_seasonality.R": {
       "checksum": "756008316f8d0b8786048a0046046344"
