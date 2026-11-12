@@ -226,6 +226,28 @@ div:has(> a[href="#cookie-settings"]) {
   margin-top: 2rem;
 }
 
+/* plotly's toolbar (modebar): plotly colors it from the chart's background, which plot_theme()
+   makes transparent, so it was a half-black box with white icons in light and dark mode alike.
+   As over a white chart instead: the page's color at half opacity (white, or the dark mode's),
+   gray icons (light in dark mode), stronger on hover and for the active button */
+.js-plotly-plot .modebar-group {
+  background-color: rgba(var(--bs-body-bg-rgb), 0.5) !important;
+}
+.js-plotly-plot .modebar-btn .icon path {
+  fill: rgba(68, 68, 68, 0.3) !important;
+}
+.js-plotly-plot .modebar-btn:hover .icon path,
+.js-plotly-plot .modebar-btn.active .icon path {
+  fill: rgba(68, 68, 68, 0.7) !important;
+}
+[data-bs-theme="dark"] .js-plotly-plot .modebar-btn .icon path {
+  fill: rgba(255, 255, 255, 0.35) !important;
+}
+[data-bs-theme="dark"] .js-plotly-plot .modebar-btn:hover .icon path,
+[data-bs-theme="dark"] .js-plotly-plot .modebar-btn.active .icon path {
+  fill: rgba(255, 255, 255, 0.8) !important;
+}
+
 /* phones and small tablets: the box of the exchanges table is a uiOutput, which Shiny shows as
    display: contents, so its overflow-x above does nothing and the 900px table widened the whole
    page; as a block it scrolls sideways in its box, as meant (desktop keeps display: contents) */
