@@ -31,39 +31,39 @@ its indices joined by commas.
 ``` r
 market_status()
 #>        exchange local_time  state            text                    hours           time_zone                                                                 indices
-#> 1   Mexico City      03:00 closed     opens 08:30              08:30–15:00 America/Mexico_City                                                              IPC Mexico
-#> 2       Toronto      04:00 closed     opens 09:30              09:30–16:00     America/Toronto                                                       S&P/TSX Composite
-#> 3      New York      04:00 closed     opens 09:30              09:30–16:00    America/New_York S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000, VIX
-#> 4     São Paulo      06:00 closed     opens 10:00              10:00–18:00   America/Sao_Paulo                                                                 Bovespa
-#> 5        Lisbon      09:00   open    closes 16:30              08:00–16:30       Europe/Lisbon                                                                     PSI
-#> 6        Dublin      09:00   open    closes 16:30              08:00–16:30       Europe/Dublin                                                          ISEQ All Share
-#> 7        London      09:00   open    closes 16:30              08:00–16:30       Europe/London                                                                FTSE 100
-#> 8     Frankfurt      10:00   open    closes 17:30              09:00–17:30       Europe/Berlin                                    DAX, Euro Stoxx 50, STOXX Europe 600
-#> 9         Paris      10:00   open    closes 17:30              09:00–17:30        Europe/Paris                                                    CAC 40, Euronext 100
-#> 10     Brussels      10:00   open    closes 17:30              09:00–17:30     Europe/Brussels                                                                  BEL 20
-#> 11    Amsterdam      10:00   open    closes 17:30              09:00–17:30    Europe/Amsterdam                                                                     AEX
-#> 12       Madrid      10:00   open    closes 17:30              09:00–17:30       Europe/Madrid                                                                 IBEX 35
-#> 13        Milan      10:00   open    closes 17:30              09:00–17:30         Europe/Rome                                                                FTSE MIB
-#> 14       Zurich      10:00   open    closes 17:30              09:00–17:30       Europe/Zurich                                                                     SMI
-#> 15         Oslo      10:00   open    closes 16:20              09:00–16:20         Europe/Oslo                                                                   OSEBX
-#> 16   Copenhagen      10:00   open    closes 17:00              09:00–17:00   Europe/Copenhagen                                                       OMX Copenhagen 25
-#> 17       Vienna      10:00   open    closes 17:30              09:00–17:30       Europe/Vienna                                                                     ATX
-#> 18    Stockholm      10:00   open    closes 17:30              09:00–17:30    Europe/Stockholm                                                        OMX Stockholm 30
-#> 19      Baltics      11:00   open    closes 16:00              10:00–16:00         Europe/Riga                                      OMX Tallinn, OMX Riga, OMX Vilnius
-#> 20     Helsinki      11:00   open    closes 18:30              10:00–18:30     Europe/Helsinki                                                         OMX Helsinki 25
-#> 21       Athens      11:00   open    closes 17:20              10:00–17:20       Europe/Athens                                                          Athens General
-#> 22     Istanbul      12:00   open    closes 18:00              10:00–18:00     Europe/Istanbul                                                                BIST 100
-#> 23       Mumbai      14:30   open    closes 15:30              09:15–15:30        Asia/Kolkata                                                                  Sensex
-#> 24      Jakarta      16:00 closed opens Wed 09:00 09:00–12:00, 13:30–15:50        Asia/Jakarta                                                           IDX Composite
-#> 25 Kuala Lumpur      17:00 closed opens Wed 09:00 09:00–12:30, 14:30–17:00   Asia/Kuala_Lumpur                                                FTSE Bursa Malaysia KLCI
-#> 26    Singapore      17:00 closed opens Wed 09:00              09:00–17:00      Asia/Singapore                                                           Straits Times
-#> 27     Shanghai      17:00 closed opens Wed 09:30 09:30–11:30, 13:00–15:00       Asia/Shanghai                                                      Shanghai Composite
-#> 28    Hong Kong      17:00 closed opens Wed 09:30 09:30–12:00, 13:00–16:00      Asia/Hong_Kong                                                               Hang Seng
-#> 29       Taipei      17:00 closed opens Wed 09:00              09:00–13:30         Asia/Taipei                                                         Taiwan Weighted
-#> 30        Seoul      18:00 closed opens Wed 09:00              09:00–15:30          Asia/Seoul                                                                   KOSPI
-#> 31        Tokyo      18:00 closed opens Wed 09:00 09:00–11:30, 12:30–15:30          Asia/Tokyo                                                              Nikkei 225
-#> 32       Sydney      20:00 closed opens Wed 10:00              10:00–16:00    Australia/Sydney                                                 ASX 200, All Ordinaries
-#> 33   Wellington      22:00 closed opens Wed 10:00              10:00–16:45    Pacific/Auckland                                                                  NZX 50
+#> 1   Mexico City      07:54 closed     opens 08:30              08:30–15:00 America/Mexico_City                                                              IPC Mexico
+#> 2       Toronto      08:54 closed     opens 09:30              09:30–16:00     America/Toronto                                                       S&P/TSX Composite
+#> 3      New York      08:54 closed     opens 09:30              09:30–16:00    America/New_York S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000, VIX
+#> 4     São Paulo      10:54   open    closes 18:00              10:00–18:00   America/Sao_Paulo                                                                 Bovespa
+#> 5        Lisbon      13:54   open    closes 16:30              08:00–16:30       Europe/Lisbon                                                                     PSI
+#> 6        Dublin      13:54   open    closes 16:30              08:00–16:30       Europe/Dublin                                                          ISEQ All Share
+#> 7        London      13:54   open    closes 16:30              08:00–16:30       Europe/London                                                      FTSE 100, FTSE 250
+#> 8     Frankfurt      14:54   open    closes 17:30              09:00–17:30       Europe/Berlin                DAX, MDAX, SDAX, TecDAX, Euro Stoxx 50, STOXX Europe 600
+#> 9         Paris      14:54   open    closes 17:30              09:00–17:30        Europe/Paris                                          CAC 40, Euronext 100, Next 150
+#> 10     Brussels      14:54   open    closes 17:30              09:00–17:30     Europe/Brussels                                                                  BEL 20
+#> 11    Amsterdam      14:54   open    closes 17:30              09:00–17:30    Europe/Amsterdam                                                                     AEX
+#> 12       Madrid      14:54   open    closes 17:30              09:00–17:30       Europe/Madrid                                                                 IBEX 35
+#> 13        Milan      14:54   open    closes 17:30              09:00–17:30         Europe/Rome                                                                FTSE MIB
+#> 14       Zurich      14:54   open    closes 17:30              09:00–17:30       Europe/Zurich                                                                     SMI
+#> 15         Oslo      14:54   open    closes 16:20              09:00–16:20         Europe/Oslo                                                                   OSEBX
+#> 16   Copenhagen      14:54   open    closes 17:00              09:00–17:00   Europe/Copenhagen                                                       OMX Copenhagen 25
+#> 17       Vienna      14:54   open    closes 17:30              09:00–17:30       Europe/Vienna                                                                     ATX
+#> 18    Stockholm      14:54   open    closes 17:30              09:00–17:30    Europe/Stockholm                                                        OMX Stockholm 30
+#> 19      Baltics      15:54   open    closes 16:00              10:00–16:00         Europe/Riga                                      OMX Tallinn, OMX Riga, OMX Vilnius
+#> 20     Helsinki      15:54   open    closes 18:30              10:00–18:30     Europe/Helsinki                                                         OMX Helsinki 25
+#> 21       Athens      15:54   open    closes 17:20              10:00–17:20       Europe/Athens                                                          Athens General
+#> 22     Istanbul      16:54   open    closes 18:00              10:00–18:00     Europe/Istanbul                                                                BIST 100
+#> 23       Mumbai      19:24 closed opens Fri 09:15              09:15–15:30        Asia/Kolkata                                                                  Sensex
+#> 24      Jakarta      20:54 closed opens Fri 09:00 09:00–12:00, 13:30–15:50        Asia/Jakarta                                                           IDX Composite
+#> 25 Kuala Lumpur      21:54 closed opens Fri 09:00 09:00–12:30, 14:30–17:00   Asia/Kuala_Lumpur                                                FTSE Bursa Malaysia KLCI
+#> 26    Singapore      21:54 closed opens Fri 09:00              09:00–17:00      Asia/Singapore                                                           Straits Times
+#> 27     Shanghai      21:54 closed opens Fri 09:30 09:30–11:30, 13:00–15:00       Asia/Shanghai                                                      Shanghai Composite
+#> 28    Hong Kong      21:54 closed opens Fri 09:30 09:30–12:00, 13:00–16:00      Asia/Hong_Kong                                                               Hang Seng
+#> 29       Taipei      21:54 closed opens Fri 09:00              09:00–13:30         Asia/Taipei                                                         Taiwan Weighted
+#> 30        Seoul      22:54 closed opens Fri 09:00              09:00–15:30          Asia/Seoul                                                                   KOSPI
+#> 31        Tokyo      22:54 closed opens Fri 09:00 09:00–11:30, 12:30–15:30          Asia/Tokyo                                                              Nikkei 225
+#> 32       Sydney      00:54 closed     opens 10:00              10:00–16:00    Australia/Sydney                                                 ASX 200, All Ordinaries
+#> 33   Wellington      02:54 closed     opens 10:00              10:00–16:45    Pacific/Auckland                                                                  NZX 50
 # a Monday at 15:00 UTC: New York, London and the euro area are open
 market_status(as.POSIXct("2026-11-09 15:00", tz = "UTC"))
 #>        exchange local_time  state            text                    hours           time_zone                                                                 indices
@@ -73,9 +73,9 @@ market_status(as.POSIXct("2026-11-09 15:00", tz = "UTC"))
 #> 4     São Paulo      12:00   open    closes 18:00              10:00–18:00   America/Sao_Paulo                                                                 Bovespa
 #> 5        Lisbon      15:00   open    closes 16:30              08:00–16:30       Europe/Lisbon                                                                     PSI
 #> 6        Dublin      15:00   open    closes 16:30              08:00–16:30       Europe/Dublin                                                          ISEQ All Share
-#> 7        London      15:00   open    closes 16:30              08:00–16:30       Europe/London                                                                FTSE 100
-#> 8     Frankfurt      16:00   open    closes 17:30              09:00–17:30       Europe/Berlin                                    DAX, Euro Stoxx 50, STOXX Europe 600
-#> 9         Paris      16:00   open    closes 17:30              09:00–17:30        Europe/Paris                                                    CAC 40, Euronext 100
+#> 7        London      15:00   open    closes 16:30              08:00–16:30       Europe/London                                                      FTSE 100, FTSE 250
+#> 8     Frankfurt      16:00   open    closes 17:30              09:00–17:30       Europe/Berlin                DAX, MDAX, SDAX, TecDAX, Euro Stoxx 50, STOXX Europe 600
+#> 9         Paris      16:00   open    closes 17:30              09:00–17:30        Europe/Paris                                          CAC 40, Euronext 100, Next 150
 #> 10     Brussels      16:00   open    closes 17:30              09:00–17:30     Europe/Brussels                                                                  BEL 20
 #> 11    Amsterdam      16:00   open    closes 17:30              09:00–17:30    Europe/Amsterdam                                                                     AEX
 #> 12       Madrid      16:00   open    closes 17:30              09:00–17:30       Europe/Madrid                                                                 IBEX 35

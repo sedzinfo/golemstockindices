@@ -39,36 +39,41 @@ get_indices()
 #> 10         STOXX Europe 600     ^STOXX       Europe      EUR       <NA>
 #> 11            Euro Stoxx 50  ^STOXX50E       Europe      EUR       <NA>
 #> 12                 FTSE 100      ^FTSE       Europe      GBP       <NA>
-#> 13                      DAX     ^GDAXI       Europe      EUR       <NA>
-#> 14                   CAC 40      ^FCHI       Europe      EUR       <NA>
-#> 15                  IBEX 35      ^IBEX       Europe      EUR       <NA>
-#> 16                 FTSE MIB FTSEMIB.MI       Europe      EUR       <NA>
-#> 17                      SMI      ^SSMI       Europe      CHF       <NA>
-#> 18             Euronext 100      ^N100       Europe      EUR       <NA>
-#> 19                   BEL 20       ^BFX       Europe      EUR       <NA>
-#> 20                      AEX       ^AEX       Europe      EUR       <NA>
-#> 21                      ATX       ^ATX       Europe      EUR       <NA>
-#> 22           ISEQ All Share      ^ISEQ       Europe      EUR       <NA>
-#> 23                      PSI   PSI20.LS       Europe      EUR       <NA>
-#> 24         OMX Stockholm 30       ^OMX       Europe      SEK       <NA>
-#> 25        OMX Copenhagen 25    ^OMXC25       Europe      DKK       <NA>
-#> 26          OMX Helsinki 25    ^OMXH25       Europe      EUR       <NA>
-#> 27                    OSEBX   OSEBX.OL       Europe      NOK       <NA>
-#> 28              OMX Tallinn    ^OMXTGI       Europe      EUR       <NA>
-#> 29                 OMX Riga    ^OMXRGI       Europe      EUR       <NA>
-#> 30              OMX Vilnius    ^OMXVGI       Europe      EUR       <NA>
-#> 31           Athens General      GD.AT       Europe      EUR       <NA>
-#> 32                 BIST 100   XU100.IS       Europe      TRY       <NA>
-#> 33               Nikkei 225      ^N225 Asia-Pacific      JPY       <NA>
-#> 34       Shanghai Composite  000001.SS Asia-Pacific      CNY       <NA>
-#> 35                Hang Seng       ^HSI Asia-Pacific      HKD       <NA>
-#> 36                    KOSPI      ^KS11 Asia-Pacific      KRW       <NA>
-#> 37          Taiwan Weighted      ^TWII Asia-Pacific      TWD       <NA>
-#> 38                   Sensex     ^BSESN Asia-Pacific      INR       <NA>
-#> 39            Straits Times       ^STI Asia-Pacific      SGD       <NA>
-#> 40                  ASX 200      ^AXJO Asia-Pacific      AUD       <NA>
-#> 41           All Ordinaries      ^AORD Asia-Pacific      AUD       <NA>
-#> 42                   NZX 50      ^NZ50 Asia-Pacific      NZD       <NA>
-#> 43            IDX Composite      ^JKSE Asia-Pacific      IDR       <NA>
-#> 44 FTSE Bursa Malaysia KLCI      ^KLSE Asia-Pacific      MYR       <NA>
+#> 13                 FTSE 250      ^FTMC       Europe      GBP       <NA>
+#> 14                      DAX     ^GDAXI       Europe      EUR       <NA>
+#> 15                     MDAX     ^MDAXI       Europe      EUR       <NA>
+#> 16                     SDAX     ^SDAXI       Europe      EUR       <NA>
+#> 17                   TecDAX    ^TECDAX       Europe      EUR       <NA>
+#> 18                   CAC 40      ^FCHI       Europe      EUR       <NA>
+#> 19                  IBEX 35      ^IBEX       Europe      EUR       <NA>
+#> 20                 FTSE MIB FTSEMIB.MI       Europe      EUR       <NA>
+#> 21                      SMI      ^SSMI       Europe      CHF       <NA>
+#> 22             Euronext 100      ^N100       Europe      EUR       <NA>
+#> 23                 Next 150      ^N150       Europe      EUR       <NA>
+#> 24                   BEL 20       ^BFX       Europe      EUR       <NA>
+#> 25                      AEX       ^AEX       Europe      EUR       <NA>
+#> 26                      ATX       ^ATX       Europe      EUR       <NA>
+#> 27           ISEQ All Share      ^ISEQ       Europe      EUR       <NA>
+#> 28                      PSI   PSI20.LS       Europe      EUR       <NA>
+#> 29         OMX Stockholm 30       ^OMX       Europe      SEK       <NA>
+#> 30        OMX Copenhagen 25    ^OMXC25       Europe      DKK       <NA>
+#> 31          OMX Helsinki 25    ^OMXH25       Europe      EUR       <NA>
+#> 32                    OSEBX   OSEBX.OL       Europe      NOK       <NA>
+#> 33              OMX Tallinn    ^OMXTGI       Europe      EUR       <NA>
+#> 34                 OMX Riga    ^OMXRGI       Europe      EUR       <NA>
+#> 35              OMX Vilnius    ^OMXVGI       Europe      EUR       <NA>
+#> 36           Athens General      GD.AT       Europe      EUR       <NA>
+#> 37                 BIST 100   XU100.IS       Europe      TRY       <NA>
+#> 38               Nikkei 225      ^N225 Asia-Pacific      JPY       <NA>
+#> 39       Shanghai Composite  000001.SS Asia-Pacific      CNY       <NA>
+#> 40                Hang Seng       ^HSI Asia-Pacific      HKD       <NA>
+#> 41                    KOSPI      ^KS11 Asia-Pacific      KRW       <NA>
+#> 42          Taiwan Weighted      ^TWII Asia-Pacific      TWD       <NA>
+#> 43                   Sensex     ^BSESN Asia-Pacific      INR       <NA>
+#> 44            Straits Times       ^STI Asia-Pacific      SGD       <NA>
+#> 45                  ASX 200      ^AXJO Asia-Pacific      AUD       <NA>
+#> 46           All Ordinaries      ^AORD Asia-Pacific      AUD       <NA>
+#> 47                   NZX 50      ^NZ50 Asia-Pacific      NZD       <NA>
+#> 48            IDX Composite      ^JKSE Asia-Pacific      IDR       <NA>
+#> 49 FTSE Bursa Malaysia KLCI      ^KLSE Asia-Pacific      MYR       <NA>
 ```

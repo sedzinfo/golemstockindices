@@ -32,9 +32,10 @@ golemstockindices:::index_choices(get_indices())
 #> [1] "S&P/TSX Composite" "Bovespa"           "IPC Mexico"       
 #> 
 #> $Europe
-#>  [1] "STOXX Europe 600"  "Euro Stoxx 50"     "FTSE 100"          "DAX"               "CAC 40"            "IBEX 35"           "FTSE MIB"          "SMI"               "Euronext 100"     
-#> [10] "BEL 20"            "AEX"               "ATX"               "ISEQ All Share"    "PSI"               "OMX Stockholm 30"  "OMX Copenhagen 25" "OMX Helsinki 25"   "OSEBX"            
-#> [19] "OMX Tallinn"       "OMX Riga"          "OMX Vilnius"       "Athens General"    "BIST 100"         
+#>  [1] "STOXX Europe 600"  "Euro Stoxx 50"     "FTSE 100"          "FTSE 250"          "DAX"               "MDAX"              "SDAX"              "TecDAX"            "CAC 40"           
+#> [10] "IBEX 35"           "FTSE MIB"          "SMI"               "Euronext 100"      "Next 150"          "BEL 20"            "AEX"               "ATX"               "ISEQ All Share"   
+#> [19] "PSI"               "OMX Stockholm 30"  "OMX Copenhagen 25" "OMX Helsinki 25"   "OSEBX"             "OMX Tallinn"       "OMX Riga"          "OMX Vilnius"       "Athens General"   
+#> [28] "BIST 100"         
 #> 
 #> $`Asia-Pacific`
 #>  [1] "Nikkei 225"               "Shanghai Composite"       "Hang Seng"                "KOSPI"                    "Taiwan Weighted"          "Sensex"                   "Straits Times"           

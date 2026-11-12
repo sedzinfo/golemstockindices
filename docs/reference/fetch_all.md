@@ -1,7 +1,7 @@
 # Fetch several addresses at the same time
 
 Sends every request at once, at most `parallel_downloads` at a time, and
-waits for all of them, so 44 indices take about as long as the slowest
+waits for all of them, so 49 indices take about as long as the slowest
 few instead of the sum of all of them.
 
 ## Usage

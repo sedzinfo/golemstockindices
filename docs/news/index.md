@@ -47,6 +47,10 @@
     of the falls.
   - **About** explains what each index measures and how every number of
     the app is calculated.
+- Five more indices of Europe: FTSE 250, MDAX, SDAX, TecDAX and Next 150
+  (49 in all). Yahoo Finance has no history of the indices of Warsaw,
+  Budapest and Reykjavik (only the last day), and its OMX Nordic 40
+  stops in 2015, so they are not included.
 - The prices of the indices are downloaded at the same time (8 requests
   at once) instead of one after the other, so the Overview opens in
   about 4 seconds the first time instead of 13, and in about 2 instead
