@@ -248,6 +248,14 @@ div:has(> a[href="#cookie-settings"]) {
   fill: rgba(255, 255, 255, 0.8) !important;
 }
 
+/* the Linear / Log buttons (plotly's updatemenus) take the colors of the range buttons in R
+   (button_colors()), but plotly paints the active button, and the one under the mouse, its own
+   fixed light color (#F4FAFF), with no setting for it: in dark mode, the range buttons' active
+   color instead, under the light text */
+[data-bs-theme="dark"] .js-plotly-plot .updatemenu-item-rect[style*="fill: rgb(244, 250, 255)"] {
+  fill: #6c757d !important;
+}
+
 /* phones and small tablets: the box of the exchanges table is a uiOutput, which Shiny shows as
    display: contents, so its overflow-x above does nothing and the 900px table widened the whole
    page; as a block it scrolls sideways in its box, as meant (desktop keeps display: contents) */
