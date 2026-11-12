@@ -1348,26 +1348,25 @@
       "description": {
         "Package": "otel",
         "Title": "OpenTelemetry R API",
-        "Version": "0.2.0",
+        "Version": "0.3.0",
         "Authors@R": "\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\"))",
         "Description": "High-quality, ubiquitous, and portable telemetry to enable\n    effective observability. OpenTelemetry is a collection of tools,\n    APIs, and SDKs used to instrument, generate, collect, and export\n    telemetry data (metrics, logs, and traces) for analysis in order to\n    understand your software's performance and behavior.\n    This package implements the OpenTelemetry API:\n    <https://opentelemetry.io/docs/specs/otel/>.\n    Use this package as a dependency if you want to instrument your R\n    package for OpenTelemetry.",
         "License": "MIT + file LICENSE",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2.9000",
         "Depends": "R (>= 3.6.0)",
-        "Suggests": "callr, cli, glue, jsonlite, otelsdk, processx, shiny,\nspelling, testthat (>= 3.0.0), utils, withr",
+        "Suggests": "callr, cli, glue, jsonlite, otelsdk (>= 0.2.4), processx,\nshiny, spelling, testthat (>= 3.0.0), utils, withr",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
         "URL": "https://otel.r-lib.org, https://github.com/r-lib/otel",
-        "Additional_repositories": "https://github.com/r-lib/otelsdk/releases/download/devel",
         "BugReports": "https://github.com/r-lib/otel/issues",
+        "Config/roxygen2/version": "8.1.1",
         "NeedsCompilation": "no",
-        "Packaged": "2025-08-29 12:46:28 UTC; gaborcsardi",
+        "Packaged": "2026-11-07 14:37:49 UTC; gaborcsardi",
         "Author": "Gábor Csárdi [aut, cre]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-08-29 13:30:07 UTC",
-        "Built": "R 4.6.0; ; 2026-05-04 09:22:57 UTC; unix"
+        "Date/Publication": "2026-11-07 15:20:02 UTC",
+        "Built": "R 4.6.2; ; 2026-11-12 08:01:35 UTC; unix"
       }
     },
     "pillar": {
@@ -2373,7 +2372,7 @@
       "checksum": "924145971f17e03ceee348e8af584093"
     },
     "inst/app/about.md": {
-      "checksum": "a76a0cea29d0bd7f53186f265257c582"
+      "checksum": "1b9713f69e56ad19c9cc48ccef31ed68"
     },
     "inst/app/www/analytics.js": {
       "checksum": "1918493ff537401c08c4ecd06ce1b03a"
@@ -2385,7 +2384,7 @@
       "checksum": "84de9cc0ea9c7d485fd4c993ededf1a1"
     },
     "inst/app/www/styles.css": {
-      "checksum": "1e4a5b7fd467bae0a3a1dc2a0331f90d"
+      "checksum": "3511aa156135440948d6448c9d627f74"
     },
     "inst/js/fit_y_axes.js": {
       "checksum": "c06d4f15deccdf0d538d8daec0906577"
@@ -2403,19 +2402,19 @@
       "checksum": "17dfd05d28256015eff3996eec51d4d3"
     },
     "R/app_ui.R": {
-      "checksum": "bdcf4a72d4568f210767b778bfa9d702"
+      "checksum": "6607d82fb5532ce257d4d04dbdbc2c88"
     },
     "R/fct_calc.R": {
       "checksum": "6de6630069b4b6023132161e545e22a9"
     },
     "R/fct_data.R": {
-      "checksum": "a15c8f0febf4c9ce700933bcc1bc7eee"
+      "checksum": "b4eac16e11276b29cb80010a9c718677"
     },
     "R/fct_drawdown.R": {
       "checksum": "f5de8d01d215045f586259205581b649"
     },
     "R/fct_markets.R": {
-      "checksum": "6095abfd091d62d15bc33d134dd0d0de"
+      "checksum": "d8043185fee561aeeaece4cad69a4ab5"
     },
     "R/fct_plots.R": {
       "checksum": "454df01f54bb7187e6f76b3e1353be5c"
