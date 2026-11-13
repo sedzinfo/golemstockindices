@@ -90,6 +90,7 @@ add_external_resources <- function(analytics = FALSE, keep_alive = TRUE) {
     tags$meta(property = "og:image", content = app_image),
     tags$meta(name = "twitter:card", content = "summary_large_image"),
     tags$link(rel = "icon", type = "image/svg+xml", href = "www/favicon.svg"),
+    shared_css(),
     tags$link(rel = "stylesheet", href = "www/styles.css"),
     # on a phone the tabs are in a menu behind the navbar toggle, which Bootstrap leaves open after
     # a tab is picked, covering the tab: close it when a tab link in it is clicked

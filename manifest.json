@@ -2378,7 +2378,7 @@
       "checksum": "3ddc50f03a74a48afad0de10058df714"
     },
     "inst/app/www/styles.css": {
-      "checksum": "22f2719f0deb1f14b44f5d07ff523e89"
+      "checksum": "54f2b700857f2d4e6ad2db99bc1392a6"
     },
     "inst/js/fit_y_axes.js": {
       "checksum": "c06d4f15deccdf0d538d8daec0906577"
@@ -2396,7 +2396,7 @@
       "checksum": "17dfd05d28256015eff3996eec51d4d3"
     },
     "R/app_ui.R": {
-      "checksum": "a9b86a88209f38add8d13a22517f598f"
+      "checksum": "5562a3df53e2951d1d7496d254d5bf49"
     },
     "R/fct_calc.R": {
       "checksum": "6de6630069b4b6023132161e545e22a9"
@@ -2450,7 +2450,7 @@
       "checksum": "d21459cb5b62352412f7c98d2d01f7e9"
     },
     "R/utils_analytics.R": {
-      "checksum": "0f13cf970cfe16be5374faa32ec40b5f"
+      "checksum": "723e34f658ae96259bf89aab9a44fcb9"
     },
     "R/utils_download.R": {
       "checksum": "a45f31510776857f32ee9102295d1a93"
