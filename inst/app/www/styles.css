@@ -215,12 +215,6 @@
   vertical-align: top;
 }
 
-/* the cookie banner of consent.js uses the primary color of the theme, the teal of the app;
-   use the navy of the sedzinfo.github.io sites instead, as the other apps do */
-#analytics-choice.bg-primary {
-  background-color: #2c3e50 !important;
-}
-
 /* the footer with the Cookie settings and Privacy links: more space above it moves it lower */
 div:has(> a[href="#cookie-settings"]) {
   margin-top: 2rem;

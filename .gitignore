@@ -12,8 +12,7 @@
 # Example code in package build process
 *-Ex.R
 
-# Output files from R CMD check, and from a failed R CMD Rd2pdf (the package tarball and the
-# PDF manual are committed, by the Build package tarball workflow)
+# Output files from R CMD check, and from a failed R CMD Rd2pdf
 /*.Rcheck/
 .Rd2pdf*/
 
@@ -43,3 +42,8 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# the package tarball and the PDF manual: the Build package tarball workflow publishes them
+# on the "latest" release, so they are not committed
+/*.tar.gz
+/golemstockindices.pdf

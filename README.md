@@ -40,6 +40,15 @@ library(devtools)
 install_github("sedzinfo/golemstockindices")
 ```
 
+Without devtools, install the source tarball of the [latest release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest), which is rebuilt from `main` on every change, together with the PDF manual:
+
+```r
+install.packages(
+  "https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz",
+  repos = NULL, type = "source"
+)
+```
+
 ## Usage
 Launch the Shiny app with just two lines of code:
 
