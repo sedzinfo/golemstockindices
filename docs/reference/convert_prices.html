@@ -127,11 +127,11 @@ without the days that have no rate.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        label  timestamp     open     high      low    close volume</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Nikkei 225 2024-01-04 208.3610 211.5180 207.0982 210.1794      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 Nikkei 225 2024-01-05 208.8174 211.9813 207.5519 211.2030      0</span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
 <span class="r-in"><span><span class="co"># the S&amp;P 500 and the DAX in euros, each starting at 100</span></span></span>
 <span class="r-in"><span><span class="va">euros</span> <span class="op">&lt;-</span> <span class="fu">convert_prices</span><span class="op">(</span><span class="fu"><a href="get_history.html">get_history</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S&amp;P 500"</span>, <span class="st">"DAX"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"EUR"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="fu"><a href="normalize_prices.html">normalize_prices</a></span><span class="op">(</span><span class="va">euros</span><span class="op">)</span>, currency <span class="op">=</span> <span class="st">"EUR"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
