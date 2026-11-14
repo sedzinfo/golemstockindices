@@ -52,9 +52,9 @@ rates <- data.frame(
 )
 convert_prices(history, "USD", rates = rates)
 convert_prices(history, "EUR", rates = rates)
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # the S&P 500 and the DAX in euros, each starting at 100
 euros <- convert_prices(get_history(c("S&P 500", "DAX")), "EUR")
 plot_compare(normalize_prices(euros), currency = "EUR")
-}
+\dontshow{\}) # examplesIf}
 }

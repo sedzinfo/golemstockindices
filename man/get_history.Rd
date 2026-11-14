@@ -31,11 +31,11 @@ indices run at the same time. An index is priced on the days its exchange
 trades, so weekends and holidays have no prices.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 spx <- get_history("S&P 500", as.Date("2020-01-01"))
 plot_timeseries(spx)
 
 history <- get_history(c("S&P 500", "DAX", "Nikkei 225"))
 plot_compare(normalize_prices(history))
-}
+\dontshow{\}) # examplesIf}
 }

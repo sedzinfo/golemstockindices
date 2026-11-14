@@ -442,14 +442,12 @@ index_history <- function(index) {
 #'   left out with a message, and `NULL` is returned when no label matches or
 #'   nothing could be downloaded.
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' spx <- get_history("S&P 500", as.Date("2020-01-01"))
 #' plot_timeseries(spx)
 #'
 #' history <- get_history(c("S&P 500", "DAX", "Nikkei 225"))
 #' plot_compare(normalize_prices(history))
-#' }
 get_history <- function(labels, start_date = Sys.Date() - 365, indices = get_indices()) {
   unknown <- setdiff(labels, indices$label)
   if (length(unknown) > 0) {
