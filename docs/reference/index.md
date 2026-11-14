@@ -14,6 +14,8 @@
 
 ## Calculations
 
+- [`convert_prices()`](https://sedzinfo.github.io/golemstockindices/reference/convert_prices.md)
+  : Convert the prices of indices to one currency
 - [`normalize_prices()`](https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.md)
   : Normalize close prices to 100
 - [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)

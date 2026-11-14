@@ -1,11 +1,16 @@
 # Compare module - server
 
 Gets the price history of the selected indices from the start date,
-renders their closes normalized to 100, and serves them as a CSV file
-named like `compare-2026-11-07.csv`, with the columns `date`, `label`,
-`close` and `index`. The download waits until the selection has not
-changed for 1.5 seconds, instead of starting on every click in the
-picker.
+converts it to the currency picked with
+[`convert_prices()`](https://sedzinfo.github.io/golemstockindices/reference/convert_prices.md),
+renders the closes normalized to 100, and serves them as a CSV file
+named like `compare-2026-11-07.csv`, or `compare-usd-2026-11-07.csv` in
+US dollars, with the columns `date`, `label`, `currency`, `close` and
+`index`. The download waits until the selection has not changed for 1.5
+seconds, instead of starting on every click in the picker. In another
+currency, a line above the chart says which indices have no exchange
+rates, and when the rates, which start between 1996 and 2006, make the
+comparison start later than the prices would.
 
 ## Usage
 
