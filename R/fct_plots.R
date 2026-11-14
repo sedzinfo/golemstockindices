@@ -179,7 +179,7 @@ plot_compare <- function(prices, mode = "light", indices = get_indices(), curren
   )
   title <- paste0(
     "Normalized close (", min(prices$timestamp), " = 100)",
-    if (length(notes) > 0) paste0("<br><sup>", paste(notes, collapse = " · "), "</sup>")
+    if (length(notes) > 0) paste0("<br><sup>", paste(notes, collapse = paste0(" ", intToUtf8(183), " ")), "</sup>")
   )
   plotly::plot_ly(prices,
     x = ~timestamp,

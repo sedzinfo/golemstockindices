@@ -38,6 +38,13 @@
   min-height: 550px;
 }
 
+/* the dates and numbers of the overview table stay on one line: a long name, such as Hang Seng
+   China Enterprises, wraps instead, rather than every date breaking at its hyphens and every row
+   taking two lines, as at 1440px and less */
+#overview-table td:not(:first-child) {
+  white-space: nowrap;
+}
+
 /* on a phone the overview table is wider than the screen, and scrolls sideways in its box */
 #overview-table {
   overflow-x: auto;
@@ -144,7 +151,7 @@
 /* the performance chart fills the window too, but keeps room for a bar per index on short
    screens */
 #performance-plot {
-  min-height: 760px;
+  min-height: 860px;
 }
 
 /* the Volatility, Drawdowns and Seasonality tabs are a column as tall as the window below the navigation bar:

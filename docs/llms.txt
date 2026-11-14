@@ -7,23 +7,25 @@ app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/)** ·
 [Website](https://sedzinfo.github.io/golemstockindices/)
 
 An interactive R Shiny application for exploring the major stock market
-indices of the Americas, Europe and Asia-Pacific: where each stands
-today, its whole history, how it compares with the others, its
+indices of the Americas, Europe, Africa and Asia-Pacific: where each
+stands today, its whole history, how it compares with the others, its
 seasonality, whether its recent volatility is normal and how far it is
 below its all-time high.
 
 ## Features
 
-- **49 indices**: S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite,
-  Russell 2000 and the VIX in the US; S&P/TSX Composite, Bovespa and IPC
-  Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100,
-  FTSE 250, DAX, MDAX, SDAX, TecDAX, CAC 40, IBEX 35, FTSE MIB, SMI,
-  Euronext 100, Next 150, BEL 20, AEX, ATX, ISEQ All Share, PSI, OMX
-  Stockholm 30, OMX Copenhagen 25, OMX Helsinki 25, OSEBX, OMX Tallinn,
-  OMX Riga, OMX Vilnius, Athens General and BIST 100 in Europe; Nikkei
-  225, Shanghai Composite, Hang Seng, KOSPI, Taiwan Weighted, Sensex,
-  Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite and FTSE
-  Bursa Malaysia KLCI in Asia-Pacific
+- **55 indices**: S&P 500, Dow Jones, Nasdaq Composite, Nasdaq-100, NYSE
+  Composite, Russell 2000 and the VIX in the US; S&P/TSX Composite,
+  Bovespa and IPC Mexico in the Americas; STOXX Europe 600, Euro Stoxx
+  50, FTSE 100, FTSE 250, FTSE All-Share, DAX, MDAX, SDAX, TecDAX, CAC
+  40, IBEX 35, FTSE MIB, SMI, Euronext 100, Next 150, BEL 20, AEX, ATX,
+  ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki
+  25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST
+  100 in Europe; the FTSE/JSE Top 40 in Africa; Nikkei 225, Shanghai
+  Composite, Shenzhen Component, Hang Seng, Hang Seng China Enterprises,
+  KOSPI, KOSDAQ, Taiwan Weighted, Sensex, Straits Times, ASX 200, All
+  Ordinaries, NZX 50, IDX Composite and FTSE Bursa Malaysia KLCI in
+  Asia-Pacific
 - **Overview**: Which exchanges are open now, every index in one table
   with a line of its last year, its last close, the change on the day,
   this year and over a year, and how far it is below its all-time high

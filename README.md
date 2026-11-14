@@ -4,11 +4,11 @@ explore the major stock market indices
 
 **[Open the live app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/)** · [Website](https://sedzinfo.github.io/golemstockindices/)
 
-An interactive R Shiny application for exploring the major stock market indices of the Americas, Europe and Asia-Pacific: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.
+An interactive R Shiny application for exploring the major stock market indices of the Americas, Europe, Africa and Asia-Pacific: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.
 
 ## Features
 
-- **49 indices**: S&P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000 and the VIX in the US; S&P/TSX Composite, Bovespa and IPC Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, FTSE 250, DAX, MDAX, SDAX, TecDAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, Next 150, BEL 20, AEX, ATX, ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki 25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST 100 in Europe; Nikkei 225, Shanghai Composite, Hang Seng, KOSPI, Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific
+- **55 indices**: S&P 500, Dow Jones, Nasdaq Composite, Nasdaq-100, NYSE Composite, Russell 2000 and the VIX in the US; S&P/TSX Composite, Bovespa and IPC Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, FTSE 250, FTSE All-Share, DAX, MDAX, SDAX, TecDAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, Next 150, BEL 20, AEX, ATX, ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki 25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST 100 in Europe; the FTSE/JSE Top 40 in Africa; Nikkei 225, Shanghai Composite, Shenzhen Component, Hang Seng, Hang Seng China Enterprises, KOSPI, KOSDAQ, Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific
 - **Overview**: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high
 - **Performance**: The indices side by side in one chart, the best at the top, over the day, a week, 1, 3, 6 or 9 months, this year or a year
 - **Interactive Candlestick Charts**: The whole history of an index, back to 1927 for the S&P 500, with the volume, the 50- and 200-day moving averages and the drawdown
@@ -152,10 +152,10 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ## Screenshots
 
 ### Overview
-![The 33 exchanges, from Mexico City to Wellington, with a dot for open or closed, and where the 49 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+![The 35 exchanges, from Mexico City to Wellington, with a dot for open or closed, and where the 55 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
 
 ### Performance (dark mode)
-![The 43 stock indices side by side by their change this year, the best at the top, green for rises and red for falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+![The 54 stock indices side by side by their change this year, the best at the top, green for rises and red for falls, with the total return indices marked (TR)](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
 
 ### Index Chart
 ![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)

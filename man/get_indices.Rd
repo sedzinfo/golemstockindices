@@ -8,7 +8,8 @@ get_indices()
 }
 \value{
 A data frame with a row per index: \code{label}, \code{symbol} on Yahoo
-Finance, \code{region} ("US", "Americas", "Europe" or "Asia-Pacific"), the
+Finance, \code{region} ("US", "Americas", "Europe", "Africa" or
+"Asia-Pacific"), the
 \code{currency} of the shares in it, its \code{type}, "total return" for the
 performance indices, in which the dividends of the companies are
 reinvested, such as the DAX, or "price" for those that leave them out,
@@ -22,9 +23,9 @@ every analysis.
 }
 \description{
 The major indices of the US, the rest of the Americas,
-Europe and Asia-Pacific, and the VIX, with their symbols on Yahoo Finance.
-The \code{label} column holds the names, such as "S&P 500", that pick indices
-in \code{\link[=get_history]{get_history()}}.
+Europe, Africa and Asia-Pacific, and the VIX, with their symbols on Yahoo
+Finance. The \code{label} column holds the names, such as "S&P 500", that pick
+indices in \code{\link[=get_history]{get_history()}}.
 }
 \examples{
 get_indices()

@@ -51,6 +51,13 @@
   (49 in all). Yahoo Finance has no history of the indices of Warsaw,
   Budapest and Reykjavik (only the last day), and its OMX Nordic 40
   stops in 2015, so they are not included.
+- Six more indices: the Nasdaq-100, the FTSE All-Share, the FTSE/JSE Top
+  40 of South Africa, in a new Africa group, the Shenzhen Component, the
+  Hang Seng China Enterprises and KOSDAQ (55 in all), with the exchanges
+  of Johannesburg and Shenzhen in the strip of the Overview. Yahoo
+  Finance has too little history of the MERVAL, the Tadawul, the CSI
+  300, the SET and the PSEi (from a day to a few months), and leaves out
+  the Sunday sessions of Tel Aviv, so they are not included.
 - The prices of the indices are downloaded at the same time (8 requests
   at once) instead of one after the other, so the Overview opens in
   about 4 seconds the first time instead of 13, and in about 2 instead

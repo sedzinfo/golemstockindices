@@ -15,11 +15,23 @@ make_stale <- function(key, minutes) {
 test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
   all <- get_indices()
   expect_named(all, c("label", "symbol", "region", "currency", "type", "from"))
-  expect_equal(nrow(all), 49)
+  expect_equal(nrow(all), 55)
   expect_false(anyDuplicated(all$label) > 0 || anyDuplicated(all$symbol) > 0)
   expect_equal(all$symbol[all$label == "S&P 500"], "^GSPC")
   expect_equal(all$symbol[all$label == "Athens General"], "GD.AT")
   expect_equal(all$symbol[all$label == "Shanghai Composite"], "000001.SS")
+  # the columns line up: the indices added later, and those just after them, have their own
+  # symbol, region and currency
+  check <- data.frame(
+    label = c("Nasdaq-100", "NYSE Composite", "FTSE All-Share", "DAX", "FTSE/JSE Top 40", "Nikkei 225",
+              "Shenzhen Component", "Hang Seng", "Hang Seng China Enterprises", "KOSPI", "KOSDAQ",
+              "Taiwan Weighted", "FTSE Bursa Malaysia KLCI"),
+    symbol = c("^NDX", "^NYA", "^FTAS", "^GDAXI", "^J200.JO", "^N225", "399001.SZ", "^HSI", "^HSCE",
+               "^KS11", "^KQ11", "^TWII", "^KLSE"),
+    region = c("US", "US", "Europe", "Europe", "Africa", rep("Asia-Pacific", 8)),
+    currency = c("USD", "USD", "GBP", "EUR", "ZAR", "JPY", "CNY", "HKD", "HKD", "KRW", "KRW", "TWD", "MYR")
+  )
+  expect_equal(all[match(check$label, all$label), names(check)], check, ignore_attr = TRUE)
   expect_true(is.na(all$currency[all$label == "VIX"]))
   # the performance indices reinvest the dividends; the VIX has no type, as it has no currency
   expect_setequal(
@@ -28,7 +40,7 @@ test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
   )
   expect_true(all(all$type[!is.na(all$currency)] %in% c("price", "total return")))
   expect_true(is.na(all$type[all$label == "VIX"]))
-  expect_equal(unique(all$region), c("US", "Americas", "Europe", "Asia-Pacific"))
+  expect_equal(unique(all$region), c("US", "Americas", "Europe", "Africa", "Asia-Pacific"))
   # only the Bovespa leaves out the start of its history
   expect_equal(all$from[all$label == "Bovespa"], as.Date("1995-01-01"))
   expect_equal(sum(!is.na(all$from)), 1)

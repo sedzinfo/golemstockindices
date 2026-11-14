@@ -55,7 +55,7 @@ app_ui <- function(indices, analytics = FALSE, keep_alive = TRUE) {
 app_url <- "https://sedzinfo-golemstockindices.share.connect.posit.cloud/"
 #' @noRd
 app_description <- paste(
-  "Follow the major stock market indices of the Americas, Europe and Asia-Pacific:",
+  "Follow the major stock market indices of the Americas, Europe, Africa and Asia-Pacific:",
   "where each stands, its history, seasonality, volatility and falls."
 )
 #' @noRd

@@ -51,11 +51,12 @@ disk_cache <- function() {
 ##########################################################################################
 #' @title The stock market indices of the app
 #' @description The major indices of the US, the rest of the Americas,
-#' Europe and Asia-Pacific, and the VIX, with their symbols on Yahoo Finance.
-#' The `label` column holds the names, such as "S&P 500", that pick indices
-#' in [get_history()].
+#' Europe, Africa and Asia-Pacific, and the VIX, with their symbols on Yahoo
+#' Finance. The `label` column holds the names, such as "S&P 500", that pick
+#' indices in [get_history()].
 #' @return A data frame with a row per index: `label`, `symbol` on Yahoo
-#'   Finance, `region` ("US", "Americas", "Europe" or "Asia-Pacific"), the
+#'   Finance, `region` ("US", "Americas", "Europe", "Africa" or
+#'   "Asia-Pacific"), the
 #'   `currency` of the shares in it, its `type`, "total return" for the
 #'   performance indices, in which the dividends of the companies are
 #'   reinvested, such as the DAX, or "price" for those that leave them out,
@@ -71,12 +72,12 @@ disk_cache <- function() {
 #' get_indices()
 get_indices <- function() {
   indices <- data.frame(
-    label = c("S&P 500", "Dow Jones", "Nasdaq Composite", "NYSE Composite",
+    label = c("S&P 500", "Dow Jones", "Nasdaq Composite", "Nasdaq-100", "NYSE Composite",
               "Russell 2000", "VIX",
-              
+
               "S&P/TSX Composite", "Bovespa", "IPC Mexico",
-              
-              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "FTSE 250",
+
+              "STOXX Europe 600", "Euro Stoxx 50", "FTSE 100", "FTSE 250", "FTSE All-Share",
               "DAX", "MDAX", "SDAX", "TecDAX",
               "CAC 40", "IBEX 35", "FTSE MIB", "SMI",
               "Euronext 100", "Next 150", "BEL 20", "AEX", "ATX",
@@ -84,18 +85,20 @@ get_indices <- function() {
               "OMX Stockholm 30", "OMX Copenhagen 25", "OMX Helsinki 25", "OSEBX",
               "OMX Tallinn", "OMX Riga", "OMX Vilnius",
               "Athens General", "BIST 100",
-              
-              "Nikkei 225", "Shanghai Composite", "Hang Seng",
-              "KOSPI", "Taiwan Weighted", "Sensex",
+
+              "FTSE/JSE Top 40",
+
+              "Nikkei 225", "Shanghai Composite", "Shenzhen Component", "Hang Seng", "Hang Seng China Enterprises",
+              "KOSPI", "KOSDAQ", "Taiwan Weighted", "Sensex",
               "Straits Times", "ASX 200", "All Ordinaries",
               "NZX 50", "IDX Composite", "FTSE Bursa Malaysia KLCI"),
-    
-    symbol = c("^GSPC", "^DJI", "^IXIC", "^NYA",
+
+    symbol = c("^GSPC", "^DJI", "^IXIC", "^NDX", "^NYA",
                "^RUT", "^VIX",
-               
+
                "^GSPTSE", "^BVSP", "^MXX",
-               
-               "^STOXX", "^STOXX50E", "^FTSE", "^FTMC",
+
+               "^STOXX", "^STOXX50E", "^FTSE", "^FTMC", "^FTAS",
                "^GDAXI", "^MDAXI", "^SDAXI", "^TECDAX",
                "^FCHI", "^IBEX", "FTSEMIB.MI", "^SSMI",
                "^N100", "^N150", "^BFX", "^AEX", "^ATX",
@@ -103,20 +106,23 @@ get_indices <- function() {
                "^OMX", "^OMXC25", "^OMXH25", "OSEBX.OL",
                "^OMXTGI", "^OMXRGI", "^OMXVGI",
                "GD.AT", "XU100.IS",
-               
-               "^N225", "000001.SS", "^HSI",
-               "^KS11", "^TWII", "^BSESN",
+
+               "^J200.JO",
+
+               "^N225", "000001.SS", "399001.SZ", "^HSI", "^HSCE",
+               "^KS11", "^KQ11", "^TWII", "^BSESN",
                "^STI", "^AXJO", "^AORD",
                "^NZ50", "^JKSE", "^KLSE"),
-    
-    region = c(rep("US", 6),
+
+    region = c(rep("US", 7),
                rep("Americas", 3),
-               rep("Europe", 28),
-               rep("Asia-Pacific", 12)),
-    
-    currency = c("USD", "USD", "USD", "USD", "USD", NA,
+               rep("Europe", 29),
+               rep("Africa", 1),
+               rep("Asia-Pacific", 15)),
+
+    currency = c("USD", "USD", "USD", "USD", "USD", "USD", NA,
                  "CAD", "BRL", "MXN",
-                 "EUR", "EUR", "GBP", "GBP",
+                 "EUR", "EUR", "GBP", "GBP", "GBP",
                  "EUR", "EUR", "EUR", "EUR",
                  "EUR", "EUR", "EUR", "CHF",
                  "EUR", "EUR", "EUR", "EUR", "EUR",
@@ -124,9 +130,11 @@ get_indices <- function() {
                  "SEK", "DKK", "EUR", "NOK",
                  "EUR", "EUR", "EUR",
                  "EUR", "TRY",
-                 
-                 "JPY", "CNY", "HKD",
-                 "KRW", "TWD", "INR",
+
+                 "ZAR",
+
+                 "JPY", "CNY", "CNY", "HKD", "HKD",
+                 "KRW", "KRW", "TWD", "INR",
                  "SGD", "AUD", "AUD",
                  "NZD", "IDR", "MYR"),
     
