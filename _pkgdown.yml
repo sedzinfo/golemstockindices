@@ -23,6 +23,7 @@ reference:
       - get_history
   - title: Calculations
     contents:
+      - convert_prices
       - normalize_prices
       - index_summary
       - market_status
