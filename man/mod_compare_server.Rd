@@ -20,11 +20,15 @@ None. Called for its side effect of registering the module server.
 }
 \description{
 Gets the price history of the selected indices from the start
-date, renders their closes normalized to 100, and serves them as a CSV
-file named like \verb{compare-2026-11-07.csv}, with the columns \code{date},
-\code{label}, \code{close} and \code{index}. The download waits until the selection
-has not changed for 1.5 seconds, instead of starting on every click in the
-picker.
+date, converts it to the currency picked with \code{\link[=convert_prices]{convert_prices()}}, renders
+the closes normalized to 100, and serves them as a CSV file named like
+\verb{compare-2026-11-07.csv}, or \verb{compare-usd-2026-11-07.csv} in US dollars,
+with the columns \code{date}, \code{label}, \code{currency}, \code{close} and \code{index}. The
+download waits until the selection has not changed for 1.5 seconds,
+instead of starting on every click in the picker. In another currency, a
+line above the chart says which indices have no exchange rates, and when
+the rates, which start between 1996 and 2006, make the comparison start
+later than the prices would.
 }
 \examples{
 \dontrun{

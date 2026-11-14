@@ -13,8 +13,9 @@ mod_performance_ui(id)
 A \code{tagList} of Shiny UI elements.
 }
 \description{
-A choice of the period, a button that downloads the changes
-as CSV, and the chart of the performance of the indices from
+A choice of the period and of the currency, a button that
+downloads the changes as CSV, a line on the indices without exchange rates
+when there are any, and the chart of the performance of the indices from
 \code{\link[=plot_performance]{plot_performance()}}, the best at the top.
 }
 \examples{

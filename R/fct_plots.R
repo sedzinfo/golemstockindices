@@ -150,26 +150,44 @@ plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show
 ##########################################################################################
 #' @title Line chart of normalized close prices
 #' @description One line per index, with buttons that switch the y axis between
-#' a linear and a log scale.
+#' a linear and a log scale. The performance indices, whose closes include the
+#' dividends that the others leave out, are marked (TR), for total return.
 #' @param prices Prices from [normalize_prices()].
+#' @param indices Data frame of indices from [get_indices()], for the indices
+#'   to mark (TR).
+#' @param currency `"local"` for prices in the money of each index, or the
+#'   currency they were converted to with [convert_prices()], `"USD"` or
+#'   `"EUR"`, for the title.
 #' @inheritParams plot_timeseries
 #' @return A plotly object.
 #' @export
 #' @examplesIf interactive()
 #' history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
 #' plot_compare(normalize_prices(history))
-plot_compare <- function(prices, mode = "light") {
+#' # in US dollars
+#' plot_compare(normalize_prices(convert_prices(history, "USD")), currency = "USD")
+plot_compare <- function(prices, mode = "light", indices = get_indices(), currency = "local") {
+  total <- indices$type[match(prices$label, indices$label)] %in% "total return"
+  prices$name <- prices$label
+  prices$name[total] <- paste(prices$label[total], "(TR)")
+  title <- paste0(
+    "Normalized close", if (currency != "local") paste(" in", currency_names[[currency]]),
+    " (", min(prices$timestamp), " = 100)"
+  )
   plotly::plot_ly(prices,
     x = ~timestamp,
     y = ~index,
-    color = ~label,
+    color = ~name,
     type = "scatter",
     mode = "lines",
     hovertemplate = "%{x}<br>%{y:.2f}"
   ) %>%
     plotly::layout(
-      title = paste0("Normalized close (", min(prices$timestamp), " = 100)"),
-      legend = list(orientation = "h", x = 0.5, xanchor = "center"),
+      title = title,
+      legend = list(
+        orientation = "h", x = 0.5, xanchor = "center",
+        title = list(text = if (any(total)) "(TR) total return: with the dividends, which the other indices leave out" else "")
+      ),
       xaxis = list(title = "Date"),
       yaxis = list(title = "Index"),
       updatemenus = list(list(
@@ -761,29 +779,41 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
 #' percent, green for rises and red for falls, the best at the top, from
 #' [performance_data()]. The VIX is left out: it measures the fear in the
 #' market rather than the value of shares, and its swings of tens of percent
-#' would squeeze the others.
+#' would squeeze the others. The performance indices, whose changes include
+#' the dividends that the others leave out, are marked (TR), for total return.
 #' @param summary The result of [index_summary()].
 #' @param indices Data frame of indices from [get_indices()]; the indices
 #'   without a currency, the VIX, are left out.
 #' @param period `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`,
 #'   `"month9"` (3, 6 and 9 months), `"ytd"` (year to date) or `"year"`.
+#' @param currency `"local"` for a summary of the prices in the money of each
+#'   index, or the currency they were converted to with [convert_prices()],
+#'   `"USD"` or `"EUR"`, for the title.
 #' @inheritParams plot_timeseries
 #' @return A plotly object.
 #' @export
 #' @examplesIf interactive()
 #' indices <- get_indices()
-#' summary <- index_summary(get_history(indices$label, as.Date("2020-01-01")))
-#' plot_performance(summary, indices, "ytd")
-plot_performance <- function(summary, indices = get_indices(), period = performance_periods, mode = "light") {
+#' history <- get_history(indices$label, as.Date("2020-01-01"))
+#' plot_performance(index_summary(history), indices, "ytd")
+#' # in US dollars
+#' plot_performance(index_summary(convert_prices(history, "USD")), indices, "ytd", currency = "USD")
+plot_performance <- function(summary, indices = get_indices(), period = performance_periods, mode = "light", currency = "local") {
   period <- match.arg(period)
   titles <- c(day = "Change on the day", week = "Change over the last week", month = "Change over the last month",
               month3 = "Change over the last 3 months", month6 = "Change over the last 6 months",
               month9 = "Change over the last 9 months", ytd = "Change this year", year = "Change over the last year")
   # plotly draws the first category at the bottom, so the best comes last
-  data <- performance_data(summary, indices, period)
+  data <- performance_data(summary, indices, period, currency)
   data <- data[rev(seq_len(nrow(data))), ]
+  # the performance indices are marked, as their dividends give them a head start
+  total <- data$type %in% "total return"
   labels <- data$label
+  labels[total] <- paste(labels[total], "(TR)")
   change <- data$change_pct
+  title <- titles[[period]]
+  if (currency != "local") title <- paste(title, "in", currency_names[[currency]])
+  if (any(total)) title <- paste0(title, "<br><sup>(TR) total return: with the dividends, which the other indices leave out</sup>")
   # room beyond the longest bars on both sides, for their labels, which would otherwise run into the
   # names of the indices on a narrow screen
   span <- max(c(change, 0)) - min(c(change, 0))
@@ -803,13 +833,14 @@ plot_performance <- function(summary, indices = get_indices(), period = performa
     hovertemplate = "%{y}: %{x:+.2f}%<extra></extra>"
   ) %>%
     plotly::layout(
-      title = list(text = titles[[period]], x = 0.01, xanchor = "left"),
+      title = list(text = title, x = 0.01, xanchor = "left"),
       xaxis = list(
         title = "", ticksuffix = "%", zeroline = TRUE,
         range = c(min(c(change, 0)) - if (any(change < 0)) spare_left else 0, max(c(change, 0)) + if (any(change > 0)) spare else 0)
       ),
       yaxis = list(title = "", type = "category", categoryorder = "array", categoryarray = labels, automargin = TRUE),
-      margin = list(t = 50)
+      # room for the line under the title that explains (TR)
+      margin = list(t = if (any(total)) 70 else 50)
     ) %>%
     plot_theme(mode)
 }

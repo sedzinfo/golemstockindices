@@ -16,8 +16,9 @@ mod_overview_server(id, indices, dark_mode)
 app.}
 }
 \value{
-A reactive returning the \code{\link[=index_summary]{index_summary()}} of every index, for
-\code{\link[=mod_performance_server]{mod_performance_server()}}.
+A list of two reactives, for \code{\link[=mod_performance_server]{mod_performance_server()}}: \code{summary},
+the \code{\link[=index_summary]{index_summary()}} of every index, and \code{history}, their whole price
+histories.
 }
 \description{
 Gets the whole history of every index, sums it up with
@@ -31,7 +32,7 @@ like \verb{overview-2026-11-07.csv}, holds the summary unrounded.
 \dontrun{
 # inside app_server():
 function(input, output, session) {
-  summary <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
+  overview <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
 }
 }
 }

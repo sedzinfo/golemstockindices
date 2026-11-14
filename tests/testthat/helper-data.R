@@ -7,7 +7,8 @@ indices <- data.frame(
   label = c("Alpha (A)", "Beta (B)"),
   symbol = c("^ALPHA", "BETA.X"),
   region = c("US", "Europe"),
-  currency = c("USD", NA)
+  currency = c("USD", NA),
+  type = c("price", NA)
 )
 
 # Beta starts a month after Alpha

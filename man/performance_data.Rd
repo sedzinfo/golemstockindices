@@ -4,7 +4,12 @@
 \alias{performance_data}
 \title{The change of each index over a period, the best first}
 \usage{
-performance_data(summary, indices, period = performance_periods)
+performance_data(
+  summary,
+  indices,
+  period = performance_periods,
+  currency = "local"
+)
 }
 \arguments{
 \item{summary}{The result of \code{\link[=index_summary]{index_summary()}}.}
@@ -13,11 +18,17 @@ performance_data(summary, indices, period = performance_periods)
 
 \item{period}{\code{"day"}, \code{"week"}, \code{"month"}, \code{"month3"}, \code{"month6"},
 \code{"month9"} (3, 6 and 9 months), \code{"ytd"} (year to date) or \code{"year"}.}
+
+\item{currency}{\code{"local"} for a summary of the prices in the money of
+each index, or the currency they were converted to with
+\code{\link[=convert_prices]{convert_prices()}}, \code{"USD"} or \code{"EUR"}, which then fills the \code{currency}
+column.}
 }
 \value{
 A data frame with a row per index, the best first: \code{label},
-\code{region}, \code{currency}, \code{date} and \code{close} of the last day, and
-\code{change_pct}, the change over the period in percent.
+\code{region}, \code{currency}, \code{type} ("total return" or "price", see
+\code{\link[=get_indices]{get_indices()}}), \code{date} and \code{close} of the last day, and \code{change_pct},
+the change over the period in percent.
 }
 \description{
 The data of the Performance tab: the chart of

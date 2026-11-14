@@ -4,7 +4,7 @@
 \alias{mod_performance_server}
 \title{Performance module - server}
 \usage{
-mod_performance_server(id, summary, indices, dark_mode)
+mod_performance_server(id, summary, history, indices, dark_mode)
 }
 \arguments{
 \item{id}{Character. Module namespace id, must match the id used in
@@ -12,6 +12,9 @@ mod_performance_server(id, summary, indices, dark_mode)
 
 \item{summary}{Reactive returning the \code{\link[=index_summary]{index_summary()}} of every index,
 as \code{\link[=mod_overview_server]{mod_overview_server()}} returns it.}
+
+\item{history}{Reactive returning the whole price history of every index,
+as \code{\link[=mod_overview_server]{mod_overview_server()}} returns it, to convert.}
 
 \item{indices}{Data frame of indices from \code{\link[=get_indices]{get_indices()}}.}
 
@@ -22,17 +25,20 @@ app.}
 None. Called for its side effect of registering the module server.
 }
 \description{
-Shows the change of every index over the period picked, from
-the summary of the Overview tab, so the histories are downloaded once for
-both tabs. The CSV file, named like \verb{performance-ytd-2026-11-07.csv}, holds
-the changes of the chart from \code{\link[=performance_data]{performance_data()}}, unrounded.
+Shows the change of every index over the period picked, in
+the money of each index from the summary of the Overview tab, or in US
+dollars or euros from its price histories, converted with
+\code{\link[=convert_prices]{convert_prices()}}, so the histories are downloaded once for both tabs.
+The CSV file, named like \verb{performance-ytd-2026-11-07.csv}, or
+\verb{performance-ytd-usd-2026-11-07.csv} in US dollars, holds the changes of
+the chart from \code{\link[=performance_data]{performance_data()}}, unrounded.
 }
 \examples{
 \dontrun{
 # inside app_server():
 function(input, output, session) {
-  summary <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
-  mod_performance_server("performance", summary, get_indices(), reactive(input$dark_mode))
+  overview <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
+  mod_performance_server("performance", overview$summary, overview$history, get_indices(), reactive(input$dark_mode))
 }
 }
 }

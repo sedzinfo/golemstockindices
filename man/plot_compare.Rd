@@ -4,24 +4,39 @@
 \alias{plot_compare}
 \title{Line chart of normalized close prices}
 \usage{
-plot_compare(prices, mode = "light")
+plot_compare(
+  prices,
+  mode = "light",
+  indices = get_indices(),
+  currency = "local"
+)
 }
 \arguments{
 \item{prices}{Prices from \code{\link[=normalize_prices]{normalize_prices()}}.}
 
 \item{mode}{\code{"light"} (the default) or \code{"dark"}, to suit a light or dark
 page.}
+
+\item{indices}{Data frame of indices from \code{\link[=get_indices]{get_indices()}}, for the indices
+to mark (TR).}
+
+\item{currency}{\code{"local"} for prices in the money of each index, or the
+currency they were converted to with \code{\link[=convert_prices]{convert_prices()}}, \code{"USD"} or
+\code{"EUR"}, for the title.}
 }
 \value{
 A plotly object.
 }
 \description{
 One line per index, with buttons that switch the y axis between
-a linear and a log scale.
+a linear and a log scale. The performance indices, whose closes include the
+dividends that the others leave out, are marked (TR), for total return.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
 plot_compare(normalize_prices(history))
+# in US dollars
+plot_compare(normalize_prices(convert_prices(history, "USD")), currency = "USD")
 \dontshow{\}) # examplesIf}
 }

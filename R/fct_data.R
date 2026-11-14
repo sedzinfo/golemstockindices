@@ -56,9 +56,13 @@ disk_cache <- function() {
 #' in [get_history()].
 #' @return A data frame with a row per index: `label`, `symbol` on Yahoo
 #'   Finance, `region` ("US", "Americas", "Europe" or "Asia-Pacific"), the
-#'   `currency` of the shares in it, and `from`, the first day to keep, or
+#'   `currency` of the shares in it, its `type`, "total return" for the
+#'   performance indices, in which the dividends of the companies are
+#'   reinvested, such as the DAX, or "price" for those that leave them out,
+#'   such as the S&P 500, and `from`, the first day to keep, or
 #'   `NA` to keep all of the history. The VIX is a measure of the expected
-#'   volatility of the S&P 500, in percent a year, so its currency is `NA`.
+#'   volatility of the S&P 500, in percent a year, so its currency and type
+#'   are `NA`.
 #'   The Bovespa starts in 1995: in the hyperinflation of Brazil before the
 #'   real, its returns of thousands of percent a year in the money of the time would swamp
 #'   every analysis.
@@ -128,7 +132,12 @@ get_indices <- function() {
     
     stringsAsFactors = FALSE
   )
-  
+
+  # the performance indices, in which the dividends of the companies are reinvested: Yahoo
+  # Finance names them P (DAX P, MDAX P), GI (gross index) or Gross
+  total_return <- c("Bovespa", "DAX", "MDAX", "SDAX", "TecDAX", "OSEBX", "OMX Tallinn", "OMX Riga", "OMX Vilnius", "NZX 50")
+  indices$type <- ifelse(is.na(indices$currency), NA, ifelse(indices$label %in% total_return, "total return", "price"))
+
   indices$from <- as.Date(
     ifelse(indices$label == "Bovespa", "1995-01-01", NA)
   )
@@ -162,7 +171,10 @@ get_indices <- function() {
 #' open, as its close is not final yet. The dates are those of the exchange.
 #' Yahoo Finance keeps the levels with the rounding errors of single
 #' precision, such as 4554.97998046875 for 4554.98, so they are rounded to
-#' the 2 decimals indices are published with.
+#' the 7 significant digits single precision holds, and to at least the 2
+#' decimals indices are published with: 4554.98 for an index, and 0.90496
+#' for the euros a dollar buys (see [currency_rates()]), which 2 decimals
+#' would turn into 0.9.
 #' @param json The JSON text of the answer.
 #' @param index One row of [get_indices()].
 #' @param now The time to judge whether the market is open, now by default.
@@ -190,9 +202,15 @@ parse_chart <- function(json, index, now = Sys.time()) {
     return(NULL)
   }
   quote <- result$indicators$quote[[1]]
-  column <- function(name, digits = 2) {
+  column <- function(name, digits = NULL) {
     values <- unlist(quote[[name]])
-    if (length(values) == length(timestamp)) round(as.numeric(values), digits) else rep(NA_real_, length(timestamp))
+    if (length(values) != length(timestamp)) {
+      return(rep(NA_real_, length(timestamp)))
+    }
+    values <- as.numeric(values)
+    # 7 significant digits and at least 2 decimals (at most 15, which a 0 would otherwise exceed)
+    if (is.null(digits)) digits <- pmin(pmax(2, 6 - floor(log10(abs(values)))), 15)
+    round(values, digits)
   }
   meta <- result$meta
   # the time of day of a daily price is the opening of the exchange, in UTC, so its date is

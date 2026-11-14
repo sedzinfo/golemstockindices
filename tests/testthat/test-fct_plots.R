@@ -123,7 +123,7 @@ test_that("the performance chart sorts the indices, best at the top, and leaves 
     day_pct = c(1, -2, 0.5, 9), week_pct = 1, month_pct = 1, month3_pct = c(2, 4, NA, 1), month6_pct = 1,
     month9_pct = 1, ytd_pct = c(5, NA, -3, 70), year_pct = 1
   )
-  all <- rbind(indices, data.frame(label = c("Gamma (C)", "VIX"), symbol = c("C", "^VIX"), region = "US", currency = c("EUR", NA)))
+  all <- rbind(indices, data.frame(label = c("Gamma (C)", "VIX"), symbol = c("C", "^VIX"), region = "US", currency = c("EUR", NA), type = c("price", NA)))
   # in the shared test data Beta has no currency, for the dash of the overview table
   all$currency[all$label == "Beta (B)"] <- "EUR"
   built <- plotly::plotly_build(plot_performance(summary, all, "day"))$x
@@ -138,9 +138,39 @@ test_that("the performance chart sorts the indices, best at the top, and leaves 
   expect_equal(unname(unlist(months$layout$title))[1], "Change over the last 3 months")
   # the same rows, best first, are the data of the CSV file
   data <- performance_data(summary, all, "ytd")
-  expect_equal(names(data), c("label", "region", "currency", "date", "close", "change_pct"))
+  expect_equal(names(data), c("label", "region", "currency", "type", "date", "close", "change_pct"))
   expect_equal(data$label, c("Alpha (A)", "Gamma (C)"))
   expect_equal(data$change_pct, c(5, -3))
+})
+
+test_that("the performance and compare charts mark the total return indices, and name the currency", {
+  summary <- data.frame(
+    label = c("Alpha (A)", "Gamma (C)"), date = as.Date("2024-03-28"), close = 100, day_pct = c(1, 2),
+    week_pct = 1, month_pct = 1, month3_pct = 1, month6_pct = 1, month9_pct = 1, ytd_pct = 1, year_pct = 1
+  )
+  all <- rbind(indices, data.frame(label = "Gamma (C)", symbol = "C", region = "Europe", currency = "EUR", type = "total return"))
+  built <- plotly::plotly_build(plot_performance(summary, all, "day", currency = "USD"))$x
+  expect_equal(as.character(built$data[[1]]$y), c("Alpha (A)", "Gamma (C) (TR)"))
+  expect_match(unname(unlist(built$layout$title))[1], "^Change on the day in US dollars<br><sup>\\(TR\\) total return")
+  # the CSV keeps the label as it is, and gives the type and the currency
+  data <- performance_data(summary, all, "day", "USD")
+  expect_equal(data$label, c("Gamma (C)", "Alpha (A)"))
+  expect_equal(data$type, c("total return", "price"))
+  expect_equal(data$currency, c("USD", "USD"))
+  # the compare chart marks it in the legend, and names the currency in the title
+  prices <- normalize_prices(data.frame(
+    label = rep(c("Alpha (A)", "Gamma (C)"), each = 2),
+    timestamp = rep(as.Date(c("2024-01-02", "2024-01-03")), 2),
+    close = c(10, 11, 20, 22)
+  ))
+  compare <- plotly::plotly_build(plot_compare(prices, indices = all, currency = "EUR"))$x
+  expect_setequal(vapply(compare$data, function(trace) trace$name, ""), c("Alpha (A)", "Gamma (C) (TR)"))
+  expect_equal(unname(unlist(compare$layout$title))[1], "Normalized close in euros (2024-01-02 = 100)")
+  expect_match(compare$layout$legend$title$text, "(TR) total return", fixed = TRUE)
+  # without a total return index, no title for the legend
+  local <- plotly::plotly_build(plot_compare(prices[prices$label == "Alpha (A)", ], indices = all))$x
+  expect_equal(local$layout$legend$title$text, "")
+  expect_equal(unname(unlist(local$layout$title))[1], "Normalized close (2024-01-02 = 100)")
 })
 
 test_that("the overview table draws the last year of each index when it has the history", {

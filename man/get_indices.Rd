@@ -9,9 +9,13 @@ get_indices()
 \value{
 A data frame with a row per index: \code{label}, \code{symbol} on Yahoo
 Finance, \code{region} ("US", "Americas", "Europe" or "Asia-Pacific"), the
-\code{currency} of the shares in it, and \code{from}, the first day to keep, or
+\code{currency} of the shares in it, its \code{type}, "total return" for the
+performance indices, in which the dividends of the companies are
+reinvested, such as the DAX, or "price" for those that leave them out,
+such as the S&P 500, and \code{from}, the first day to keep, or
 \code{NA} to keep all of the history. The VIX is a measure of the expected
-volatility of the S&P 500, in percent a year, so its currency is \code{NA}.
+volatility of the S&P 500, in percent a year, so its currency and type
+are \code{NA}.
 The Bovespa starts in 1995: in the hyperinflation of Brazil before the
 real, its returns of thousands of percent a year in the money of the time would swamp
 every analysis.

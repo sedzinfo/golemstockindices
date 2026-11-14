@@ -44,7 +44,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Mexico City</strong>
 #>       </td>
 #>       <td class="market-indices">IPC Mexico</td>
-#>       <td class="market-time">05:35</td>
+#>       <td class="market-time">05:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -60,7 +60,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Toronto</strong>
 #>       </td>
 #>       <td class="market-indices">S&amp;P/TSX Composite</td>
-#>       <td class="market-time">06:35</td>
+#>       <td class="market-time">06:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -76,7 +76,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>New York</strong>
 #>       </td>
 #>       <td class="market-indices">S&amp;P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000, VIX</td>
-#>       <td class="market-time">06:35</td>
+#>       <td class="market-time">06:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -92,7 +92,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>São Paulo</strong>
 #>       </td>
 #>       <td class="market-indices">Bovespa</td>
-#>       <td class="market-time">08:35</td>
+#>       <td class="market-time">08:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -108,7 +108,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Lisbon</strong>
 #>       </td>
 #>       <td class="market-indices">PSI</td>
-#>       <td class="market-time">11:35</td>
+#>       <td class="market-time">11:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -124,7 +124,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Dublin</strong>
 #>       </td>
 #>       <td class="market-indices">ISEQ All Share</td>
-#>       <td class="market-time">11:35</td>
+#>       <td class="market-time">11:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -140,7 +140,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>London</strong>
 #>       </td>
 #>       <td class="market-indices">FTSE 100, FTSE 250</td>
-#>       <td class="market-time">11:35</td>
+#>       <td class="market-time">11:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -156,7 +156,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Frankfurt</strong>
 #>       </td>
 #>       <td class="market-indices">DAX, MDAX, SDAX, TecDAX, Euro Stoxx 50, STOXX Europe 600</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -172,7 +172,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Paris</strong>
 #>       </td>
 #>       <td class="market-indices">CAC 40, Euronext 100, Next 150</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -188,7 +188,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Brussels</strong>
 #>       </td>
 #>       <td class="market-indices">BEL 20</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -204,7 +204,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Amsterdam</strong>
 #>       </td>
 #>       <td class="market-indices">AEX</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -220,7 +220,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Madrid</strong>
 #>       </td>
 #>       <td class="market-indices">IBEX 35</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -236,7 +236,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Milan</strong>
 #>       </td>
 #>       <td class="market-indices">FTSE MIB</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -252,7 +252,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Zurich</strong>
 #>       </td>
 #>       <td class="market-indices">SMI</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -268,7 +268,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Oslo</strong>
 #>       </td>
 #>       <td class="market-indices">OSEBX</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -284,7 +284,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Copenhagen</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Copenhagen 25</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -300,7 +300,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Vienna</strong>
 #>       </td>
 #>       <td class="market-indices">ATX</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -316,7 +316,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Stockholm</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Stockholm 30</td>
-#>       <td class="market-time">12:35</td>
+#>       <td class="market-time">12:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -332,7 +332,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Baltics</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Tallinn, OMX Riga, OMX Vilnius</td>
-#>       <td class="market-time">13:35</td>
+#>       <td class="market-time">13:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -348,7 +348,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Helsinki</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Helsinki 25</td>
-#>       <td class="market-time">13:35</td>
+#>       <td class="market-time">13:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -364,7 +364,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Athens</strong>
 #>       </td>
 #>       <td class="market-indices">Athens General</td>
-#>       <td class="market-time">13:35</td>
+#>       <td class="market-time">13:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -380,7 +380,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Istanbul</strong>
 #>       </td>
 #>       <td class="market-indices">BIST 100</td>
-#>       <td class="market-time">14:35</td>
+#>       <td class="market-time">14:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -396,7 +396,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Mumbai</strong>
 #>       </td>
 #>       <td class="market-indices">Sensex</td>
-#>       <td class="market-time">17:05</td>
+#>       <td class="market-time">17:16</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -412,7 +412,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Jakarta</strong>
 #>       </td>
 #>       <td class="market-indices">IDX Composite</td>
-#>       <td class="market-time">18:35</td>
+#>       <td class="market-time">18:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -428,7 +428,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Kuala Lumpur</strong>
 #>       </td>
 #>       <td class="market-indices">FTSE Bursa Malaysia KLCI</td>
-#>       <td class="market-time">19:35</td>
+#>       <td class="market-time">19:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -444,7 +444,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Singapore</strong>
 #>       </td>
 #>       <td class="market-indices">Straits Times</td>
-#>       <td class="market-time">19:35</td>
+#>       <td class="market-time">19:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -460,7 +460,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Shanghai</strong>
 #>       </td>
 #>       <td class="market-indices">Shanghai Composite</td>
-#>       <td class="market-time">19:35</td>
+#>       <td class="market-time">19:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -476,7 +476,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Hong Kong</strong>
 #>       </td>
 #>       <td class="market-indices">Hang Seng</td>
-#>       <td class="market-time">19:35</td>
+#>       <td class="market-time">19:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -492,7 +492,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Taipei</strong>
 #>       </td>
 #>       <td class="market-indices">Taiwan Weighted</td>
-#>       <td class="market-time">19:35</td>
+#>       <td class="market-time">19:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -508,7 +508,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Seoul</strong>
 #>       </td>
 #>       <td class="market-indices">KOSPI</td>
-#>       <td class="market-time">20:35</td>
+#>       <td class="market-time">20:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -524,7 +524,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Tokyo</strong>
 #>       </td>
 #>       <td class="market-indices">Nikkei 225</td>
-#>       <td class="market-time">20:35</td>
+#>       <td class="market-time">20:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -540,7 +540,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Sydney</strong>
 #>       </td>
 #>       <td class="market-indices">ASX 200, All Ordinaries</td>
-#>       <td class="market-time">22:35</td>
+#>       <td class="market-time">22:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
@@ -556,7 +556,7 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Wellington</strong>
 #>       </td>
 #>       <td class="market-indices">NZX 50</td>
-#>       <td class="market-time">00:35</td>
+#>       <td class="market-time">00:46</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>

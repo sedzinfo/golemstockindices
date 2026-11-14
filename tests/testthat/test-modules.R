@@ -68,7 +68,7 @@ test_that("the timeseries and compare CSV downloads hold the prices", {
     session$setInputs(indices = c("Alpha (A)", "Beta (B)"), start = as.Date("2024-01-01"))
     session$elapse(2000)
     csv <- utils::read.csv(output$csv)
-    expect_equal(names(csv), c("date", "label", "close", "index"))
+    expect_equal(names(csv), c("date", "label", "currency", "close", "index"))
     expect_equal(csv$index[csv$date == "2024-02-29"], c(100, 100))
   })
 })
@@ -182,19 +182,58 @@ test_that("the overview shows the open exchanges and returns the summary for the
   testServer(mod_overview_server, args = list(indices = indices, dark_mode = light), {
     expect_match(output$markets$html, "New York")
     expect_match(output$markets$html, "Hong Kong")
-    expect_equal(session$getReturned()()$label, indices$label)
+    expect_equal(session$getReturned()$summary()$label, indices$label)
+    expect_equal(nrow(session$getReturned()$history()), nrow(history))
   })
 })
 
 test_that("the performance tab charts the change over the period picked, and downloads it", {
   summary <- reactive(index_summary(history))
-  testServer(mod_performance_server, args = list(summary = summary, indices = indices, dark_mode = light), {
+  testServer(mod_performance_server, args = list(summary = summary, history = reactive(history), indices = indices, dark_mode = light), {
     # the test history has no close of the year before, so no change this year: an empty chart
     expect_no_error(output$plot)
     session$setInputs(period = "day")
     expect_match(output$plot, "Change on the day", fixed = TRUE)
     csv <- utils::read.csv(output$csv)
-    expect_equal(names(csv), c("label", "region", "currency", "date", "close", "change_pct"))
+    expect_equal(names(csv), c("label", "region", "currency", "type", "date", "close", "change_pct"))
     expect_equal(csv$change_pct, sort(csv$change_pct, decreasing = TRUE))
+  })
+})
+
+test_that("the performance and compare tabs convert the indices to the currency picked", {
+  # Beta in euros here, whose rates start on 1 March, a month after Alpha's prices: a dollar buys
+  # 0.5 euros, then 0.25 on 28 March
+  all <- indices
+  all$currency[all$label == "Beta (B)"] <- "EUR"
+  all$type[all$label == "Beta (B)"] <- "price"
+  rates <- data.frame(currency = "EUR", timestamp = as.Date(c("2024-03-01", "2024-03-28")), per_usd = c(0.5, 0.25))
+  local_mocked_bindings(currency_rates = function(currencies) rates[rates$currency %in% currencies, ])
+  local_mocked_bindings(get_history = function(labels, start_date, indices) history[history$label %in% labels, ])
+  testServer(mod_performance_server, args = list(summary = reactive(index_summary(history)), history = reactive(history), indices = all, dark_mode = light), {
+    session$setInputs(period = "day", currency = "USD")
+    expect_match(output$plot, "Change on the day in US dollars", fixed = TRUE)
+    csv <- utils::read.csv(output$csv)
+    expect_equal(csv$label, c("Alpha (A)", "Beta (B)"))
+    expect_equal(csv$currency, c("USD", "USD"))
+    # Beta from 55 euros at 0.5 a dollar to 25 at 0.25: from 110 to 100 dollars
+    expect_equal(csv$change_pct, c((121 / 99 - 1) * 100, (100 / 110 - 1) * 100))
+  })
+  testServer(mod_compare_server, args = list(indices = all, dark_mode = light), {
+    session$setInputs(indices = c("Alpha (A)", "Beta (B)"), start = as.Date("2024-01-01"), currency = "EUR")
+    session$elapse(2000)
+    csv <- utils::read.csv(output$csv)
+    expect_equal(names(csv), c("date", "label", "currency", "close", "index"))
+    expect_equal(unique(csv$currency), "EUR")
+    # Alpha has no price in euros before the rates start, so the comparison starts with them
+    expect_equal(min(csv$date), "2024-03-01")
+    expect_equal(csv$close[csv$label == "Alpha (A)"], c(99 * 0.5, 121 * 0.25))
+    expect_match(output$note$html, "comparison starts on 1 Mar 2024", fixed = TRUE)
+  })
+  # without exchange rates, the tab says which indices it had to leave out
+  local_mocked_bindings(currency_rates = function(currencies) rates[0, ])
+  testServer(mod_performance_server, args = list(summary = reactive(index_summary(history)), history = reactive(history), indices = all, dark_mode = light), {
+    session$setInputs(period = "day", currency = "USD")
+    expect_match(output$note$html, "No exchange rates for Beta (B) right now, so it is left out.", fixed = TRUE)
+    expect_equal(utils::read.csv(output$csv)$label, "Alpha (A)")
   })
 })

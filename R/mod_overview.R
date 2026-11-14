@@ -48,14 +48,15 @@ mod_overview_ui <- function(id) {
 #' @param indices Data frame of indices from [get_indices()].
 #' @param dark_mode Reactive returning `"light"` or `"dark"`, the mode of the
 #'   app.
-#' @return A reactive returning the [index_summary()] of every index, for
-#'   [mod_performance_server()].
+#' @return A list of two reactives, for [mod_performance_server()]: `summary`,
+#'   the [index_summary()] of every index, and `history`, their whole price
+#'   histories.
 #' @keywords internal
 #' @examples
 #' \dontrun{
 #' # inside app_server():
 #' function(input, output, session) {
-#'   summary <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
+#'   overview <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
 #' }
 #' }
 mod_overview_server <- function(id, indices, dark_mode) {
@@ -78,6 +79,6 @@ mod_overview_server <- function(id, indices, dark_mode) {
     output$updated <- renderText(closes_text(summary(), indices))
     output$table <- DT::renderDT(overview_table(summary(), indices, history()))
     output$csv <- csv_download(summary, "overview")
-    summary
+    list(summary = summary, history = history)
   })
 }

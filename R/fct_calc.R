@@ -195,9 +195,14 @@ performance_periods <- c("day", "week", "month", "month3", "month6", "month9", "
 #' @param indices Data frame of indices from [get_indices()].
 #' @param period `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`,
 #'   `"month9"` (3, 6 and 9 months), `"ytd"` (year to date) or `"year"`.
+#' @param currency `"local"` for a summary of the prices in the money of
+#'   each index, or the currency they were converted to with
+#'   [convert_prices()], `"USD"` or `"EUR"`, which then fills the `currency`
+#'   column.
 #' @return A data frame with a row per index, the best first: `label`,
-#'   `region`, `currency`, `date` and `close` of the last day, and
-#'   `change_pct`, the change over the period in percent.
+#'   `region`, `currency`, `type` ("total return" or "price", see
+#'   [get_indices()]), `date` and `close` of the last day, and `change_pct`,
+#'   the change over the period in percent.
 #' @keywords internal
 #' @examples
 #' summary <- data.frame(
@@ -206,12 +211,13 @@ performance_periods <- c("day", "week", "month", "month3", "month6", "month9", "
 #'   month9_pct = 12, ytd_pct = c(14, 18, -10), year_pct = 15
 #' )
 #' golemstockindices:::performance_data(summary, get_indices(), "day")
-performance_data <- function(summary, indices, period = performance_periods) {
+performance_data <- function(summary, indices, period = performance_periods, currency = "local") {
   period <- match.arg(period)
-  shares <- indices[!is.na(indices$currency), c("label", "region", "currency")]
+  shares <- indices[!is.na(indices$currency), c("label", "region", "currency", "type")]
   data <- merge(summary[c("label", "date", "close", paste0(period, "_pct"))], shares, by = "label")
   names(data)[names(data) == paste0(period, "_pct")] <- "change_pct"
-  data <- data[!is.na(data$change_pct), c("label", "region", "currency", "date", "close", "change_pct")]
+  if (currency != "local") data$currency <- rep(currency, nrow(data))
+  data <- data[!is.na(data$change_pct), c("label", "region", "currency", "type", "date", "close", "change_pct")]
   data <- data[order(-data$change_pct), ]
   rownames(data) <- NULL
   data

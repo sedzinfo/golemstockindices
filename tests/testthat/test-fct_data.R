@@ -14,13 +14,20 @@ make_stale <- function(key, minutes) {
 
 test_that("get_indices() lists the indices with their Yahoo Finance symbols", {
   all <- get_indices()
-  expect_named(all, c("label", "symbol", "region", "currency", "from"))
+  expect_named(all, c("label", "symbol", "region", "currency", "type", "from"))
   expect_equal(nrow(all), 49)
   expect_false(anyDuplicated(all$label) > 0 || anyDuplicated(all$symbol) > 0)
   expect_equal(all$symbol[all$label == "S&P 500"], "^GSPC")
   expect_equal(all$symbol[all$label == "Athens General"], "GD.AT")
   expect_equal(all$symbol[all$label == "Shanghai Composite"], "000001.SS")
   expect_true(is.na(all$currency[all$label == "VIX"]))
+  # the performance indices reinvest the dividends; the VIX has no type, as it has no currency
+  expect_setequal(
+    all$label[all$type %in% "total return"],
+    c("Bovespa", "DAX", "MDAX", "SDAX", "TecDAX", "OSEBX", "OMX Tallinn", "OMX Riga", "OMX Vilnius", "NZX 50")
+  )
+  expect_true(all(all$type[!is.na(all$currency)] %in% c("price", "total return")))
+  expect_true(is.na(all$type[all$label == "VIX"]))
   expect_equal(unique(all$region), c("US", "Americas", "Europe", "Asia-Pacific"))
   # only the Bovespa leaves out the start of its history
   expect_equal(all$from[all$label == "Bovespa"], as.Date("1995-01-01"))
@@ -50,6 +57,19 @@ test_that("parse_chart() reads the daily prices on the dates of the exchange", {
   expect_equal(history$close, c(4742.83, 4704.81, 4688.68))
   expect_equal(history$volume[1], 3.7e9)
   expect_equal(unique(history$label), "Alpha (A)")
+})
+
+test_that("parse_chart() rounds off the errors of single precision, but keeps the digits of exchange rates", {
+  prices <- "[4554.97998046875,0.9049599766731262,130123.453125]"
+  json <- paste0(
+    '{"chart":{"result":[{"meta":{"gmtoffset":0},"timestamp":[1704067200,1704153600,1704240000],',
+    '"indicators":{"quote":[{"open":', prices, ',"high":', prices, ',"low":', prices, ',"close":', prices,
+    ',"volume":[3743050000,0,0]}]}}],"error":null}}'
+  )
+  history <- parse_chart(json, indices[1, ])
+  # an index keeps its 2 decimals, and the euros a dollar buys their 5, which 2 decimals would make 0.9
+  expect_equal(history$close, c(4554.98, 0.90496, 130123.45), tolerance = 0)
+  expect_equal(history$volume, c(3743050000, 0, 0))
 })
 
 test_that("parse_chart() leaves out the days without a close and the day still trading", {
