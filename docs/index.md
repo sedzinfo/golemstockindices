@@ -189,25 +189,27 @@ kept on disk between R sessions (see [Data Source](#data-source)).
 
 ### Overview
 
-![The 33 exchanges, from Mexico City to Wellington, with a dot for open
-or closed, and where the 49 indices stand: the last close with a line of
+![The 35 exchanges, from Mexico City to Wellington, with a dot for open
+or closed, and where the 55 indices stand: the last close with a line of
 the last year, the change on the day, this year and over a year, and the
 distance from the all-time
 high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
 
-The 33 exchanges, from Mexico City to Wellington, with a dot for open or
-closed, and where the 49 indices stand: the last close with a line of
+The 35 exchanges, from Mexico City to Wellington, with a dot for open or
+closed, and where the 55 indices stand: the last close with a line of
 the last year, the change on the day, this year and over a year, and the
 distance from the all-time high
 
 ### Performance (dark mode)
 
-![The 43 stock indices side by side by their change this year, the best
-at the top, green for rises and red for
-falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+![The 54 stock indices side by side by their change this year, the best
+at the top, green for rises and red for falls, with the total return
+indices marked
+(TR)](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
 
-The 43 stock indices side by side by their change this year, the best at
-the top, green for rises and red for falls
+The 54 stock indices side by side by their change this year, the best at
+the top, green for rises and red for falls, with the total return
+indices marked (TR)
 
 ### Index Chart
 
