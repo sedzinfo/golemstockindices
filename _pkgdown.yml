@@ -19,36 +19,36 @@ reference:
       - run_app
   - title: Data
     contents:
-      - get_indices
       - get_history
+      - get_indices
   - title: Calculations
     contents:
       - convert_prices
-      - normalize_prices
+      - drawdown
+      - drawdown_analysis
+      - drawdown_episodes
+      - drawdown_text
       - index_summary
       - market_status
       - monthly_returns
       - moving_average
-      - drawdown
-      - drawdown_episodes
-      - drawdown_analysis
-      - drawdown_text
-      - volatility_analysis
-      - volatility_text
+      - normalize_prices
       - seasonal_returns
       - seasonality_analysis
       - seasonality_text
+      - volatility_analysis
+      - volatility_text
   - title: Charts and tables
     contents:
-      - plot_timeseries
-      - plot_compare
-      - plot_returns_calendar
-      - plot_volatility
-      - plot_drawdowns
-      - plot_seasonality
-      - overview_table
-      - plot_performance
       - drawdown_table
+      - overview_table
+      - plot_compare
+      - plot_drawdowns
+      - plot_performance
+      - plot_returns_calendar
+      - plot_seasonality
+      - plot_timeseries
+      - plot_volatility
       - seasonality_table
 
 navbar:
