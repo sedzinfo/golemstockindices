@@ -170,9 +170,16 @@ plot_compare <- function(prices, mode = "light", indices = get_indices(), curren
   total <- indices$type[match(prices$label, indices$label)] %in% "total return"
   prices$name <- prices$label
   prices$name[total] <- paste(prices$label[total], "(TR)")
+  # the currency and the meaning of (TR) go in a small line under the title: a longer title would
+  # run under the Linear and Log buttons on a narrow screen, and plotly lays a legend with a title
+  # over the axis
+  notes <- c(
+    if (currency != "local") paste("In", currency_names[[currency]]),
+    if (any(total)) "(TR) with dividends reinvested"
+  )
   title <- paste0(
-    "Normalized close", if (currency != "local") paste(" in", currency_names[[currency]]),
-    " (", min(prices$timestamp), " = 100)"
+    "Normalized close (", min(prices$timestamp), " = 100)",
+    if (length(notes) > 0) paste0("<br><sup>", paste(notes, collapse = " · "), "</sup>")
   )
   plotly::plot_ly(prices,
     x = ~timestamp,
@@ -184,10 +191,7 @@ plot_compare <- function(prices, mode = "light", indices = get_indices(), curren
   ) %>%
     plotly::layout(
       title = title,
-      legend = list(
-        orientation = "h", x = 0.5, xanchor = "center",
-        title = list(text = if (any(total)) "(TR) total return: with the dividends, which the other indices leave out" else "")
-      ),
+      legend = list(orientation = "h", x = 0.5, xanchor = "center"),
       xaxis = list(title = "Date"),
       yaxis = list(title = "Index"),
       updatemenus = list(list(

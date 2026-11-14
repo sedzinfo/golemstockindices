@@ -165,11 +165,12 @@ test_that("the performance and compare charts mark the total return indices, and
   ))
   compare <- plotly::plotly_build(plot_compare(prices, indices = all, currency = "EUR"))$x
   expect_setequal(vapply(compare$data, function(trace) trace$name, ""), c("Alpha (A)", "Gamma (C) (TR)"))
-  expect_equal(unname(unlist(compare$layout$title))[1], "Normalized close in euros (2024-01-02 = 100)")
-  expect_match(compare$layout$legend$title$text, "(TR) total return", fixed = TRUE)
-  # without a total return index, no title for the legend
+  expect_equal(
+    unname(unlist(compare$layout$title))[1],
+    "Normalized close (2024-01-02 = 100)<br><sup>In euros · (TR) with dividends reinvested</sup>"
+  )
+  # without a total return index, nothing to explain
   local <- plotly::plotly_build(plot_compare(prices[prices$label == "Alpha (A)", ], indices = all))$x
-  expect_equal(local$layout$legend$title$text, "")
   expect_equal(unname(unlist(local$layout$title))[1], "Normalized close (2024-01-02 = 100)")
 })
 
