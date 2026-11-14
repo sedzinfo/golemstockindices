@@ -75,9 +75,9 @@ convert_prices(history, "EUR", rates = rates)
 #>        label  timestamp     open     high      low    close volume
 #> 1 Nikkei 225 2024-01-04 208.3610 211.5180 207.0982 210.1794      0
 #> 2 Nikkei 225 2024-01-05 208.8174 211.9813 207.5519 211.2030      0
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive()
 # the S&P 500 and the DAX in euros, each starting at 100
 euros <- convert_prices(get_history(c("S&P 500", "DAX")), "EUR")
 plot_compare(normalize_prices(euros), currency = "EUR")
-} # }
+}
 ```

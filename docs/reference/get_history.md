@@ -42,11 +42,11 @@ nothing could be downloaded.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive()
 spx <- get_history("S&P 500", as.Date("2020-01-01"))
 plot_timeseries(spx)
 
 history <- get_history(c("S&P 500", "DAX", "Nikkei 225"))
 plot_compare(normalize_prices(history))
-} # }
+}
 ```
