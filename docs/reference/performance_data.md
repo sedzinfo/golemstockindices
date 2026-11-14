@@ -10,7 +10,12 @@ the period.
 ## Usage
 
 ``` r
-performance_data(summary, indices, period = performance_periods)
+performance_data(
+  summary,
+  indices,
+  period = performance_periods,
+  currency = "local"
+)
 ```
 
 ## Arguments
@@ -30,11 +35,20 @@ performance_data(summary, indices, period = performance_periods)
   `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`, `"month9"` (3, 6
   and 9 months), `"ytd"` (year to date) or `"year"`.
 
+- currency:
+
+  `"local"` for a summary of the prices in the money of each index, or
+  the currency they were converted to with
+  [`convert_prices()`](https://sedzinfo.github.io/golemstockindices/reference/convert_prices.md),
+  `"USD"` or `"EUR"`, which then fills the `currency` column.
+
 ## Value
 
 A data frame with a row per index, the best first: `label`, `region`,
-`currency`, `date` and `close` of the last day, and `change_pct`, the
-change over the period in percent.
+`currency`, `type` ("total return" or "price", see
+[`get_indices()`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)),
+`date` and `close` of the last day, and `change_pct`, the change over
+the period in percent.
 
 ## Examples
 
@@ -45,7 +59,7 @@ summary <- data.frame(
   month9_pct = 12, ytd_pct = c(14, 18, -10), year_pct = 15
 )
 golemstockindices:::performance_data(summary, get_indices(), "day")
-#>     label region currency       date close change_pct
-#> 1 S&P 500     US      USD 2026-11-06  6700        0.4
-#> 2     DAX Europe      EUR 2026-11-06 23500       -0.8
+#>     label region currency         type       date close change_pct
+#> 1 S&P 500     US      USD        price 2026-11-06  6700        0.4
+#> 2     DAX Europe      EUR total return 2026-11-06 23500       -0.8
 ```

@@ -32,10 +32,11 @@ mod_overview_server(id, indices, dark_mode)
 
 ## Value
 
-A reactive returning the
+A list of two reactives, for
+[`mod_performance_server()`](https://sedzinfo.github.io/golemstockindices/reference/mod_performance_server.md):
+`summary`, the
 [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)
-of every index, for
-[`mod_performance_server()`](https://sedzinfo.github.io/golemstockindices/reference/mod_performance_server.md).
+of every index, and `history`, their whole price histories.
 
 ## Examples
 
@@ -43,7 +44,7 @@ of every index, for
 if (FALSE) { # \dontrun{
 # inside app_server():
 function(input, output, session) {
-  summary <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
+  overview <- mod_overview_server("overview", get_indices(), reactive(input$dark_mode))
 }
 } # }
 ```

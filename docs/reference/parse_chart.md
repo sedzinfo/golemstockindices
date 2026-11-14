@@ -4,8 +4,12 @@ Days without a close, which Yahoo Finance has for some holidays, are
 left out, and so is the last day while its market is still open, as its
 close is not final yet. The dates are those of the exchange. Yahoo
 Finance keeps the levels with the rounding errors of single precision,
-such as 4554.97998046875 for 4554.98, so they are rounded to the 2
-decimals indices are published with.
+such as 4554.97998046875 for 4554.98, so they are rounded to the 7
+significant digits single precision holds, and to at least the 2
+decimals indices are published with: 4554.98 for an index, and 0.90496
+for the euros a dollar buys (see
+[`currency_rates()`](https://sedzinfo.github.io/golemstockindices/reference/currency_rates.md)),
+which 2 decimals would turn into 0.9.
 
 ## Usage
 

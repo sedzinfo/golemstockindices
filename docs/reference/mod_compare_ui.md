@@ -1,8 +1,9 @@
 # Compare module - UI
 
-A picker for up to 10 indices, a start date, a button that downloads the
-normalized closes as CSV, and a chart of the indices' closes normalized
-to 100.
+A picker for up to 10 indices, a start date, a currency, a button that
+downloads the normalized closes as CSV, a line on what the conversion to
+another currency changed when it changed something, and a chart of the
+indices' closes normalized to 100.
 
 ## Usage
 

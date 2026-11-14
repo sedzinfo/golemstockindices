@@ -1,7 +1,8 @@
 # Performance module - UI
 
-A choice of the period, a button that downloads the changes as CSV, and
-the chart of the performance of the indices from
+A choice of the period and of the currency, a button that downloads the
+changes as CSV, a line on the indices without exchange rates when there
+are any, and the chart of the performance of the indices from
 [`plot_performance()`](https://sedzinfo.github.io/golemstockindices/reference/plot_performance.md),
 the best at the top.
 
