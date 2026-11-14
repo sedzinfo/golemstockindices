@@ -5,7 +5,10 @@ percent since the close before, since the last close at least a week and
 1, 3, 6 and 9 months before, since the last close of the year before
 (year to date) and since the last close at least a year before, and how
 far it is below its highest close. Pass the whole history, as the
-highest close is that of the history given.
+highest close is that of the history given. The months are counted with
+[`months_back()`](https://sedzinfo.github.io/golemstockindices/reference/months_back.md):
+a month before 31 March is the last day of February, and a year before
+29 February is 28 February.
 
 ## Usage
 

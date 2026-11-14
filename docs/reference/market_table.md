@@ -44,14 +44,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Mexico City</strong>
 #>       </td>
 #>       <td class="market-indices">IPC Mexico</td>
-#>       <td class="market-time">07:54</td>
+#>       <td class="market-time">05:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens 08:30</td>
+#>       <td class="text-nowrap">opens Mon 08:30</td>
 #>       <td class="market-time">08:30–15:00</td>
 #>       <td class="text-body-secondary text-nowrap">America/Mexico_City</td>
 #>     </tr>
@@ -60,14 +60,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Toronto</strong>
 #>       </td>
 #>       <td class="market-indices">S&amp;P/TSX Composite</td>
-#>       <td class="market-time">08:54</td>
+#>       <td class="market-time">06:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens 09:30</td>
+#>       <td class="text-nowrap">opens Mon 09:30</td>
 #>       <td class="market-time">09:30–16:00</td>
 #>       <td class="text-body-secondary text-nowrap">America/Toronto</td>
 #>     </tr>
@@ -76,14 +76,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>New York</strong>
 #>       </td>
 #>       <td class="market-indices">S&amp;P 500, Dow Jones, Nasdaq Composite, NYSE Composite, Russell 2000, VIX</td>
-#>       <td class="market-time">08:54</td>
+#>       <td class="market-time">06:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens 09:30</td>
+#>       <td class="text-nowrap">opens Mon 09:30</td>
 #>       <td class="market-time">09:30–16:00</td>
 #>       <td class="text-body-secondary text-nowrap">America/New_York</td>
 #>     </tr>
@@ -92,14 +92,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>São Paulo</strong>
 #>       </td>
 #>       <td class="market-indices">Bovespa</td>
-#>       <td class="market-time">10:54</td>
+#>       <td class="market-time">08:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 18:00</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–18:00</td>
 #>       <td class="text-body-secondary text-nowrap">America/Sao_Paulo</td>
 #>     </tr>
@@ -108,14 +108,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Lisbon</strong>
 #>       </td>
 #>       <td class="market-indices">PSI</td>
-#>       <td class="market-time">13:54</td>
+#>       <td class="market-time">11:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 16:30</td>
+#>       <td class="text-nowrap">opens Mon 08:00</td>
 #>       <td class="market-time">08:00–16:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Lisbon</td>
 #>     </tr>
@@ -124,14 +124,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Dublin</strong>
 #>       </td>
 #>       <td class="market-indices">ISEQ All Share</td>
-#>       <td class="market-time">13:54</td>
+#>       <td class="market-time">11:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 16:30</td>
+#>       <td class="text-nowrap">opens Mon 08:00</td>
 #>       <td class="market-time">08:00–16:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Dublin</td>
 #>     </tr>
@@ -140,14 +140,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>London</strong>
 #>       </td>
 #>       <td class="market-indices">FTSE 100, FTSE 250</td>
-#>       <td class="market-time">13:54</td>
+#>       <td class="market-time">11:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 16:30</td>
+#>       <td class="text-nowrap">opens Mon 08:00</td>
 #>       <td class="market-time">08:00–16:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/London</td>
 #>     </tr>
@@ -156,14 +156,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Frankfurt</strong>
 #>       </td>
 #>       <td class="market-indices">DAX, MDAX, SDAX, TecDAX, Euro Stoxx 50, STOXX Europe 600</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Berlin</td>
 #>     </tr>
@@ -172,14 +172,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Paris</strong>
 #>       </td>
 #>       <td class="market-indices">CAC 40, Euronext 100, Next 150</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Paris</td>
 #>     </tr>
@@ -188,14 +188,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Brussels</strong>
 #>       </td>
 #>       <td class="market-indices">BEL 20</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Brussels</td>
 #>     </tr>
@@ -204,14 +204,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Amsterdam</strong>
 #>       </td>
 #>       <td class="market-indices">AEX</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Amsterdam</td>
 #>     </tr>
@@ -220,14 +220,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Madrid</strong>
 #>       </td>
 #>       <td class="market-indices">IBEX 35</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Madrid</td>
 #>     </tr>
@@ -236,14 +236,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Milan</strong>
 #>       </td>
 #>       <td class="market-indices">FTSE MIB</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Rome</td>
 #>     </tr>
@@ -252,14 +252,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Zurich</strong>
 #>       </td>
 #>       <td class="market-indices">SMI</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Zurich</td>
 #>     </tr>
@@ -268,14 +268,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Oslo</strong>
 #>       </td>
 #>       <td class="market-indices">OSEBX</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 16:20</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–16:20</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Oslo</td>
 #>     </tr>
@@ -284,14 +284,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Copenhagen</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Copenhagen 25</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:00</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Copenhagen</td>
 #>     </tr>
@@ -300,14 +300,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Vienna</strong>
 #>       </td>
 #>       <td class="market-indices">ATX</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Vienna</td>
 #>     </tr>
@@ -316,14 +316,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Stockholm</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Stockholm 30</td>
-#>       <td class="market-time">14:54</td>
+#>       <td class="market-time">12:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:30</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Stockholm</td>
 #>     </tr>
@@ -332,14 +332,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Baltics</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Tallinn, OMX Riga, OMX Vilnius</td>
-#>       <td class="market-time">15:54</td>
+#>       <td class="market-time">13:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 16:00</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–16:00</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Riga</td>
 #>     </tr>
@@ -348,14 +348,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Helsinki</strong>
 #>       </td>
 #>       <td class="market-indices">OMX Helsinki 25</td>
-#>       <td class="market-time">15:54</td>
+#>       <td class="market-time">13:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 18:30</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–18:30</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Helsinki</td>
 #>     </tr>
@@ -364,14 +364,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Athens</strong>
 #>       </td>
 #>       <td class="market-indices">Athens General</td>
-#>       <td class="market-time">15:54</td>
+#>       <td class="market-time">13:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 17:20</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–17:20</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Athens</td>
 #>     </tr>
@@ -380,14 +380,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Istanbul</strong>
 #>       </td>
 #>       <td class="market-indices">BIST 100</td>
-#>       <td class="market-time">16:54</td>
+#>       <td class="market-time">14:35</td>
 #>       <td>
-#>         <span class="market-state open">
+#>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
-#>           Open
+#>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">closes 18:00</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–18:00</td>
 #>       <td class="text-body-secondary text-nowrap">Europe/Istanbul</td>
 #>     </tr>
@@ -396,14 +396,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Mumbai</strong>
 #>       </td>
 #>       <td class="market-indices">Sensex</td>
-#>       <td class="market-time">19:24</td>
+#>       <td class="market-time">17:05</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:15</td>
+#>       <td class="text-nowrap">opens Mon 09:15</td>
 #>       <td class="market-time">09:15–15:30</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Kolkata</td>
 #>     </tr>
@@ -412,14 +412,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Jakarta</strong>
 #>       </td>
 #>       <td class="market-indices">IDX Composite</td>
-#>       <td class="market-time">20:54</td>
+#>       <td class="market-time">18:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–12:00, 13:30–15:50</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Jakarta</td>
 #>     </tr>
@@ -428,14 +428,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Kuala Lumpur</strong>
 #>       </td>
 #>       <td class="market-indices">FTSE Bursa Malaysia KLCI</td>
-#>       <td class="market-time">21:54</td>
+#>       <td class="market-time">19:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–12:30, 14:30–17:00</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Kuala_Lumpur</td>
 #>     </tr>
@@ -444,14 +444,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Singapore</strong>
 #>       </td>
 #>       <td class="market-indices">Straits Times</td>
-#>       <td class="market-time">21:54</td>
+#>       <td class="market-time">19:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–17:00</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Singapore</td>
 #>     </tr>
@@ -460,14 +460,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Shanghai</strong>
 #>       </td>
 #>       <td class="market-indices">Shanghai Composite</td>
-#>       <td class="market-time">21:54</td>
+#>       <td class="market-time">19:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:30</td>
+#>       <td class="text-nowrap">opens Mon 09:30</td>
 #>       <td class="market-time">09:30–11:30, 13:00–15:00</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Shanghai</td>
 #>     </tr>
@@ -476,14 +476,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Hong Kong</strong>
 #>       </td>
 #>       <td class="market-indices">Hang Seng</td>
-#>       <td class="market-time">21:54</td>
+#>       <td class="market-time">19:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:30</td>
+#>       <td class="text-nowrap">opens Mon 09:30</td>
 #>       <td class="market-time">09:30–12:00, 13:00–16:00</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Hong_Kong</td>
 #>     </tr>
@@ -492,14 +492,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Taipei</strong>
 #>       </td>
 #>       <td class="market-indices">Taiwan Weighted</td>
-#>       <td class="market-time">21:54</td>
+#>       <td class="market-time">19:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–13:30</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Taipei</td>
 #>     </tr>
@@ -508,14 +508,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Seoul</strong>
 #>       </td>
 #>       <td class="market-indices">KOSPI</td>
-#>       <td class="market-time">22:54</td>
+#>       <td class="market-time">20:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–15:30</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Seoul</td>
 #>     </tr>
@@ -524,14 +524,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Tokyo</strong>
 #>       </td>
 #>       <td class="market-indices">Nikkei 225</td>
-#>       <td class="market-time">22:54</td>
+#>       <td class="market-time">20:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens Fri 09:00</td>
+#>       <td class="text-nowrap">opens Mon 09:00</td>
 #>       <td class="market-time">09:00–11:30, 12:30–15:30</td>
 #>       <td class="text-body-secondary text-nowrap">Asia/Tokyo</td>
 #>     </tr>
@@ -540,14 +540,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Sydney</strong>
 #>       </td>
 #>       <td class="market-indices">ASX 200, All Ordinaries</td>
-#>       <td class="market-time">00:54</td>
+#>       <td class="market-time">22:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens 10:00</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–16:00</td>
 #>       <td class="text-body-secondary text-nowrap">Australia/Sydney</td>
 #>     </tr>
@@ -556,14 +556,14 @@ golemstockindices:::market_table(market_status())
 #>         <strong>Wellington</strong>
 #>       </td>
 #>       <td class="market-indices">NZX 50</td>
-#>       <td class="market-time">02:54</td>
+#>       <td class="market-time">00:35</td>
 #>       <td>
 #>         <span class="market-state closed">
 #>           <span class="market-dot" aria-hidden="true"></span>
 #>           Closed
 #>         </span>
 #>       </td>
-#>       <td class="text-nowrap">opens 10:00</td>
+#>       <td class="text-nowrap">opens Mon 10:00</td>
 #>       <td class="market-time">10:00–16:45</td>
 #>       <td class="text-body-secondary text-nowrap">Pacific/Auckland</td>
 #>     </tr>

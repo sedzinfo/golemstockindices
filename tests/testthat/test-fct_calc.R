@@ -70,6 +70,29 @@ test_that("index_summary() measures the change over a week and 1, 3, 6 and 9 mon
   expect_equal(months$month9_pct, (300 / 27 - 1) * 100)
 })
 
+test_that("months_back() keeps the day of the month, or takes the last day of a shorter month", {
+  expect_equal(
+    months_back(as.Date(c("2025-03-31", "2025-05-31", "2025-12-31", "2024-03-31", "2026-01-15", "2025-03-15")), c(1, 3, 1, 1, 1, 0)),
+    as.Date(c("2025-02-28", "2025-02-28", "2025-11-30", "2024-02-29", "2025-12-15", "2025-03-15"))
+  )
+  # a year is 12 months, so a year before 29 February is 28 February, not 1 March
+  expect_equal(months_back(as.Date("2024-02-29"), 12), as.Date("2023-02-28"))
+})
+
+test_that("index_summary() counts back from the end of a month to the end of a shorter month", {
+  # a close every day, 1 point higher each day, so that each day has a close of its own
+  days <- seq(as.Date("2023-01-01"), as.Date("2025-05-31"), by = "day")
+  one <- data.frame(label = "Alpha", timestamp = days, close = seq_along(days) + 99)
+  close_on <- function(day) one$close[one$timestamp == as.Date(day)]
+  up_to <- function(day) index_summary(one[one$timestamp <= as.Date(day), ])
+  # a month before 31 March 2025 is 28 February, not 3 March
+  expect_equal(up_to("2025-03-31")$month_pct, (close_on("2025-03-31") / close_on("2025-02-28") - 1) * 100)
+  # 3 months before 31 May 2025 is 28 February too
+  expect_equal(up_to("2025-05-31")$month3_pct, (close_on("2025-05-31") / close_on("2025-02-28") - 1) * 100)
+  # a year before 29 February 2024 is 28 February 2023, not 1 March
+  expect_equal(up_to("2024-02-29")$year_pct, (close_on("2024-02-29") / close_on("2023-02-28") - 1) * 100)
+})
+
 test_that("closes_text() gives the day most indices closed on, and the others by day", {
   all <- get_indices()
   friday <- as.Date("2026-11-06")

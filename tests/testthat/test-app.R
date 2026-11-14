@@ -38,3 +38,20 @@ test_that("the stylesheet shared by the apps is in the page, before the app's ow
   own <- regexpr("href=\"www/[A-Za-z0-9_.-]+\\.css\"", page)
   if (own > 0) expect_lt(shared, own)
 })
+
+test_that("run_app() builds the page at each visit, so that its dates are those of the visit", {
+  built <- 0
+  local_mocked_bindings(app_ui = function(...) {
+    built <<- built + 1
+    shiny::tags$p("The page")
+  })
+  app <- run_app()
+  # nothing is built when the app starts, which can be days before a visit
+  expect_equal(built, 0)
+  visit <- function() app$httpHandler(list(REQUEST_METHOD = "GET", PATH_INFO = "/"))
+  # each visit builds the page once (visited outside expect_match(), which evaluates its object twice)
+  page <- visit()
+  expect_match(page$content, "The page", fixed = TRUE)
+  visit()
+  expect_equal(built, 2)
+})

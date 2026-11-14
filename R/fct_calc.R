@@ -94,13 +94,38 @@ drawdown <- function(close) {
 ##########################################################################################
 #
 ##########################################################################################
+#' @title The same day some months before
+#' @description The day `n` months before `date`, on the same day of the
+#' month, or on the last day of the month when that month is shorter: a month
+#' before 31 March is 28 February (29 in a leap year), where [seq()] would
+#' overflow to 3 March, and a year before 29 February is 28 February.
+#' @param date Dates.
+#' @param n Number of months back, 12 for a year.
+#' @return Dates, as many as `date`.
+#' @keywords internal
+#' @examples
+#' golemstockindices:::months_back(as.Date(c("2025-03-31", "2025-05-15")), 1)
+#' golemstockindices:::months_back(as.Date("2024-02-29"), 12)
+months_back <- function(date, n) {
+  day <- as.POSIXlt(date)
+  # months since January 1900, the origin of the years of POSIXlt
+  month <- day$year * 12 + day$mon - n
+  first_day <- function(month) as.Date(ISOdate(month %/% 12 + 1900, month %% 12 + 1, 1))
+  start <- first_day(month)
+  start + pmin(day$mday, as.numeric(first_day(month + 1) - start)) - 1
+}
+##########################################################################################
+#
+##########################################################################################
 #' @title Where each index stands
 #' @description For each index of a price history: its last close, and the
 #' change in percent since the close before, since the last close at least a
 #' week and 1, 3, 6 and 9 months before, since the last close of the year
 #' before (year to date) and since the last close at least a year before, and how far it is
 #' below its highest close. Pass the whole history, as the highest close is
-#' that of the history given.
+#' that of the history given. The months are counted with [months_back()]: a
+#' month before 31 March is the last day of February, and a year before 29
+#' February is 28 February.
 #' @param history Price history from [get_history()], with `label`,
 #'   `timestamp` and `close` columns.
 #' @return A data frame with a row per index, in the order of their first
@@ -126,8 +151,7 @@ index_summary <- function(history) {
     last <- one$close[n]
     date <- one$timestamp[n]
     change <- function(before) if (length(before) == 0) NA_real_ else (last / utils::tail(before, 1) - 1) * 100
-    year_ago <- seq(date, by = "-1 year", length.out = 2)[2]
-    months_ago <- function(n) seq(date, by = paste0("-", n, " month"), length.out = 2)[2]
+    months_change <- function(n) change(one$close[one$timestamp <= months_back(date, n)])
     high <- which.max(one$close)
     data.frame(
       label = label,
@@ -135,12 +159,12 @@ index_summary <- function(history) {
       close = last,
       day_pct = change(one$close[-n]),
       week_pct = change(one$close[one$timestamp <= date - 7]),
-      month_pct = change(one$close[one$timestamp <= months_ago(1)]),
-      month3_pct = change(one$close[one$timestamp <= months_ago(3)]),
-      month6_pct = change(one$close[one$timestamp <= months_ago(6)]),
-      month9_pct = change(one$close[one$timestamp <= months_ago(9)]),
+      month_pct = months_change(1),
+      month3_pct = months_change(3),
+      month6_pct = months_change(6),
+      month9_pct = months_change(9),
       ytd_pct = change(one$close[one$timestamp < as.Date(format(date, "%Y-01-01"))]),
-      year_pct = change(one$close[one$timestamp <= year_ago]),
+      year_pct = months_change(12),
       high = one$close[high],
       high_date = one$timestamp[high],
       from_high_pct = (last / one$close[high] - 1) * 100,

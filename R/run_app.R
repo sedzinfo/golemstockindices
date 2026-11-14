@@ -55,7 +55,9 @@
 run_app <- function(analytics = FALSE, keep_alive = TRUE, ...) {
   indices <- get_indices()
   shinyApp(
-    ui = app_ui(indices, analytics, keep_alive),
+    # a function, so that the page is built at each visit: the dates it holds, such as the start
+    # date of the Compare tab, are then those of the visit, not of the day the app started
+    ui = function(request) app_ui(indices, analytics, keep_alive),
     server = app_server(indices),
     ...
   )

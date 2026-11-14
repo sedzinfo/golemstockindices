@@ -20,7 +20,7 @@ mod_performance_ui <- function(id) {
       tags$label(`for` = ns("period"), class = "form-label mb-0", "Performance over"),
       radioButtons(ns("period"), NULL,
         choices = c(
-          "the day" = "day", "a week" = "week", "a month" = "month", "3 months" = "month3",
+          "day" = "day", "week" = "week", "month" = "month", "3 months" = "month3",
           "6 months" = "month6", "9 months" = "month9", "this year" = "ytd", "a year" = "year"
         ),
         selected = "ytd", inline = TRUE

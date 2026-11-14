@@ -1,8 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://sedzinfo.github.io/golemstockindices/404.html</loc></url>
-<url><loc>https://sedzinfo.github.io/golemstockindices/LICENSE-text.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/authors.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/index.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/LICENSE-text.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/news/index.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/about_text.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/analytics_footer.html</loc></url>
@@ -63,6 +63,7 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_volatility_server.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/mod_volatility_ui.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/monthly_returns.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/months_back.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/move_verdict.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/moving_average.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/next_weekdays.html</loc></url>
@@ -83,20 +84,20 @@
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/plot_volatility.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/rolling_sum.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/run_app.html</loc></url>
-<url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonal_returns.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonality_analysis.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonality_chance_text.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonality_csv.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonality_groups_text.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonality_table.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonality_text.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/seasonal_returns.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/shade_interval.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/shift.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/sparkline_svg.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/summary_card.html</loc></url>
-<url><loc>https://sedzinfo.github.io/golemstockindices/reference/t_quantile.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/tail_probability.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/text_color.html</loc></url>
+<url><loc>https://sedzinfo.github.io/golemstockindices/reference/t_quantile.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/volatility_analysis.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/volatility_csv.html</loc></url>
 <url><loc>https://sedzinfo.github.io/golemstockindices/reference/volatility_level.html</loc></url>

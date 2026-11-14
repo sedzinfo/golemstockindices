@@ -64,24 +64,20 @@ below its all-time high.
 
 Open RStudio (or an R console) and run:
 
-``` r
+`# Install devtools if you haven't already`` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"devtools"``)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`devtools`](https://devtools.r-lib.org/)`)`` ``# Install the package from GitHub`` `[`install_github`](https://devtools.r-lib.org/reference/install-deprecated.html)`(``"sedzinfo/golemstockindices"``)`
 
-# Install devtools if you haven't already
-install.packages("devtools")
-library(devtools)
-# Install the package from GitHub
-install_github("sedzinfo/golemstockindices")
-```
+Without devtools, install the source tarball of the [latest
+release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest),
+which is rebuilt from `main` on every change, together with the PDF
+manual:
+
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(`` `` ``"https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz"``,`` `` repos ``=`` ``NULL``, type ``=`` ``"source"`` ``)`
 
 ## Usage
 
 Launch the Shiny app with just two lines of code:
 
-``` r
-
-library(golemstockindices)
-run_app()
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`golemstockindices`](https://sedzinfo.github.io/golemstockindices/)`)`` `[`run_app`](https://sedzinfo.github.io/golemstockindices/reference/run_app.md)`(``)`
 
 The application will open in your default web browser. No API key is
 needed. Any
@@ -94,43 +90,7 @@ option can be passed on, for example
 The data, calculations and charts of the app are also available as
 functions, for scripts and R Markdown reports:
 
-``` r
-
-library(golemstockindices)
-
-# the indices, and where each stands
-get_indices()
-all <- get_history(get_indices()$label, as.Date("1900-01-01"))
-overview_table(index_summary(all))
-
-# one index since 2020: candlestick chart and monthly returns
-spx <- get_history("S&P 500", as.Date("2020-01-01"))
-plot_timeseries(spx)
-plot_returns_calendar(monthly_returns(spx), "S&P 500", mode = "dark")
-
-# the whole history of the S&P 500, since 1927
-spx <- get_history("S&P 500", as.Date("1900-01-01"))
-
-# are some days, months or years of the presidential cycle better than others?
-seasons <- seasonality_analysis(spx, "year")
-seasonality_text(seasons)
-plot_seasonality(seasons)
-
-# is the recent volatility normal? (needs more than a year of history)
-analysis <- volatility_analysis(spx)
-volatility_text(analysis)
-analysis$forecast$days   # the 95% range of the next 5 closes
-plot_volatility(analysis)
-
-# how far below its all-time high, against its earlier falls
-falls <- drawdown_analysis(spx)
-drawdown_text(falls)
-plot_drawdowns(falls)
-
-# several indices over the last year, starting at 100
-history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
-plot_compare(normalize_prices(history))
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`golemstockindices`](https://sedzinfo.github.io/golemstockindices/)`)`` `` ``# the indices, and where each stands`` `[`get_indices`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)`(``)`` ``all`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(`[`get_indices`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)`(``)``$``label``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"1900-01-01"``)``)`` `[`overview_table`](https://sedzinfo.github.io/golemstockindices/reference/overview_table.md)`(`[`index_summary`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)`(``all``)``)`` `` ``# one index since 2020: candlestick chart and monthly returns`` ``spx`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(``"S&P 500"``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"2020-01-01"``)``)`` `[`plot_timeseries`](https://sedzinfo.github.io/golemstockindices/reference/plot_timeseries.md)`(``spx``)`` `[`plot_returns_calendar`](https://sedzinfo.github.io/golemstockindices/reference/plot_returns_calendar.md)`(`[`monthly_returns`](https://sedzinfo.github.io/golemstockindices/reference/monthly_returns.md)`(``spx``)``, ``"S&P 500"``, mode ``=`` ``"dark"``)`` `` ``# the whole history of the S&P 500, since 1927`` ``spx`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(``"S&P 500"``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"1900-01-01"``)``)`` `` ``# are some days, months or years of the presidential cycle better than others?`` ``seasons`` ``<-`` `[`seasonality_analysis`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_analysis.md)`(``spx``, ``"year"``)`` `[`seasonality_text`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_text.md)`(``seasons``)`` `[`plot_seasonality`](https://sedzinfo.github.io/golemstockindices/reference/plot_seasonality.md)`(``seasons``)`` `` ``# is the recent volatility normal? (needs more than a year of history)`` ``analysis`` ``<-`` `[`volatility_analysis`](https://sedzinfo.github.io/golemstockindices/reference/volatility_analysis.md)`(``spx``)`` `[`volatility_text`](https://sedzinfo.github.io/golemstockindices/reference/volatility_text.md)`(``analysis``)`` ``analysis``$``forecast``$``days`` ``# the 95% range of the next 5 closes`` `[`plot_volatility`](https://sedzinfo.github.io/golemstockindices/reference/plot_volatility.md)`(``analysis``)`` `` ``# how far below its all-time high, against its earlier falls`` ``falls`` ``<-`` `[`drawdown_analysis`](https://sedzinfo.github.io/golemstockindices/reference/drawdown_analysis.md)`(``spx``)`` `[`drawdown_text`](https://sedzinfo.github.io/golemstockindices/reference/drawdown_text.md)`(``falls``)`` `[`plot_drawdowns`](https://sedzinfo.github.io/golemstockindices/reference/plot_drawdowns.md)`(``falls``)`` `` ``# several indices over the last year, starting at 100`` ``history`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"S&P 500"``, ``"Euro Stoxx 50"``, ``"Nikkei 225"``)``)`` `[`plot_compare`](https://sedzinfo.github.io/golemstockindices/reference/plot_compare.md)`(`[`normalize_prices`](https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.md)`(``history``)``)`
 
 Indices are picked by their label, such as `"S&P 500"`, and
 [`get_indices()`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)
