@@ -74,7 +74,11 @@ bad_rates <- function(rate) {
 #' golemstockindices:::currency_rates(c("EUR", "JPY"))
 #' }
 currency_rates <- function(currencies) {
+  none <- data.frame(currency = character(), timestamp = as.Date(character()), per_usd = numeric())
   currencies <- setdiff(unique(currencies[!is.na(currencies)]), "USD")
+  if (length(currencies) == 0) {
+    return(none)
+  }
   symbols <- data.frame(
     label = currencies,
     symbol = paste0(currencies, "=X"),
@@ -92,7 +96,7 @@ currency_rates <- function(currencies) {
   })
   rates <- do.call(rbind, rates)
   if (is.null(rates)) {
-    rates <- data.frame(currency = character(), timestamp = as.Date(character()), per_usd = numeric())
+    return(none)
   }
   rownames(rates) <- NULL
   rates

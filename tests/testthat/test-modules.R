@@ -183,7 +183,8 @@ test_that("the overview shows the open exchanges and returns the summary for the
     expect_match(output$markets$html, "New York")
     expect_match(output$markets$html, "Hong Kong")
     expect_equal(session$getReturned()$summary()$label, indices$label)
-    expect_equal(nrow(session$getReturned()$history()), nrow(history))
+    # all 7 days of the test history (here `history` is the module's own reactive)
+    expect_equal(nrow(session$getReturned()$history()), 7)
   })
 })
 
