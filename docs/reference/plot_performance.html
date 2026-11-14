@@ -3,11 +3,13 @@
 percent, green for rises and red for falls, the best at the top, from
 performance_data(). The VIX is left out: it measures the fear in the
 market rather than the value of shares, and its swings of tens of percent
-would squeeze the others."><meta property="og:description" content="One horizontal bar per index, its change over the period in
+would squeeze the others. The performance indices, whose changes include
+the dividends that the others leave out, are marked (TR), for total return."><meta property="og:description" content="One horizontal bar per index, its change over the period in
 percent, green for rises and red for falls, the best at the top, from
 performance_data(). The VIX is left out: it measures the fear in the
 market rather than the value of shares, and its swings of tens of percent
-would squeeze the others."></head><body>
+would squeeze the others. The performance indices, whose changes include
+the dividends that the others leave out, are marked (TR), for total return."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -46,7 +48,8 @@ would squeeze the others."></head><body>
 percent, green for rises and red for falls, the best at the top, from
 <code><a href="performance_data.html">performance_data()</a></code>. The VIX is left out: it measures the fear in the
 market rather than the value of shares, and its swings of tens of percent
-would squeeze the others.</p>
+would squeeze the others. The performance indices, whose changes include
+the dividends that the others leave out, are marked (TR), for total return.</p>
     </div>
 
     <div class="section level2">
@@ -55,7 +58,8 @@ would squeeze the others.</p>
 <span>  <span class="va">summary</span>,</span>
 <span>  indices <span class="op">=</span> <span class="fu"><a href="get_indices.html">get_indices</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  period <span class="op">=</span> <span class="va">performance_periods</span>,</span>
-<span>  mode <span class="op">=</span> <span class="st">"light"</span></span>
+<span>  mode <span class="op">=</span> <span class="st">"light"</span>,</span>
+<span>  currency <span class="op">=</span> <span class="st">"local"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -81,6 +85,12 @@ without a currency, the VIX, are left out.</p></dd>
 <dd><p><code>"light"</code> (the default) or <code>"dark"</code>, to suit a light or dark
 page.</p></dd>
 
+
+<dt id="arg-currency">currency<a class="anchor" aria-label="anchor" href="#arg-currency"></a></dt>
+<dd><p><code>"local"</code> for a summary of the prices in the money of each
+index, or the currency they were converted to with <code><a href="convert_prices.html">convert_prices()</a></code>,
+<code>"USD"</code> or <code>"EUR"</code>, for the title.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -91,8 +101,10 @@ page.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
 <span class="r-in"><span><span class="va">indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_indices.html">get_indices</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="index_summary.html">index_summary</a></span><span class="op">(</span><span class="fu"><a href="get_history.html">get_history</a></span><span class="op">(</span><span class="va">indices</span><span class="op">$</span><span class="va">label</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">plot_performance</span><span class="op">(</span><span class="va">summary</span>, <span class="va">indices</span>, <span class="st">"ytd"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_history.html">get_history</a></span><span class="op">(</span><span class="va">indices</span><span class="op">$</span><span class="va">label</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_performance</span><span class="op">(</span><span class="fu"><a href="index_summary.html">index_summary</a></span><span class="op">(</span><span class="va">history</span><span class="op">)</span>, <span class="va">indices</span>, <span class="st">"ytd"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># in US dollars</span></span></span>
+<span class="r-in"><span><span class="fu">plot_performance</span><span class="op">(</span><span class="fu"><a href="index_summary.html">index_summary</a></span><span class="op">(</span><span class="fu"><a href="convert_prices.html">convert_prices</a></span><span class="op">(</span><span class="va">history</span>, <span class="st">"USD"</span><span class="op">)</span><span class="op">)</span>, <span class="va">indices</span>, <span class="st">"ytd"</span>, currency <span class="op">=</span> <span class="st">"USD"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
