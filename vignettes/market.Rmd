@@ -1,0 +1,107 @@
+---
+title: "The market overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The market overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", out.width = "100%", fig.width = 7, fig.height = 6)
+# The article downloads the prices of every index from Yahoo Finance while it is built. The
+# download is made here first, out of sight, so the chunks below get it from the disk cache,
+# and without it the code is shown without its results instead of failing the build.
+online <- tryCatch(
+  {
+    indices <- golemstockindices::get_indices()
+    history <- golemstockindices::get_history(indices$label, as.Date("1900-01-01"))
+    !is.null(history) && length(unique(history$label)) == nrow(indices)
+  },
+  error = function(e) FALSE
+)
+knitr::opts_chunk$set(eval = online)
+```
+
+`r if (!online) "> The prices could not be downloaded when this page was built, so the code is shown without its results."`
+
+The Overview and Performance tabs of the [golemstockindices app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/) show where every index stands. In R, `index_summary()` calculates the numbers, `overview_table()` shows them as a table, `plot_performance()` draws them as a chart, and `market_status()` says which exchanges are open.
+
+## Download every index
+
+`get_indices()` lists the indices, and `get_history()` downloads the prices of all of them. Start in 1900 to get all the history there is, because the highest close is that of the history you pass:
+
+```{r history}
+library(golemstockindices)
+indices <- get_indices()
+history <- get_history(indices$label, as.Date("1900-01-01"))
+nrow(indices)
+```
+
+The first download of all the indices takes a few seconds, as they are downloaded at the same time. After that they are kept on disk.
+
+## Where every index stands
+
+`index_summary()` gives a row per index with its last close and its change in percent since the close before, a week, 1, 3, 6 and 9 months, the start of the year and a year before, and how far it is below its highest close:
+
+```{r summary}
+summary <- index_summary(history)
+columns <- c("label", "date", "close", "day_pct", "ytd_pct", "year_pct", "from_high_pct")
+head(summary[, columns])
+```
+
+A change is empty when the history does not go back far enough. `from_high_pct` is 0 for an index that closed at its high.
+
+## Table
+
+`overview_table()` shows the summary as a sortable table, in the order of `get_indices()`. It adds the region and the currency of each index from `indices`, and, when you pass the history, a small line of its last year. The changes are shaded red for falls and green for rises, each column on its own scale, and the distance from the high is red, more strongly the further it is:
+
+<!-- the table is wider than the page: it scrolls sideways instead of running over the side bar -->
+::: {style="overflow-x: auto;"}
+```{r table}
+overview_table(summary, indices, history)
+```
+:::
+
+## Performance chart
+
+`plot_performance()` draws a bar per index with its change over a period, green for rises and red for falls, the best at the top. The period is one of `"day"`, `"week"`, `"month"`, `"month3"`, `"month6"`, `"month9"`, `"ytd"` (the year to date) and `"year"`. The VIX is left out, as its swings of tens of percent would squeeze the others. Hover over a bar for the numbers:
+
+```{r performance, fig.height = 11}
+plot_performance(summary, indices, "ytd")
+```
+
+The other periods work the same way:
+
+```{r performance-year, eval = FALSE}
+plot_performance(summary, indices, "year")
+plot_performance(summary, indices, "month3")
+```
+
+To compare the indices in one currency, convert the prices first, as in [Get started](golemstockindices.html), and tell `plot_performance()` the currency, for the title. This chart is not drawn here, to keep the page light:
+
+```{r performance-usd, eval = FALSE}
+dollars <- convert_prices(history, "USD")
+plot_performance(index_summary(dollars), indices, "ytd", currency = "USD")
+```
+
+## Which exchanges are open
+
+`market_status()` gives a row per exchange, from west to east, with its local time and whether it is open, at lunch or closed, and when that changes. Without an argument it judges the present. Here it judges a Monday at 15:00 UTC:
+
+```{r status}
+status <- market_status(as.POSIXct("2026-11-09 15:00", tz = "UTC"))
+cities <- c("New York", "London", "Frankfurt", "Tokyo")
+status[status$exchange %in% cities, c("exchange", "local_time", "state", "text", "hours")]
+```
+
+It knows the regular sessions on weekdays, but not the holidays, so on a holiday an exchange shows as open. Its `indices` column lists the indices of each exchange.
+
+## Dark mode and saving
+
+`plot_performance()` takes `mode = "dark"` for a dark page. The chart is a plotly object and the table a DT table, so `htmlwidgets::saveWidget()` saves either as a web page:
+
+```{r save, eval = FALSE}
+htmlwidgets::saveWidget(plot_performance(summary, indices, "ytd", mode = "dark"), "performance.html")
+htmlwidgets::saveWidget(overview_table(summary, indices, history), "overview.html")
+```

@@ -63,6 +63,8 @@
   : Seasonality chart of an index
 - [`plot_timeseries()`](https://sedzinfo.github.io/golemstockindices/reference/plot_timeseries.md)
   : Candlestick chart of an index's prices
+- [`plot_forecast()`](https://sedzinfo.github.io/golemstockindices/reference/plot_forecast.md)
+  : Forecast chart of an index
 - [`plot_volatility()`](https://sedzinfo.github.io/golemstockindices/reference/plot_volatility.md)
   : Volatility chart of an index
 - [`seasonality_table()`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_table.md)

@@ -48,8 +48,17 @@ reference:
       - plot_returns_calendar
       - plot_seasonality
       - plot_timeseries
+      - plot_forecast
       - plot_volatility
       - seasonality_table
+
+articles:
+  - title: Charts in R
+    navbar: ~
+    contents:
+      - golemstockindices
+      - analyses
+      - market
 
 navbar:
   structure:

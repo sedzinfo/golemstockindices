@@ -2,12 +2,16 @@
 % Please edit documentation in R/fct_plots.R
 \name{plot_forecast}
 \alias{plot_forecast}
-\title{Forecast panel of the volatility chart}
+\title{Forecast chart of an index}
 \usage{
-plot_forecast(analysis, context_days)
+plot_forecast(analysis, mode = "light", context_days = 30)
 }
 \arguments{
-\item{analysis}{The result of \code{\link[=volatility_analysis]{volatility_analysis()}}, with a forecast.}
+\item{analysis}{The result of \code{\link[=volatility_analysis]{volatility_analysis()}}, with a forecast:
+there is none when the GARCH model could not be fitted.}
+
+\item{mode}{\code{"light"} (the default) or \code{"dark"}, to suit a light or dark
+page.}
 
 \item{context_days}{Closes before the forecast.}
 }
@@ -15,14 +19,17 @@ plot_forecast(analysis, context_days)
 A plotly object.
 }
 \description{
-The last closes and the forecast ranges of the next days,
-which start from the last close, for \code{\link[=plot_volatility]{plot_volatility()}}. Hover over the
-median line for the ranges of a day.
+The last closes of an index and the forecast of its next days
+from the GARCH model of \code{\link[=volatility_analysis]{volatility_analysis()}}: the median close, and the
+ranges of the middle half and of probability \code{level}, which start from the
+last close. Hover over the median line for the ranges of a day. It is the
+lower panel of \code{\link[=plot_volatility]{plot_volatility()}}, on its own.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 spx <- get_history("S&P 500", as.Date("1950-01-01"))
-golemstockindices:::plot_forecast(volatility_analysis(spx), 30)
+plot_forecast(volatility_analysis(spx))
+# the next 14 days after the last 60 closes
+plot_forecast(volatility_analysis(spx, forecast_days = 14), context_days = 60)
+\dontshow{\}) # examplesIf}
 }
-}
-\keyword{internal}
