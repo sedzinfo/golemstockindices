@@ -1,5 +1,6 @@
 ---
 title: "Get started"
+description: "Download the prices of the major stock market indices in R and draw interactive candlestick charts, compare indices in one currency and see their monthly returns."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Get started}

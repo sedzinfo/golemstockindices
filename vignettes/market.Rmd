@@ -1,5 +1,6 @@
 ---
 title: "The market overview"
+description: "Where every major stock market index stands against its last close, the start of the year, a year ago and its all-time high, and which exchanges are open, in R."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{The market overview}
