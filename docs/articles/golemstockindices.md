@@ -103,9 +103,9 @@ prices, and a click on a legend entry hides or shows that line.
 
 The averages and the drawdown are calculated over the history you pass.
 Pass all of it and zoom on the chart, rather than downloading a shorter
-history. A history that starts in 1990 has no 200-day average for its
-first 200 days, and its drawdown is measured from the highest close
-since 1990.
+history. A history that starts in 1990 has no 200-day average before its
+200th day, and its drawdown is measured from the highest close since
+1990.
 
 Choose other moving averages with `averages`, or none with
 `averages = NULL`. Leave out the drawdown chart with
@@ -221,5 +221,6 @@ To change the layout, for example to add a title:
 
 ``` r
 
-plotly::layout(chart, title = "The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year")
+plotly::layout(chart,
+  title = "The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year")
 ```

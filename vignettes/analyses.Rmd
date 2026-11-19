@@ -40,10 +40,12 @@ spx <- get_history("S&P 500", as.Date("1950-01-01"))
 
 ```{r volatility}
 analysis <- volatility_analysis(spx)
-volatility_text(analysis)$month
+text <- volatility_text(analysis)
+text$month$headline
+writeLines(strwrap(text$month$points, width = 70, initial = "- ", prefix = "  "))
 ```
 
-`volatility_text()` has two more parts, `$recent` for the last 2 days and `$forecast` for the next 5. The numbers behind the sentences are in the analysis, such as the forecast ranges of the next closes:
+`volatility_text()` has two more parts, `$recent` for the last 2 days and `$forecast` for the next 5. Each has a `headline` and `points`, a character vector of sentences. The numbers behind the sentences are in the analysis, such as the forecast ranges of the next closes:
 
 ```{r forecast}
 analysis$forecast$days
@@ -78,8 +80,8 @@ volatility_text(week)$recent$headline
 `plot_volatility()` takes `days` for the days of the middle panel and `context_days` for the closes before the forecast, which `plot_forecast()` takes too. The length and the probability of the forecast are set in `volatility_analysis()`, with `forecast_days` and `level`. For example, the next 10 trading days with 90% ranges, after the last 60 closes:
 
 ```{r forecast-options}
-two_weeks <- volatility_analysis(spx, forecast_days = 10, level = 0.9)
-plot_forecast(two_weeks, context_days = 60)
+ten_days <- volatility_analysis(spx, forecast_days = 10, level = 0.9)
+plot_forecast(ten_days, context_days = 60)
 ```
 
 ## Drawdowns
@@ -88,13 +90,16 @@ plot_forecast(two_weeks, context_days = 60)
 
 ```{r drawdowns}
 falls <- drawdown_analysis(spx)
-drawdown_text(falls)$now
+now <- drawdown_text(falls)$now
+now$headline
+writeLines(strwrap(now$points, width = 70, initial = "- ", prefix = "  "))
 ```
 
 The falls are in `falls$episodes`, the deepest first. A fall that has not got back to its high yet is marked `ongoing`:
 
 ```{r episodes}
-columns <- c("peak_date", "trough_date", "depth_pct", "recovery_date", "days_total", "ongoing")
+columns <- c("peak_date", "trough_date", "depth_pct",
+             "recovery_date", "days_total", "ongoing")
 head(falls$episodes[, columns])
 ```
 

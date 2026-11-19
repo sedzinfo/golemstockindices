@@ -34,21 +34,26 @@ them. It needs more than a year of history.
 ``` r
 
 analysis <- volatility_analysis(spx)
-volatility_text(analysis)$month
-#> $headline
+text <- volatility_text(analysis)
+text$month$headline
 #> [1] "Volatility of the last 21 trading days: high"
-#> 
-#> $points
-#> [1] "22.5% a year, against 12.7% in the year before and a median of 11.5% for all 21-day periods since 1950: the 91st percentile."              
-#> [2] "Its variance is 3.2 times that of the year before, significant in both tests: the whole month was rougher."                                
-#> [3] "The largest day, 5 Nov (−4.36%), was 5.6 standard deviations of the year before: rare, as days that large come about once every 2.5 years."
-#> [4] "The return of the 21 trading days, −5.0%, is in the 8th percentile of all 21-day periods: a weak month."
+writeLines(strwrap(text$month$points, width = 70, initial = "- ", prefix = "  "))
+#> - 22.5% a year, against 12.7% in the year before and a median of
+#>   11.5% for all 21-day periods since 1950: the 91st percentile.
+#>   Its variance is 3.2 times that of the year before, significant in
+#>   both tests: the whole month was rougher.
+#>   The largest day, 5 Nov (−4.36%), was 5.6 standard deviations of the
+#>   year before: rare, as days that large come about once every 2.5
+#>   years.
+#>   The return of the 21 trading days, −5.0%, is in the 8th percentile
+#>   of all 21-day periods: a weak month.
 ```
 
 [`volatility_text()`](https://sedzinfo.github.io/golemstockindices/reference/volatility_text.md)
 has two more parts, `$recent` for the last 2 days and `$forecast` for
-the next 5. The numbers behind the sentences are in the analysis, such
-as the forecast ranges of the next closes:
+the next 5. Each has a `headline` and `points`, a character vector of
+sentences. The numbers behind the sentences are in the analysis, such as
+the forecast ranges of the next closes:
 
 ``` r
 
@@ -118,8 +123,8 @@ with 90% ranges, after the last 60 closes:
 
 ``` r
 
-two_weeks <- volatility_analysis(spx, forecast_days = 10, level = 0.9)
-plot_forecast(two_weeks, context_days = 60)
+ten_days <- volatility_analysis(spx, forecast_days = 10, level = 0.9)
+plot_forecast(ten_days, context_days = 60)
 ```
 
 ## Drawdowns
@@ -131,14 +136,18 @@ earlier falls of 20% or more with how long they took to recover:
 ``` r
 
 falls <- drawdown_analysis(spx)
-drawdown_text(falls)$now
-#> $headline
+now <- drawdown_text(falls)$now
+now$headline
 #> [1] "Now: −6.3% from the all-time high, in its 54th deepest fall"
-#> 
-#> $points
-#> [1] "The all-time high: 7,818.93 on 6 Oct 2026, 43 days ago. The lowest close since: 7,323.63 on 18 Nov 2026, −6.3%."                                                                                                
-#> [2] "Back to the high takes a rise of +6.8% from the last close of 7,323.63."                                                                                                                                        
-#> [3] "Earlier falls as deep as −6.3% or deeper: 53. They got back to their high 34 to 2,744 days (median 118) after the peak, and 16 to 2,114 days (median 63) after the trough. This fall has lasted 43 days so far."
+writeLines(strwrap(now$points, width = 70, initial = "- ", prefix = "  "))
+#> - The all-time high: 7,818.93 on 6 Oct 2026, 43 days ago. The lowest
+#>   close since: 7,323.63 on 18 Nov 2026, −6.3%.
+#>   Back to the high takes a rise of +6.8% from the last close of
+#>   7,323.63.
+#>   Earlier falls as deep as −6.3% or deeper: 53. They got back to
+#>   their high 34 to 2,744 days (median 118) after the peak, and 16 to
+#>   2,114 days (median 63) after the trough. This fall has lasted 43
+#>   days so far.
 ```
 
 The falls are in `falls$episodes`, the deepest first. A fall that has
@@ -146,7 +155,8 @@ not got back to its high yet is marked `ongoing`:
 
 ``` r
 
-columns <- c("peak_date", "trough_date", "depth_pct", "recovery_date", "days_total", "ongoing")
+columns <- c("peak_date", "trough_date", "depth_pct",
+             "recovery_date", "days_total", "ongoing")
 head(falls$episodes[, columns])
 #>    peak_date trough_date depth_pct recovery_date days_total ongoing
 #> 1 2007-10-09  2009-03-09 -56.77539    2013-03-28       1997   FALSE

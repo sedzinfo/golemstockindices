@@ -46,8 +46,9 @@ The first download of all the indices takes a few seconds, as they are downloade
 
 ```{r summary}
 summary <- index_summary(history)
-columns <- c("label", "date", "close", "day_pct", "ytd_pct", "year_pct", "from_high_pct")
-head(summary[, columns])
+columns <- c("label", "date", "close", "day_pct", "ytd_pct", "year_pct",
+             "from_high_pct")
+print(head(summary[, columns]), digits = 3)
 ```
 
 A change is empty when the history does not go back far enough. `from_high_pct` is 0 for an index that closed at its high.
@@ -92,7 +93,8 @@ plot_performance(index_summary(dollars), indices, "ytd", currency = "USD")
 ```{r status}
 status <- market_status(as.POSIXct("2026-11-09 15:00", tz = "UTC"))
 cities <- c("New York", "London", "Frankfurt", "Tokyo")
-status[status$exchange %in% cities, c("exchange", "local_time", "state", "text", "hours")]
+columns <- c("exchange", "local_time", "state", "text", "hours")
+status[status$exchange %in% cities, columns]
 ```
 
 It knows the regular sessions on weekdays, but not the holidays, so on a holiday an exchange shows as open. Its `indices` column lists the indices of each exchange.
@@ -102,6 +104,7 @@ It knows the regular sessions on weekdays, but not the holidays, so on a holiday
 `plot_performance()` takes `mode = "dark"` for a dark page. The chart is a plotly object and the table a DT table, so `htmlwidgets::saveWidget()` saves either as a web page:
 
 ```{r save, eval = FALSE}
-htmlwidgets::saveWidget(plot_performance(summary, indices, "ytd", mode = "dark"), "performance.html")
+chart <- plot_performance(summary, indices, "ytd", mode = "dark")
+htmlwidgets::saveWidget(chart, "performance.html")
 htmlwidgets::saveWidget(overview_table(summary, indices, history), "overview.html")
 ```

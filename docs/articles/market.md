@@ -43,15 +43,16 @@ year and a year before, and how far it is below its highest close:
 ``` r
 
 summary <- index_summary(history)
-columns <- c("label", "date", "close", "day_pct", "ytd_pct", "year_pct", "from_high_pct")
-head(summary[, columns])
-#>            label       date   close    day_pct    ytd_pct  year_pct from_high_pct
-#> 1            AEX 2026-11-18 1098.73 -1.0055051 15.4989541 18.031325     -4.052780
-#> 2 All Ordinaries 2026-11-19 8836.60 -1.0725001 -2.0202244  1.320889     -6.510791
-#> 3        ASX 200 2026-11-19 8730.40 -1.0360697  0.1847538  3.344026     -5.837180
-#> 4 Athens General 2026-11-18 2584.51 -2.0161581 21.8700341 28.422219    -59.331334
-#> 5            ATX 2026-11-18 6394.72 -1.9497446 20.0586520 35.578156     -8.804885
-#> 6         BEL 20 2026-11-18 5952.51 -0.5757494 17.2116186 20.404023     -2.731361
+columns <- c("label", "date", "close", "day_pct", "ytd_pct", "year_pct",
+             "from_high_pct")
+print(head(summary[, columns]), digits = 3)
+#>            label       date close day_pct ytd_pct year_pct from_high_pct
+#> 1            AEX 2026-11-18  1099  -1.006  15.499    18.03         -4.05
+#> 2 All Ordinaries 2026-11-19  8837  -1.073  -2.020     1.32         -6.51
+#> 3        ASX 200 2026-11-19  8730  -1.036   0.185     3.34         -5.84
+#> 4 Athens General 2026-11-18  2585  -2.016  21.870    28.42        -59.33
+#> 5            ATX 2026-11-18  6395  -1.950  20.059    35.58         -8.80
+#> 6         BEL 20 2026-11-18  5953  -0.576  17.212    20.40         -2.73
 ```
 
 A change is empty when the history does not go back far enough.
@@ -120,7 +121,8 @@ an argument it judges the present. Here it judges a Monday at 15:00 UTC:
 
 status <- market_status(as.POSIXct("2026-11-09 15:00", tz = "UTC"))
 cities <- c("New York", "London", "Frankfurt", "Tokyo")
-status[status$exchange %in% cities, c("exchange", "local_time", "state", "text", "hours")]
+columns <- c("exchange", "local_time", "state", "text", "hours")
+status[status$exchange %in% cities, columns]
 #>     exchange local_time  state         text                    hours
 #> 3   New York      10:00   open closes 16:00              09:30–16:00
 #> 7     London      15:00   open closes 16:30              08:00–16:30
@@ -142,6 +144,7 @@ saves either as a web page:
 
 ``` r
 
-htmlwidgets::saveWidget(plot_performance(summary, indices, "ytd", mode = "dark"), "performance.html")
+chart <- plot_performance(summary, indices, "ytd", mode = "dark")
+htmlwidgets::saveWidget(chart, "performance.html")
 htmlwidgets::saveWidget(overview_table(summary, indices, history), "overview.html")
 ```
