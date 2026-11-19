@@ -42,7 +42,7 @@ spx <- get_history("S&P 500", as.Date("1950-01-01"))
 analysis <- volatility_analysis(spx)
 text <- volatility_text(analysis)
 text$month$headline
-writeLines(strwrap(text$month$points, width = 70, initial = "- ", prefix = "  "))
+writeLines(strwrap(paste("-", text$month$points), width = 70, exdent = 2))
 ```
 
 `volatility_text()` has two more parts, `$recent` for the last 2 days and `$forecast` for the next 5. Each has a `headline` and `points`, a character vector of sentences. The numbers behind the sentences are in the analysis, such as the forecast ranges of the next closes:
@@ -92,7 +92,7 @@ plot_forecast(ten_days, context_days = 60)
 falls <- drawdown_analysis(spx)
 now <- drawdown_text(falls)$now
 now$headline
-writeLines(strwrap(now$points, width = 70, initial = "- ", prefix = "  "))
+writeLines(strwrap(paste("-", now$points), width = 70, exdent = 2))
 ```
 
 The falls are in `falls$episodes`, the deepest first. A fall that has not got back to its high yet is marked `ongoing`:

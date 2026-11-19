@@ -37,15 +37,15 @@ analysis <- volatility_analysis(spx)
 text <- volatility_text(analysis)
 text$month$headline
 #> [1] "Volatility of the last 21 trading days: high"
-writeLines(strwrap(text$month$points, width = 70, initial = "- ", prefix = "  "))
+writeLines(strwrap(paste("-", text$month$points), width = 70, exdent = 2))
 #> - 22.5% a year, against 12.7% in the year before and a median of
 #>   11.5% for all 21-day periods since 1950: the 91st percentile.
-#>   Its variance is 3.2 times that of the year before, significant in
+#> - Its variance is 3.2 times that of the year before, significant in
 #>   both tests: the whole month was rougher.
-#>   The largest day, 5 Nov (−4.36%), was 5.6 standard deviations of the
+#> - The largest day, 5 Nov (−4.36%), was 5.6 standard deviations of the
 #>   year before: rare, as days that large come about once every 2.5
 #>   years.
-#>   The return of the 21 trading days, −5.0%, is in the 8th percentile
+#> - The return of the 21 trading days, −5.0%, is in the 8th percentile
 #>   of all 21-day periods: a weak month.
 ```
 
@@ -139,12 +139,12 @@ falls <- drawdown_analysis(spx)
 now <- drawdown_text(falls)$now
 now$headline
 #> [1] "Now: −6.3% from the all-time high, in its 54th deepest fall"
-writeLines(strwrap(now$points, width = 70, initial = "- ", prefix = "  "))
+writeLines(strwrap(paste("-", now$points), width = 70, exdent = 2))
 #> - The all-time high: 7,818.93 on 6 Oct 2026, 43 days ago. The lowest
 #>   close since: 7,323.63 on 18 Nov 2026, −6.3%.
-#>   Back to the high takes a rise of +6.8% from the last close of
+#> - Back to the high takes a rise of +6.8% from the last close of
 #>   7,323.63.
-#>   Earlier falls as deep as −6.3% or deeper: 53. They got back to
+#> - Earlier falls as deep as −6.3% or deeper: 53. They got back to
 #>   their high 34 to 2,744 days (median 118) after the peak, and 16 to
 #>   2,114 days (median 63) after the trough. This fall has lasted 43
 #>   days so far.
