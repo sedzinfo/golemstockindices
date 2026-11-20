@@ -1,8 +1,8 @@
 # Stock Market Indices
 
-explore the major stock market indices
+**[Open the live app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/)** · [Help pages](https://sedzinfo.github.io/golemstockindices/reference/)
 
-**[Open the live app](https://sedzinfo-golemstockindices.share.connect.posit.cloud/)** · [Website](https://sedzinfo.github.io/golemstockindices/)
+## What it does
 
 An interactive R Shiny application for exploring the major stock market indices of the Americas, Europe, Africa and Asia-Pacific: where each stands today, its whole history, how it compares with the others, its seasonality, whether its recent volatility is normal and how far it is below its all-time high.
 
@@ -24,14 +24,22 @@ An interactive R Shiny application for exploring the major stock market indices 
 
 ## Installation
 
-### Prerequisites
+### 1. Install R
 
-1. **Install R** (version 4.0 or higher): https://cran.r-project.org/
-2. **Install RStudio** (optional but recommended): https://posit.co/downloads/
+Download R 4.0 or newer from [CRAN](https://cran.r-project.org/), for Windows, macOS or Linux, and run the installer.
 
-### Package Installation
+### 2. Install RStudio or Positron
 
-Open RStudio (or an R console) and run:
+An editor makes R easier to use. It is optional, and both are free, from Posit:
+
+- [RStudio Desktop](https://posit.co/download/rstudio-desktop/)
+- [Positron](https://positron.posit.co/download.html), which also runs Python
+
+### 3. Install golemstockindices
+
+Run one of these in RStudio, Positron or the R console. Each one also installs the packages golemstockindices needs.
+
+#### From R-universe (recommended)
 
 ```r
 install.packages(
@@ -40,27 +48,39 @@ install.packages(
 )
 ```
 
-[R-universe](https://sedzinfo.r-universe.dev/golemstockindices) builds golemstockindices from this repository, and CRAN provides the packages it needs.
+[R-universe](https://sedzinfo.r-universe.dev/golemstockindices) builds golemstockindices from this repository after every change, ready to install on Windows, macOS and Linux, and CRAN provides the packages it needs.
 
-To install from GitHub instead:
+#### From GitHub
 
 ```r
-# Install devtools if you haven't already
-install.packages("devtools")
-# Install golemstockindices from GitHub
-devtools::install_github("sedzinfo/golemstockindices")
+install.packages("pak")   # once
+pak::pak("sedzinfo/golemstockindices")
 ```
 
-Or install the source tarball of the [latest release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest), which is rebuilt from `main` on every change, together with the PDF manual:
+#### From the release tarball
+
+The [latest release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest) has the source tarball and the PDF manual, rebuilt from `main` on every change:
 
 ```r
-install.packages(
-  "https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz",
-  repos = NULL, type = "source"
-)
+install.packages("pak")   # once
+pak::pak("url::https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz")
+```
+
+#### From a clone of the repository
+
+This repository keeps no files in [Git LFS](https://git-lfs.com), so a plain clone with [Git](https://git-scm.com/downloads) has everything:
+
+```bash
+git clone https://github.com/sedzinfo/golemstockindices.git
+```
+
+```r
+install.packages("pak")   # once
+pak::local_install("path/to/golemstockindices")
 ```
 
 ## Usage
+
 Launch the Shiny app with just two lines of code:
 
 ```r
@@ -69,6 +89,35 @@ run_app()
 ```
 
 The application will open in your default web browser. No API key is needed. Any [`shiny::shinyApp()`](https://shiny.posit.co/r/reference/shiny/latest/shinyapp.html) option can be passed on, for example `run_app(options = list(port = 8080))`.
+
+## Screenshots
+
+### Overview
+![The 35 exchanges, from Mexico City to Wellington, with a dot for open or closed, and where the 55 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
+
+### Performance (dark mode)
+![The 54 stock indices side by side by their change this year, the best at the top, green for rises and red for falls, with the total return indices marked (TR)](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
+
+### Index Chart
+![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
+
+### Zoomed In (dark mode)
+![The last 3 months of the S&P 500, with the vertical axes fitted to the days in view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
+
+### Index Comparison
+![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
+
+### Returns Calendar (dark mode)
+![Monthly returns of the S&P 500 by year since 1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
+
+### Seasonality
+![S&P 500 returns by year of the US presidential cycle since 1928, with a table of the years, the best and the worst year, and a Kruskal-Wallis test of whether the differences could be chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
+
+### Volatility (dark mode)
+![The volatility of the S&P 500 since 1927, its last 63 trading days in GARCH standard deviations and the forecast of its next 5 trading days, with whether the volatility of its last month and the move of its last 2 trading days are normal, and the value at risk](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
+
+### Drawdowns
+![How far the S&P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart, a chart of the distance from the high and a table of the falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock9.png)
 
 ## Using the Functions in R
 
@@ -159,35 +208,6 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 ### About Tab
 - What each index measures and how it is weighted, what every tab shows and how its numbers are calculated
 - The text is in `inst/app/about.md`, so it can be edited without touching the R code
-
-## Screenshots
-
-### Overview
-![The 35 exchanges, from Mexico City to Wellington, with a dot for open or closed, and where the 55 indices stand: the last close with a line of the last year, the change on the day, this year and over a year, and the distance from the all-time high](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock1.png)
-
-### Performance (dark mode)
-![The 54 stock indices side by side by their change this year, the best at the top, green for rises and red for falls, with the total return indices marked (TR)](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock2.png)
-
-### Index Chart
-![Candlestick, volume and drawdown chart of the S&P 500 since 1927, on a log scale](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock3.png)
-
-### Zoomed In (dark mode)
-![The last 3 months of the S&P 500, with the vertical axes fitted to the days in view](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock4.png)
-
-### Index Comparison
-![The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year, each starting at 100](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock5.png)
-
-### Returns Calendar (dark mode)
-![Monthly returns of the S&P 500 by year since 1927](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock6.png)
-
-### Seasonality
-![S&P 500 returns by year of the US presidential cycle since 1928, with a table of the years, the best and the worst year, and a Kruskal-Wallis test of whether the differences could be chance](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock7.png)
-
-### Volatility (dark mode)
-![The volatility of the S&P 500 since 1927, its last 63 trading days in GARCH standard deviations and the forecast of its next 5 trading days, with whether the volatility of its last month and the move of its last 2 trading days are normal, and the value at risk](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock8.png)
-
-### Drawdowns
-![How far the S&P 500 is below its all-time high and its 12 falls of 20% or more since 1927, on a log-scale chart, a chart of the distance from the high and a table of the falls](https://github.com/sedzinfo/golemstockindices/raw/main/screenshots/stock9.png)
 
 ## Dependencies
 
