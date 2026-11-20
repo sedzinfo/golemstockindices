@@ -16,16 +16,9 @@ shows the table and the chart that put all the indices side by side.
 
 ## Install and load the package
 
-``` r
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"golemstockindices"``,`` `` repos ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"https://sedzinfo.r-universe.dev"``, ``"https://cloud.r-project.org"``)``)`
 
-install.packages("golemstockindices",
-  repos = c("https://sedzinfo.r-universe.dev", "https://cloud.r-project.org"))
-```
-
-``` r
-
-library(golemstockindices)
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`golemstockindices`](https://sedzinfo.github.io/golemstockindices/)`)`
 
 The prices need no API key. They come from Yahoo Finance.
 
@@ -36,22 +29,7 @@ Indices are picked by their label, such as `"S&P 500"`.
 lists them, with the `label` of each, its `region`, the `currency` of
 the shares in it and its `type`:
 
-``` r
-
-indices <- get_indices()
-table(indices$region)
-#> 
-#>       Africa     Americas Asia-Pacific       Europe           US 
-#>            1            3           15           29            7
-head(indices[, c("label", "region", "currency", "type")])
-#>              label region currency  type
-#> 1          S&P 500     US      USD price
-#> 2        Dow Jones     US      USD price
-#> 3 Nasdaq Composite     US      USD price
-#> 4       Nasdaq-100     US      USD price
-#> 5   NYSE Composite     US      USD price
-#> 6     Russell 2000     US      USD price
-```
+`indices`` ``<-`` `[`get_indices`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)`(``)`` `[`table`](https://rdrr.io/r/base/table.html)`(``indices``$``region``)`` ``#> `` ``#> Africa Americas Asia-Pacific Europe US `` ``#> 1 3 15 29 7`` `[`head`](https://rdrr.io/r/utils/head.html)`(``indices``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"label"``, ``"region"``, ``"currency"``, ``"type"``)``]``)`` ``#> label region currency type`` ``#> 1 S&P 500 US USD price`` ``#> 2 Dow Jones US USD price`` ``#> 3 Nasdaq Composite US USD price`` ``#> 4 Nasdaq-100 US USD price`` ``#> 5 NYSE Composite US USD price`` ``#> 6 Russell 2000 US USD price`
 
 The `type` is `"price"` for an index that leaves out the dividends of
 its companies, such as the S&P 500, and `"total return"` for one that
@@ -66,18 +44,7 @@ downloads the daily prices of one or more indices from a start date on,
 a year ago by default. They are in index points, and there is a row per
 day on which the exchange traded:
 
-``` r
-
-spx <- get_history("S&P 500", as.Date("1990-01-01"))
-tail(spx[, c("label", "timestamp", "open", "high", "low", "close", "volume")])
-#>        label  timestamp    open    high     low   close     volume
-#> 9284 S&P 500 2026-11-11 7586.65 7647.20 7571.88 7619.38 4493200000
-#> 9285 S&P 500 2026-11-12 7550.84 7652.76 7550.84 7592.40 4693040000
-#> 9286 S&P 500 2026-11-13 7616.85 7621.78 7499.40 7561.67 4372990000
-#> 9287 S&P 500 2026-11-16 7513.98 7515.60 7400.15 7416.59 5152460000
-#> 9288 S&P 500 2026-11-17 7411.02 7415.37 7288.34 7340.53 5165100000
-#> 9289 S&P 500 2026-11-18 7355.69 7367.68 7285.76 7323.63 5388180000
-```
+`spx`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(``"S&P 500"``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"1990-01-01"``)``)`` `[`tail`](https://rdrr.io/r/utils/head.html)`(``spx``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"label"``, ``"timestamp"``, ``"open"``, ``"high"``, ``"low"``, ``"close"``, ``"volume"``)``]``)`` ``#> label timestamp open high low close volume`` ``#> 9285 S&P 500 2026-11-12 7550.84 7652.76 7550.84 7592.40 4693040000`` ``#> 9286 S&P 500 2026-11-13 7616.85 7621.78 7499.40 7561.67 4372990000`` ``#> 9287 S&P 500 2026-11-16 7513.98 7515.60 7400.15 7416.59 5152460000`` ``#> 9288 S&P 500 2026-11-17 7411.02 7415.37 7288.34 7340.53 5165100000`` ``#> 9289 S&P 500 2026-11-18 7355.69 7367.68 7285.76 7323.63 5388180000`` ``#> 9290 S&P 500 2026-11-19 7389.26 7415.64 7173.63 7175.83 5692800000`
 
 Each index’s prices are kept on disk between R sessions. Once they are
 more than an hour old, only the last two weeks are downloaded again, so
@@ -92,10 +59,7 @@ candles, with a line through the close and its 50- and 200-day moving
 averages. The smaller charts underneath show the trading volume and the
 drawdown: how far the price is below its all-time high so far.
 
-``` r
-
-plot_timeseries(spx)
-```
+[`plot_timeseries`](https://sedzinfo.github.io/golemstockindices/reference/plot_timeseries.md)`(``spx``)`
 
 Zoom with the range buttons (1 year, 6 months, 7 days, …) or the slider
 under the chart. The Linear and Log buttons switch the axis of the
@@ -112,10 +76,7 @@ Choose other moving averages with `averages`, or none with
 `show_drawdown = FALSE`. A chart of a long history is large, so this one
 is not drawn here, to keep the page light:
 
-``` r
-
-plot_timeseries(spx, averages = c(20, 100), show_drawdown = FALSE)
-```
+[`plot_timeseries`](https://sedzinfo.github.io/golemstockindices/reference/plot_timeseries.md)`(``spx``, averages ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``20``, ``100``)``, show_drawdown ``=`` ``FALSE``)`
 
 ## Compare indices
 
@@ -124,20 +85,7 @@ To compare several indices, download them together and pass them through
 It starts every index at 100 on the first date on which all of them have
 data, so 150 means the price rose by half since that date:
 
-``` r
-
-history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
-prices <- normalize_prices(history)
-tail(prices[, c("label", "timestamp", "close", "index")])
-#>       label  timestamp   close    index
-#> 739 S&P 500 2026-11-11 7619.38 114.7124
-#> 740 S&P 500 2026-11-12 7592.40 114.3062
-#> 741 S&P 500 2026-11-13 7561.67 113.8435
-#> 742 S&P 500 2026-11-16 7416.59 111.6593
-#> 743 S&P 500 2026-11-17 7340.53 110.5142
-#> 744 S&P 500 2026-11-18 7323.63 110.2598
-plot_compare(prices)
-```
+`history`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"S&P 500"``, ``"Euro Stoxx 50"``, ``"Nikkei 225"``)``)`` ``prices`` ``<-`` `[`normalize_prices`](https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.md)`(``history``)`` `[`tail`](https://rdrr.io/r/utils/head.html)`(``prices``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"label"``, ``"timestamp"``, ``"close"``, ``"index"``)``]``)`` ``#> label timestamp close index`` ``#> 739 S&P 500 2026-11-12 7592.40 116.1138`` ``#> 740 S&P 500 2026-11-13 7561.67 115.6438`` ``#> 741 S&P 500 2026-11-16 7416.59 113.4250`` ``#> 742 S&P 500 2026-11-17 7340.53 112.2618`` ``#> 743 S&P 500 2026-11-18 7323.63 112.0033`` ``#> 744 S&P 500 2026-11-19 7175.83 109.7430`` `[`plot_compare`](https://sedzinfo.github.io/golemstockindices/reference/plot_compare.md)`(``prices``)`
 
 The Linear and Log buttons switch the vertical axis. On the log axis
 equal distances are equal percentages. The history is the last year,
@@ -161,11 +109,7 @@ and tell
 [`plot_compare()`](https://sedzinfo.github.io/golemstockindices/reference/plot_compare.md)
 the currency, for the title:
 
-``` r
-
-euros <- convert_prices(history, "EUR")
-plot_compare(normalize_prices(euros), currency = "EUR")
-```
+`euros`` ``<-`` `[`convert_prices`](https://sedzinfo.github.io/golemstockindices/reference/convert_prices.md)`(``history``, ``"EUR"``)`` `[`plot_compare`](https://sedzinfo.github.io/golemstockindices/reference/plot_compare.md)`(`[`normalize_prices`](https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.md)`(``euros``)``, currency ``=`` ``"EUR"``)`
 
 The daily rates are not taken at the close of each exchange, so the
 change of a single day mixes in a few hours of the moves of the
@@ -179,16 +123,7 @@ per year and a column per month.
 [`plot_returns_calendar()`](https://sedzinfo.github.io/golemstockindices/reference/plot_returns_calendar.md)
 draws it as a heatmap, from red for falls to green for rises:
 
-``` r
-
-returns <- monthly_returns(spx)
-tail(returns, 3)
-#>       Jan   Feb   Mar   Apr  May   Jun   Jul  Aug   Sep   Oct   Nov   Dec
-#> 2024 1.59  5.17  3.10 -4.16 4.80  3.47  1.13 2.28  2.02 -0.99  5.73 -2.50
-#> 2025 2.70 -1.42 -5.75 -0.76 6.15  4.96  2.17 1.91  3.53  2.27  0.13 -0.05
-#> 2026 1.37 -0.87 -5.09 10.42 5.15 -1.06 -0.13 2.62 -0.45 -0.93 -3.38    NA
-plot_returns_calendar(returns, "S&P 500")
-```
+`returns`` ``<-`` `[`monthly_returns`](https://sedzinfo.github.io/golemstockindices/reference/monthly_returns.md)`(``spx``)`` `[`tail`](https://rdrr.io/r/utils/head.html)`(``returns``, ``3``)`` ``#> Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec`` ``#> 2024 1.59 5.17 3.10 -4.16 4.80 3.47 1.13 2.28 2.02 -0.99 5.73 -2.50`` ``#> 2025 2.70 -1.42 -5.75 -0.76 6.15 4.96 2.17 1.91 3.53 2.27 0.13 -0.05`` ``#> 2026 1.37 -0.87 -5.09 10.42 5.15 -1.06 -0.13 2.62 -0.45 -0.93 -5.33 NA`` `[`plot_returns_calendar`](https://sedzinfo.github.io/golemstockindices/reference/plot_returns_calendar.md)`(``returns``, ``"S&P 500"``)`
 
 Each month’s return is its last close relative to the last close of the
 month before. The first month and the months still to come are empty.
@@ -200,10 +135,7 @@ text and grid lines on a transparent background, for a page with a dark
 background. On this page, which is light, its text would not show, so
 the code is not run here:
 
-``` r
-
-plot_timeseries(spx, mode = "dark")
-```
+[`plot_timeseries`](https://sedzinfo.github.io/golemstockindices/reference/plot_timeseries.md)`(``spx``, mode ``=`` ``"dark"``)`
 
 ## Save or change a chart
 
@@ -211,16 +143,8 @@ The charts are plotly objects, so the functions of the plotly and
 htmlwidgets packages work on them. To save a chart as a web page that
 opens in any browser:
 
-``` r
-
-chart <- plot_compare(prices)
-htmlwidgets::saveWidget(chart, "compare.html")
-```
+`chart`` ``<-`` `[`plot_compare`](https://sedzinfo.github.io/golemstockindices/reference/plot_compare.md)`(``prices``)`` ``htmlwidgets``::`[`saveWidget`](https://rdrr.io/pkg/htmlwidgets/man/saveWidget.html)`(``chart``, ``"compare.html"``)`
 
 To change the layout, for example to add a title:
 
-``` r
-
-plotly::layout(chart,
-  title = "The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year")
-```
+`plotly``::``layout``(``chart``,`` `` title ``=`` ``"The S&P 500, the Euro Stoxx 50 and the Nikkei 225 over the last year"``)`
