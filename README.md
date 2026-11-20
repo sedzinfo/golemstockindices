@@ -22,25 +22,36 @@ An interactive R Shiny application for exploring the major stock market indices 
 - **CSV Downloads**: Download the data behind every tab as a CSV file
 - **About Tab**: What every index measures, what every tab shows and how its numbers are calculated, with the formulas
 
-# Quick Start
-
-## Installation Instructions
+## Installation
 
 ### Prerequisites
 
-- R (≥ 4.0.0) - [Download here](https://cran.r-project.org/)
-- RStudio IDE (recommended) - [Download here](https://posit.co/downloads)
+1. **Install R** (version 4.0 or higher): https://cran.r-project.org/
+2. **Install RStudio** (optional but recommended): https://posit.co/downloads/
+
+### Package Installation
 
 Open RStudio (or an R console) and run:
+
+```r
+install.packages(
+  "golemstockindices",
+  repos = c("https://sedzinfo.r-universe.dev", "https://cloud.r-project.org")
+)
+```
+
+[R-universe](https://sedzinfo.r-universe.dev/golemstockindices) builds golemstockindices from this repository, and CRAN provides the packages it needs.
+
+To install from GitHub instead:
+
 ```r
 # Install devtools if you haven't already
 install.packages("devtools")
-library(devtools)
-# Install the package from GitHub
-install_github("sedzinfo/golemstockindices")
+# Install golemstockindices from GitHub
+devtools::install_github("sedzinfo/golemstockindices")
 ```
 
-Without devtools, install the source tarball of the [latest release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest), which is rebuilt from `main` on every change, together with the PDF manual:
+Or install the source tarball of the [latest release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest), which is rebuilt from `main` on every change, together with the PDF manual:
 
 ```r
 install.packages(
@@ -235,6 +246,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ---
 
+[![R-universe](https://sedzinfo.r-universe.dev/golemstockindices/badges/version)](https://sedzinfo.r-universe.dev/golemstockindices)
 ![Stars](https://img.shields.io/github/stars/sedzinfo/golemstockindices)
 ![Watchers](https://img.shields.io/github/watchers/sedzinfo/golemstockindices)
 ![Repo Size](https://img.shields.io/github/repo-size/sedzinfo/golemstockindices)

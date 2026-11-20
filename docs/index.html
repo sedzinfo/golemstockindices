@@ -95,31 +95,39 @@
 <strong>About Tab</strong>: What every index measures, what every tab shows and how its numbers are calculated, with the formulas</li>
 </ul>
 </div>
-</div>
-<div class="section level1">
-<h1 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
-</h1>
 <div class="section level2">
-<h2 id="installation-instructions">Installation Instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="section level3">
 <h3 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h3>
-<ul>
-<li>R (≥ 4.0.0) - <a href="https://cran.r-project.org/" class="external-link">Download here</a>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Install R</strong> (version 4.0 or higher): <a href="https://cran.r-project.org/" class="external-link uri">https://cran.r-project.org/</a>
 </li>
-<li>RStudio IDE (recommended) - <a href="https://posit.co/downloads" class="external-link">Download here</a>
+<li>
+<strong>Install RStudio</strong> (optional but recommended): <a href="https://posit.co/downloads/" class="external-link uri">https://posit.co/downloads/</a>
 </li>
-</ul>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="package-installation">Package Installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
+</h3>
 <p>Open RStudio (or an R console) and run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
+<span>  <span class="st">"golemstockindices"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://sedzinfo.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><a href="https://sedzinfo.r-universe.dev/golemstockindices" class="external-link">R-universe</a> builds golemstockindices from this repository, and CRAN provides the packages it needs.</p>
+<p>To install from GitHub instead:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install devtools if you haven't already</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
-<span><span class="co"># Install the package from GitHub</span></span>
-<span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"sedzinfo/golemstockindices"</span><span class="op">)</span></span></code></pre></div>
-<p>Without devtools, install the source tarball of the <a href="https://github.com/sedzinfo/golemstockindices/releases/tag/latest" class="external-link">latest release</a>, which is rebuilt from <code>main</code> on every change, together with the PDF manual:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<span><span class="co"># Install golemstockindices from GitHub</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/install-deprecated.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"sedzinfo/golemstockindices"</span><span class="op">)</span></span></code></pre></div>
+<p>Or install the source tarball of the <a href="https://github.com/sedzinfo/golemstockindices/releases/tag/latest" class="external-link">latest release</a>, which is rebuilt from <code>main</code> on every change, together with the PDF manual:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="cn">NULL</span>, type <span class="op">=</span> <span class="st">"source"</span></span>
@@ -130,7 +138,7 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p>Launch the Shiny app with just two lines of code:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sedzinfo.github.io/golemstockindices/">golemstockindices</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The application will open in your default web browser. No API key is needed. Any <a href="https://shiny.posit.co/r/reference/shiny/latest/shinyapp.html" class="external-link"><code>shiny::shinyApp()</code></a> option can be passed on, for example <code>run_app(options = list(port = 8080))</code>.</p>
@@ -139,7 +147,7 @@
 <h2 id="using-the-functions-in-r">Using the Functions in R<a class="anchor" aria-label="anchor" href="#using-the-functions-in-r"></a>
 </h2>
 <p>The data, calculations and charts of the app are also available as functions, for scripts and R Markdown reports:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sedzinfo.github.io/golemstockindices/">golemstockindices</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the indices, and where each stands</span></span>
@@ -446,10 +454,9 @@
 </h2>
 <p>Contributions, issues, and feature requests are welcome! Feel free to check the <a href="https://github.com/sedzinfo/golemstockindices/issues" class="external-link">issues page</a>.</p>
 <hr>
-<p><img src="https://img.shields.io/github/stars/sedzinfo/golemstockindices" alt="Stars"><img src="https://img.shields.io/github/watchers/sedzinfo/golemstockindices" alt="Watchers"><img src="https://img.shields.io/github/repo-size/sedzinfo/golemstockindices" alt="Repo Size"><img src="https://img.shields.io/github/issues/sedzinfo/golemstockindices" alt="Open Issues"><img src="https://img.shields.io/github/forks/sedzinfo/golemstockindices" alt="Forks"><img src="https://img.shields.io/github/last-commit/sedzinfo/golemstockindices" alt="Last Commit"><img src="https://img.shields.io/github/contributors/sedzinfo/golemstockindices" alt="Contributors"><img src="https://img.shields.io/github/license/sedzinfo/golemstockindices" alt="License"><img src="https://img.shields.io/github/actions/workflow/status/sedzinfo/golemstockindices/build-tarball.yml" alt="Workflow Status"><img src="https://github.com/sedzinfo/golemstockindices/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></p>
+<p><a href="https://sedzinfo.r-universe.dev/golemstockindices" class="external-link"><img src="https://sedzinfo.r-universe.dev/golemstockindices/badges/version" alt="R-universe"></a> <img src="https://img.shields.io/github/stars/sedzinfo/golemstockindices" alt="Stars"><img src="https://img.shields.io/github/watchers/sedzinfo/golemstockindices" alt="Watchers"><img src="https://img.shields.io/github/repo-size/sedzinfo/golemstockindices" alt="Repo Size"><img src="https://img.shields.io/github/issues/sedzinfo/golemstockindices" alt="Open Issues"><img src="https://img.shields.io/github/forks/sedzinfo/golemstockindices" alt="Forks"><img src="https://img.shields.io/github/last-commit/sedzinfo/golemstockindices" alt="Last Commit"><img src="https://img.shields.io/github/contributors/sedzinfo/golemstockindices" alt="Contributors"><img src="https://img.shields.io/github/license/sedzinfo/golemstockindices" alt="License"><img src="https://img.shields.io/github/actions/workflow/status/sedzinfo/golemstockindices/build-tarball.yml" alt="Workflow Status"><img src="https://github.com/sedzinfo/golemstockindices/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></p>
 </div>
 </div>
-
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
