@@ -6,11 +6,15 @@ converts it to the currency picked with
 renders the closes normalized to 100, and serves them as a CSV file
 named like `compare-2026-11-07.csv`, or `compare-usd-2026-11-07.csv` in
 US dollars, with the columns `date`, `label`, `currency`, `close` and
-`index`. The download waits until the selection has not changed for 1.5
-seconds, instead of starting on every click in the picker. In another
-currency, a line above the chart says which indices have no exchange
-rates, and when the rates, which start between 1996 and 2006, make the
-comparison start later than the prices would.
+`index`. With an index picked under "Relative to", the chart shows the
+others relative to it with
+[`relative_prices()`](https://sedzinfo.github.io/golemstockindices/reference/relative_prices.md),
+and the CSV file, named like `compare-vs-s-p-500-2026-11-07.csv`, adds
+`base` and `relative`. The download waits until the selection has not
+changed for 1.5 seconds, instead of starting on every click in the
+picker. In another currency, a line above the chart says which indices
+have no exchange rates, and when the rates, which start between 1996 and
+2006, make the comparison start later than the prices would.
 
 ## Usage
 

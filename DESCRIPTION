@@ -7,12 +7,15 @@ Maintainer: Dimitrios Zacharatos <dzacharatos@yahoo.com>
 Description: A 'shiny' application for exploring the major stock market
     indices of the Americas, Europe, Africa and Asia-Pacific, such as the S&P 500, the Euro Stoxx
     50 and the Nikkei 225, and the VIX. Shows where every index stands
-    against its last close, the start of the year, a year ago and its
-    all-time high, and plots interactive candlestick and volume charts of
-    the whole history of each. Also compares normalized indices, and shows
+    against its last close, the start of the year, a year ago, its 200-day
+    average, its 52-week low and high and its all-time high, and plots
+    interactive candlestick and volume charts of the whole history of each,
+    with Bollinger bands and the relative strength index. Also compares
+    normalized indices, on their own or relative to one of them, and shows
     a calendar of monthly returns, their seasonality by day of the week,
-    week of the year, month and year of the US presidential cycle, whether
-    an index's recent volatility is normal, with a GARCH forecast, and its
+    week of the year, month and year of the US presidential cycle, calendar
+    effects such as the turn of the month and the Santa rally, whether an
+    index's recent volatility is normal, with a GARCH forecast, and its
     falls from its all-time high. Daily prices are retrieved from 'Yahoo
     Finance'.
 Imports:

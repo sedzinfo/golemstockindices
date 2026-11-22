@@ -54,9 +54,16 @@ print(head(summary[, columns]), digits = 3)
 
 A change is empty when the history does not go back far enough. `from_high_pct` is 0 for an index that closed at its high.
 
+The summary also gives the trend of the last year: `streak`, the run of rises (positive) or falls (negative) up to the last close, and how far the last close is from its 200-day average and from its lowest and highest close of the last 52 weeks:
+
+```{r trend}
+trend <- c("label", "streak", "from_average200_pct", "from_low52_pct", "from_high52_pct")
+print(head(summary[, trend]), digits = 3)
+```
+
 ## Table
 
-`overview_table()` shows the summary as a sortable table, in the order of `get_indices()`. It adds the region and the currency of each index from `indices`, and, when you pass the history, a small line of its last year. The changes are shaded red for falls and green for rises, each column on its own scale, and the distance from the high is red, more strongly the further it is:
+`overview_table()` shows the summary as a sortable table, in the order of `get_indices()`. It adds the region and the currency of each index from `indices`, and, when you pass the history, a small line of its last year. The streak shows as *3 up*, *2 down* or *flat*. The changes are shaded red for falls and green for rises, each column on its own scale, and the distance from the high is red, more strongly the further it is:
 
 <!-- the table is wider than the page: it scrolls sideways instead of running over the side bar -->
 ::: {style="overflow-x: auto;"}

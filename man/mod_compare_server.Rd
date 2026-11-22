@@ -23,7 +23,10 @@ Gets the price history of the selected indices from the start
 date, converts it to the currency picked with \code{\link[=convert_prices]{convert_prices()}}, renders
 the closes normalized to 100, and serves them as a CSV file named like
 \verb{compare-2026-11-07.csv}, or \verb{compare-usd-2026-11-07.csv} in US dollars,
-with the columns \code{date}, \code{label}, \code{currency}, \code{close} and \code{index}. The
+with the columns \code{date}, \code{label}, \code{currency}, \code{close} and \code{index}. With an
+index picked under "Relative to", the chart shows the others relative to
+it with \code{\link[=relative_prices]{relative_prices()}}, and the CSV file, named like
+\verb{compare-vs-s-p-500-2026-11-07.csv}, adds \code{base} and \code{relative}. The
 download waits until the selection has not changed for 1.5 seconds,
 instead of starting on every click in the picker. In another currency, a
 line above the chart says which indices have no exchange rates, and when

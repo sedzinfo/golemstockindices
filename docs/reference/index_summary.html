@@ -75,7 +75,11 @@ February is 28 February.</p>
 
 <dl><dt id="arg-history">history<a class="anchor" aria-label="anchor" href="#arg-history"></a></dt>
 <dd><p>Price history from <code><a href="get_history.html">get_history()</a></code>, with <code>label</code>,
-<code>timestamp</code> and <code>close</code> columns.</p></dd>
+<code>timestamp</code> and <code>close</code> columns.</p>
+<p>It also gives the trend of the last year: the current run of rises or
+falls (see <code><a href="streak.html">streak()</a></code>), how far the last close is from its 200-day
+average (see <code><a href="moving_average.html">moving_average()</a></code>), and from the lowest and the highest
+close of the last 52 weeks, the closes after the day a year before.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -84,9 +88,12 @@ February is 28 February.</p>
 rows in <code>history</code>: <code>label</code>, <code>date</code> and <code>close</code> of the last day,
 <code>day_pct</code>, <code>week_pct</code>, <code>month_pct</code>, <code>month3_pct</code>, <code>month6_pct</code>,
 <code>month9_pct</code>, <code>ytd_pct</code>, <code>year_pct</code>, <code>high</code> and
-<code>high_date</code> of the highest close, <code>from_high_pct</code> (from -100 to 0) and
-<code>first_date</code>, the first day of the history. A change is <code>NA</code> when the
-history does not go back far enough.</p>
+<code>high_date</code> of the highest close, <code>from_high_pct</code> (from -100 to 0),
+<code>first_date</code>, the first day of the history, <code>streak</code>, <code>average200</code>
+and <code>from_average200_pct</code>, <code>low52</code> and <code>from_low52_pct</code> (0 or more),
+and <code>high52</code> and <code>from_high52_pct</code> (from -100 to 0). A change is <code>NA</code>
+when the history does not go back far enough, and the average when it
+has fewer than 200 closes.</p>
     </div>
 
     <div class="section level2">
@@ -97,8 +104,10 @@ history does not go back far enough.</p>
 <span class="r-in"><span>  close <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">120</span>, <span class="fl">126</span>, <span class="fl">132</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">index_summary</span><span class="op">(</span><span class="va">history</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   label       date close  day_pct week_pct month_pct month3_pct month6_pct month9_pct ytd_pct year_pct high  high_date from_high_pct first_date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Alpha 2026-01-05   132 4.761905      -12       -12        -12        -12         32      10       32  150 2025-06-30           -12 2024-12-31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   label       date close  day_pct week_pct month_pct month3_pct month6_pct month9_pct ytd_pct year_pct high  high_date from_high_pct first_date streak average200 from_average200_pct low52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Alpha 2026-01-05   132 4.761905      -12       -12        -12        -12         32      10       32  150 2025-06-30           -12 2024-12-31      2         NA                  NA   120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   from_low52_pct high52 from_high52_pct</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             10    150             -12</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

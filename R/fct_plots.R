@@ -29,6 +29,9 @@ average_colors <- c("#3b82f6", "#a855f7", "#14b8a6", "#eab308")
 #' a range slider. Underneath, smaller charts show the trading volume, when
 #' the history has any, and the drawdown: how far the index is below its
 #' all-time high so far. A click on a legend entry hides or shows that line.
+#' On request, the Bollinger bands are drawn around the prices, and a panel
+#' of the relative strength index, whose axis always runs from 0 to 100,
+#' right under them.
 #'
 #' The vertical axes follow the days in view: zoomed in, each runs from the
 #' lowest to the highest value of those days, so a week's candles fill the
@@ -44,6 +47,10 @@ average_colors <- c("#3b82f6", "#a855f7", "#14b8a6", "#eab308")
 #' @param averages Days of the moving averages to draw (see
 #'   [moving_average()]), or `NULL` for none.
 #' @param show_drawdown `TRUE` to add the drawdown chart (see [drawdown()]).
+#' @param bollinger `TRUE` to add the 20-day Bollinger bands to the prices
+#'   (see [bollinger_bands()]).
+#' @param show_rsi `TRUE` to add a chart of the 14-day relative strength
+#'   index under the prices (see [rsi()]), with dashed lines at 30 and 70.
 #' @return A plotly object.
 #' @export
 #' @examplesIf interactive()
@@ -51,7 +58,10 @@ average_colors <- c("#3b82f6", "#a855f7", "#14b8a6", "#eab308")
 #' plot_timeseries(spx)
 #' # shorter averages, and no drawdown chart
 #' plot_timeseries(spx, averages = c(20, 100), show_drawdown = FALSE)
-plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show_drawdown = TRUE) {
+#' # with the Bollinger bands and the RSI
+#' plot_timeseries(spx, bollinger = TRUE, show_rsi = TRUE)
+plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show_drawdown = TRUE,
+                            bollinger = FALSE, show_rsi = FALSE) {
   check_one_index(history)
   # the candles show their open, high, low and close on hover by themselves
   price <- plotly::plot_ly(history,
@@ -81,6 +91,29 @@ plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show
       name = paste0(averages[i], "-day average"),
       hovertemplate = paste0("%{x}<br>", averages[i], "-day average: %{y:,.2f}<extra></extra>")
     )
+  }
+  if (bollinger) {
+    bands <- round(bollinger_bands(history$close), 2)
+    band_line <- list(width = 1, color = "#64748b")
+    # one legend entry for the three lines, which hide and show together; the lower band fills up
+    # to the upper one
+    price <- price %>%
+      plotly::add_lines(
+        x = history$timestamp, y = bands$upper, line = band_line, inherit = FALSE,
+        name = "Bollinger bands", legendgroup = "bollinger",
+        hovertemplate = "%{x}<br>Upper band: %{y:,.2f}<extra></extra>"
+      ) %>%
+      plotly::add_lines(
+        x = history$timestamp, y = bands$lower, line = band_line, inherit = FALSE,
+        fill = "tonexty", fillcolor = "rgba(100,116,139,0.12)",
+        name = "Bollinger bands", legendgroup = "bollinger", showlegend = FALSE,
+        hovertemplate = "%{x}<br>Lower band: %{y:,.2f}<extra></extra>"
+      ) %>%
+      plotly::add_lines(
+        x = history$timestamp, y = bands$middle, line = c(band_line, list(dash = "dot")), inherit = FALSE,
+        name = "Bollinger bands", legendgroup = "bollinger", showlegend = FALSE,
+        hovertemplate = "%{x}<br>20-day average: %{y:,.2f}<extra></extra>"
+      )
   }
   price <- price %>%
     plotly::layout(
@@ -124,7 +157,32 @@ plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show
     panels <- c(panels, list(from_high))
     heights <- if (has_volume) c(0.65, 0.15, 0.2) else c(0.75, 0.25)
   }
-  plotly::subplot(panels, heights = heights, nrows = length(panels), shareX = TRUE, titleY = TRUE) %>%
+  if (show_rsi) {
+    strength <- plotly::plot_ly(
+      x = history$timestamp,
+      y = round(rsi(history$close), 1),
+      type = "scatter",
+      mode = "lines",
+      line = list(width = 1, color = average_colors[3]),
+      name = "RSI (14 days)",
+      hovertemplate = "%{x}<br>RSI: %{y:.1f}<extra></extra>"
+    ) %>%
+      # always 0 to 100: fit_y_axes.js leaves an axis of a fixed range alone
+      plotly::layout(yaxis = list(title = "", range = c(0, 100), fixedrange = TRUE, tickvals = c(30, 70)))
+    # under the prices, from their share of the height
+    panels <- c(panels[1], list(strength), panels[-1])
+    heights <- c(heights[1] - 0.18, 0.18, heights[-1])
+  }
+  chart <- plotly::subplot(panels, heights = heights, nrows = length(panels), shareX = TRUE, titleY = TRUE)
+  if (show_rsi) {
+    # overbought above 70 and oversold below 30; set directly, as layout() drops a list of shapes
+    # without names
+    chart$x$layout$shapes <- lapply(c(30, 70), function(level) {
+      list(type = "line", xref = "paper", x0 = 0, x1 = 1, yref = "y2", y0 = level, y1 = level,
+           line = list(width = 1, dash = "dash", color = text_color(mode)))
+    })
+  }
+  chart %>%
     plotly::layout(updatemenus = list(list(
       type = "buttons",
       direction = "right",
@@ -158,6 +216,9 @@ plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show
 #' @param currency `"local"` for prices in the money of each index, or the
 #'   currency they were converted to with [convert_prices()], `"USD"` or
 #'   `"EUR"`, for the title.
+#' @param base `NULL` for the normalized prices, or the label of the index
+#'   that `prices`, from [relative_prices()], are relative to, for the title
+#'   and a dashed line at 100, where an index did as well as the base.
 #' @inheritParams plot_timeseries
 #' @return A plotly object.
 #' @export
@@ -166,7 +227,9 @@ plot_timeseries <- function(history, mode = "light", averages = c(50, 200), show
 #' plot_compare(normalize_prices(history))
 #' # in US dollars
 #' plot_compare(normalize_prices(convert_prices(history, "USD")), currency = "USD")
-plot_compare <- function(prices, mode = "light", indices = get_indices(), currency = "local") {
+#' # against the S&P 500
+#' plot_compare(relative_prices(normalize_prices(history), "S&P 500"), base = "S&P 500")
+plot_compare <- function(prices, mode = "light", indices = get_indices(), currency = "local", base = NULL) {
   total <- indices$type[match(prices$label, indices$label)] %in% "total return"
   prices$name <- prices$label
   prices$name[total] <- paste(prices$label[total], "(TR)")
@@ -177,11 +240,13 @@ plot_compare <- function(prices, mode = "light", indices = get_indices(), curren
     if (currency != "local") paste("In", currency_names[[currency]]),
     if (any(total)) "(TR) with dividends reinvested"
   )
+  if (!is.null(base)) notes <- c("Above 100: better than the base since then", notes)
   title <- paste0(
-    "Normalized close (", min(prices$timestamp), " = 100)",
+    if (is.null(base)) "Normalized close" else paste("Relative to", base),
+    " (", min(prices$timestamp), " = 100)",
     if (length(notes) > 0) paste0("<br><sup>", paste(notes, collapse = paste0(" ", intToUtf8(183), " ")), "</sup>")
   )
-  plotly::plot_ly(prices,
+  chart <- plotly::plot_ly(prices,
     x = ~timestamp,
     y = ~index,
     color = ~name,
@@ -193,7 +258,7 @@ plot_compare <- function(prices, mode = "light", indices = get_indices(), curren
       title = title,
       legend = list(orientation = "h", x = 0.5, xanchor = "center"),
       xaxis = list(title = "Date"),
-      yaxis = list(title = "Index"),
+      yaxis = list(title = if (is.null(base)) "Index" else paste("Relative to", base)),
       updatemenus = list(list(
         type = "buttons",
         direction = "right",
@@ -208,7 +273,15 @@ plot_compare <- function(prices, mode = "light", indices = get_indices(), curren
           list(label = "Log", method = "relayout", args = list("yaxis.type", "log"))
         )
       ))
-    ) %>%
+    )
+  if (!is.null(base)) {
+    # set directly: layout() merges with modifyList(), which drops a list of shapes without names
+    chart$x$layout$shapes <- list(list(
+      type = "line", xref = "paper", x0 = 0, x1 = 1, y0 = 100, y1 = 100,
+      line = list(width = 1, dash = "dash", color = text_color(mode))
+    ))
+  }
+  chart %>%
     plot_theme(mode) %>%
     compact_traces()
 }
@@ -724,9 +797,10 @@ seasonality_table <- function(analysis) {
 #' @title Table of where the indices stand
 #' @description A table with a row per index of [index_summary()], in the
 #' order of [get_indices()]: its region, last close and its date, the change
-#' on the day, this year and over a year, how far it is below its all-time
-#' high, that high and its date, the currency of its shares and the first day
-#' of its history. The changes are shaded red for falls and green for rises,
+#' on the day, this year and over a year, its current run of rises or falls,
+#' how far it is from its 200-day average and from its 52-week low and high,
+#' how far it is below its all-time high, that high and its date, the
+#' currency of its shares and the first day of its history. The changes are shaded red for falls and green for rises,
 #' each column on its own scale, as a day's moves are much smaller than a
 #' year's, and the distance from the high red, more strongly the further it
 #' is. Given the history, a column after the close draws the last year of
@@ -746,10 +820,12 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
   info <- indices[match(summary$label, indices$label), ]
   table <- data.frame(
     summary$label, info$region, summary$close, summary$date, summary$day_pct, summary$ytd_pct, summary$year_pct,
+    summary$streak, summary$from_average200_pct, summary$from_low52_pct, summary$from_high52_pct,
     summary$from_high_pct, summary$high, summary$high_date, info$currency, summary$first_date
   )
   names(table) <- c(
-    "Index", "Region", "Close", "Date", "Day", "Year to date", "1 year", "From high", "High", "High on", "Currency", "Since"
+    "Index", "Region", "Close", "Date", "Day", "Year to date", "1 year", "Streak", "From 200-day average",
+    "From 52-week low", "From 52-week high", "From high", "High", "High on", "Currency", "Since"
   )
   if (!is.null(history)) {
     lines <- vapply(summary$label, function(label) {
@@ -763,9 +839,16 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
   column <- function(names) match(names, names(table)) - 1
   # the VIX is in percent a year, not in the money of any shares
   dash <- DT::JS("function(data, type) { return type === 'display' && data === null ? '\u2013' : data; }")
+  # 3 up, 2 down or flat, sorted as numbers
+  streak <- DT::JS(
+    "function(data, type) { if (type !== 'display' || data === null) return data;",
+    "return data > 0 ? data + ' up' : data < 0 ? -data + ' down' : 'flat'; }"
+  )
+  changes <- c("Day", "Year to date", "1 year", "From 200-day average", "From 52-week low", "From 52-week high", "From high")
   columns <- list(
     list(targets = column("Currency"), render = dash),
-    list(targets = column(c("Close", "Day", "Year to date", "1 year", "From high", "High")), className = "dt-right")
+    list(targets = column("Streak"), render = streak),
+    list(targets = column(c("Close", "Streak", changes, "High")), className = "dt-right")
   )
   if (!is.null(history)) columns <- c(columns, list(list(targets = column("Last year"), orderable = FALSE)))
   out <- DT::datatable(table,
@@ -777,8 +860,9 @@ overview_table <- function(summary, indices = get_indices(), history = NULL) {
   ) %>%
     DT::formatRound(c("Close", "High"), digits = 2) %>%
     DT::formatCurrency(c("Day", "Year to date", "1 year"), currency = "%", before = FALSE, digits = 2) %>%
-    DT::formatCurrency("From high", currency = "%", before = FALSE, digits = 1)
-  for (column in c("Day", "Year to date", "1 year", "From high")) {
+    DT::formatCurrency(c("From 200-day average", "From 52-week low", "From 52-week high", "From high"),
+                       currency = "%", before = FALSE, digits = 1)
+  for (column in c(changes, "Streak")) {
     out <- DT::formatStyle(out, column, backgroundColor = shade_interval(table[[column]], 0))
   }
   out

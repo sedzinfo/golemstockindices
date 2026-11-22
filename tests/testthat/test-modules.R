@@ -71,6 +71,18 @@ test_that("the timeseries and compare CSV downloads hold the prices", {
     csv <- utils::read.csv(output$csv)
     expect_equal(names(csv), c("date", "label", "currency", "close", "index"))
     expect_equal(csv$index[csv$date == "2024-02-29"], c(100, 100))
+    # relative to Beta: Alpha's line, and its ratio to Beta
+    session$setInputs(base = "Beta (B)")
+    csv <- utils::read.csv(output$csv)
+    expect_equal(names(csv), c("date", "label", "currency", "close", "index", "base", "relative"))
+    expect_equal(unique(csv$label), "Alpha (A)")
+    # 28 March: Alpha at 110 (121 / 110), Beta at 50 (25 / 50)
+    expect_equal(csv$relative[csv$date == "2024-03-28"], 110 / 50 * 100)
+    expect_no_error(output$plot)
+    # a base that is no longer selected is dropped
+    session$setInputs(indices = "Alpha (A)")
+    session$elapse(2000)
+    expect_equal(names(utils::read.csv(output$csv)), c("date", "label", "currency", "close", "index"))
   })
 })
 

@@ -22,7 +22,7 @@ None. Called for its side effect of registering the module server.
 \description{
 Analyses the returns of the index selected in the Timeseries
 tab by day of the week, week of the year, month or year of the US
-presidential cycle with \code{\link[=seasonality_analysis]{seasonality_analysis()}}, and shows them in words, as a chart
+presidential cycle, or by a calendar effect, with \code{\link[=seasonality_analysis]{seasonality_analysis()}}, and shows them in words, as a chart
 and as a table. The CSV file, named like
 \verb{s-p-500-seasonality-month-2026-11-07.csv}, holds \code{\link[=seasonality_csv]{seasonality_csv()}}:
 a row per group.

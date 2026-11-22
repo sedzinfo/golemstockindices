@@ -4,13 +4,17 @@
 \alias{seasonal_returns}
 \title{The return of each complete period of an index}
 \usage{
-seasonal_returns(history, period = c("day", "week", "month", "year"))
+seasonal_returns(
+  history,
+  period = c("day", "week", "month", "year", "turn", "holiday", "santa", "half")
+)
 }
 \arguments{
 \item{history}{Price history of one index from \code{\link[=get_history]{get_history()}}, with
 \code{timestamp} and \code{close} columns.}
 
-\item{period}{\code{"day"}, \code{"week"}, \code{"month"} or \code{"year"}.}
+\item{period}{\code{"day"}, \code{"week"}, \code{"month"} or \code{"year"}, or a calendar
+effect: \code{"turn"}, \code{"holiday"}, \code{"santa"} or \code{"half"}.}
 }
 \value{
 A data frame with a row per complete period, the oldest first:
@@ -33,6 +37,12 @@ week of the year for weeks (Monday to Sunday), the month for months, and
 the year of the 4-year US presidential cycle for years. The elections come
 in years divisible by 4, such as 2024, so 2025 was a post-election year,
 2026 a midterm year and 2027 a pre-election year.
+
+The calendar effects put the returns in two groups: \code{"turn"}, \code{"holiday"}
+and \code{"santa"} the returns of the days, in or out of the turn of the month,
+the day before a holiday or the Santa rally (see \code{\link[=effect_days]{effect_days()}}), and
+\code{"half"} the returns of the halves of the year, May to October and
+November to April, of "Sell in May and go away".
 }
 \examples{
 # the weekdays of 2024 to the end of April

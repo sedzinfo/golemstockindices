@@ -22,7 +22,8 @@ Drawdowns tabs reuse.
 }
 \description{
 Gets the whole price history of the selected index, renders
-its candlestick chart and serves it as a CSV file named like
+its candlestick chart, with the Bollinger bands and the RSI when their
+boxes are ticked, and serves it as a CSV file named like
 \verb{s-p-500-history-2026-11-07.csv}, with the columns \code{date}, \code{label},
 \code{open}, \code{high}, \code{low}, \code{close} and \code{volume}.
 }

@@ -21,9 +21,10 @@ A DT datatable.
 \description{
 A table with a row per index of \code{\link[=index_summary]{index_summary()}}, in the
 order of \code{\link[=get_indices]{get_indices()}}: its region, last close and its date, the change
-on the day, this year and over a year, how far it is below its all-time
-high, that high and its date, the currency of its shares and the first day
-of its history. The changes are shaded red for falls and green for rises,
+on the day, this year and over a year, its current run of rises or falls,
+how far it is from its 200-day average and from its 52-week low and high,
+how far it is below its all-time high, that high and its date, the
+currency of its shares and the first day of its history. The changes are shaded red for falls and green for rises,
 each column on its own scale, as a day's moves are much smaller than a
 year's, and the distance from the high red, more strongly the further it
 is. Given the history, a column after the close draws the last year of

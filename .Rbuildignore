@@ -18,3 +18,4 @@
 ^\.Renviron$
 ^manifest\.json$
 ^CITATION\.cff$
+^TODO\.md$

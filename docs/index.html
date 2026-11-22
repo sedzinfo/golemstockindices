@@ -13,8 +13,8 @@
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Interactive Explorer of the Major Stock Market Indices">
-<meta name="description" content="A shiny application for exploring the major stock market indices of the Americas, Europe, Africa and Asia-Pacific, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago and its all-time high, and plots interactive candlestick and volume charts of the whole history of each. Also compares normalized indices, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
-<meta property="og:description" content="A shiny application for exploring the major stock market indices of the Americas, Europe, Africa and Asia-Pacific, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago and its all-time high, and plots interactive candlestick and volume charts of the whole history of each. Also compares normalized indices, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
+<meta name="description" content="A shiny application for exploring the major stock market indices of the Americas, Europe, Africa and Asia-Pacific, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago, its 200-day average, its 52-week low and high and its all-time high, and plots interactive candlestick and volume charts of the whole history of each, with Bollinger bands and the relative strength index. Also compares normalized indices, on their own or relative to one of them, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, calendar effects such as the turn of the month and the Santa rally, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
+<meta property="og:description" content="A shiny application for exploring the major stock market indices of the Americas, Europe, Africa and Asia-Pacific, such as the S&amp;P 500, the Euro Stoxx 50 and the Nikkei 225, and the VIX. Shows where every index stands against its last close, the start of the year, a year ago, its 200-day average, its 52-week low and high and its all-time high, and plots interactive candlestick and volume charts of the whole history of each, with Bollinger bands and the relative strength index. Also compares normalized indices, on their own or relative to one of them, and shows a calendar of monthly returns, their seasonality by day of the week, week of the year, month and year of the US presidential cycle, calendar effects such as the turn of the month and the Santa rally, whether an indexs recent volatility is normal, with a GARCH forecast, and its falls from its all-time high. Daily prices are retrieved from Yahoo Finance'.">
 <meta property="og:image" content="https://sedzinfo.github.io/golemstockindices/card.png">
 <meta property="og:image:alt" content="golemstockindices: Interactive Explorer of the Major Stock Market Indices, with the candlestick, volume and drawdown chart of the S&amp;P 500 since 1927">
 </head>
@@ -73,17 +73,17 @@
 <li>
 <strong>55 indices</strong>: S&amp;P 500, Dow Jones, Nasdaq Composite, Nasdaq-100, NYSE Composite, Russell 2000 and the VIX in the US; S&amp;P/TSX Composite, Bovespa and IPC Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, FTSE 250, FTSE All-Share, DAX, MDAX, SDAX, TecDAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, Next 150, BEL 20, AEX, ATX, ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki 25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST 100 in Europe; the FTSE/JSE Top 40 in Africa; Nikkei 225, Shanghai Composite, Shenzhen Component, Hang Seng, Hang Seng China Enterprises, KOSPI, KOSDAQ, Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific</li>
 <li>
-<strong>Overview</strong>: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high</li>
+<strong>Overview</strong>: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, its run of rises or falls, how far it is from its 200-day average and its 52-week low and high, and how far it is below its all-time high</li>
 <li>
 <strong>Performance</strong>: The indices side by side in one chart, the best at the top, over the day, a week, 1, 3, 6 or 9 months, this year or a year</li>
 <li>
-<strong>Interactive Candlestick Charts</strong>: The whole history of an index, back to 1927 for the S&amp;P 500, with the volume, the 50- and 200-day moving averages and the drawdown</li>
+<strong>Interactive Candlestick Charts</strong>: The whole history of an index, back to 1927 for the S&amp;P 500, with the volume, the 50- and 200-day moving averages, the drawdown, and optional Bollinger bands and RSI</li>
 <li>
-<strong>Index Comparison</strong>: Compare up to 10 indices, each starting at 100, on a linear or log scale</li>
+<strong>Index Comparison</strong>: Compare up to 10 indices, each starting at 100, on a linear or log scale, or relative to one of them, such as the Nasdaq-100 against the S&amp;P 500</li>
 <li>
 <strong>Returns Calendar</strong>: Monthly returns by year</li>
 <li>
-<strong>Seasonality</strong>: Whether some days of the week, weeks of the year, months or years of the US presidential cycle bring better returns than others, with a test of whether the differences could be chance</li>
+<strong>Seasonality</strong>: Whether some days of the week, weeks of the year, months or years of the US presidential cycle bring better returns than others, and the calendar effects of the turn of the month, the days before holidays, the Santa rally and Sell in May, with a test of whether the differences could be chance</li>
 <li>
 <strong>Volatility</strong>: Whether the volatility of the last weeks and the move of the last days are normal, against the index’s history and a GARCH model, and a forecast of the next 5 trading days with the value at risk</li>
 <li>
@@ -247,6 +247,7 @@
 <span><span class="co"># one index since 2020: candlestick chart and monthly returns</span></span>
 <span><span class="va">spx</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_history.html">get_history</a></span><span class="op">(</span><span class="st">"S&amp;P 500"</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_timeseries.html">plot_timeseries</a></span><span class="op">(</span><span class="va">spx</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/plot_timeseries.html">plot_timeseries</a></span><span class="op">(</span><span class="va">spx</span>, bollinger <span class="op">=</span> <span class="cn">TRUE</span>, show_rsi <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>   <span class="co"># with the Bollinger bands and the RSI</span></span>
 <span><span class="fu"><a href="reference/plot_returns_calendar.html">plot_returns_calendar</a></span><span class="op">(</span><span class="fu"><a href="reference/monthly_returns.html">monthly_returns</a></span><span class="op">(</span><span class="va">spx</span><span class="op">)</span>, <span class="st">"S&amp;P 500"</span>, mode <span class="op">=</span> <span class="st">"dark"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># the whole history of the S&amp;P 500, since 1927</span></span>
@@ -256,6 +257,9 @@
 <span><span class="va">seasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/seasonality_analysis.html">seasonality_analysis</a></span><span class="op">(</span><span class="va">spx</span>, <span class="st">"year"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/seasonality_text.html">seasonality_text</a></span><span class="op">(</span><span class="va">seasons</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/plot_seasonality.html">plot_seasonality</a></span><span class="op">(</span><span class="va">seasons</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># calendar effects: "turn" of the month, days before a "holiday", "santa" rally, Sell in May ("half")</span></span>
+<span><span class="fu"><a href="reference/seasonality_text.html">seasonality_text</a></span><span class="op">(</span><span class="fu"><a href="reference/seasonality_analysis.html">seasonality_analysis</a></span><span class="op">(</span><span class="va">spx</span>, <span class="st">"turn"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># is the recent volatility normal? (needs more than a year of history)</span></span>
 <span><span class="va">analysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/volatility_analysis.html">volatility_analysis</a></span><span class="op">(</span><span class="va">spx</span><span class="op">)</span></span>
@@ -270,7 +274,10 @@
 <span></span>
 <span><span class="co"># several indices over the last year, starting at 100</span></span>
 <span><span class="va">history</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_history.html">get_history</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"S&amp;P 500"</span>, <span class="st">"Euro Stoxx 50"</span>, <span class="st">"Nikkei 225"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="fu"><a href="reference/normalize_prices.html">normalize_prices</a></span><span class="op">(</span><span class="va">history</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="fu"><a href="reference/normalize_prices.html">normalize_prices</a></span><span class="op">(</span><span class="va">history</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># the same, relative to the S&amp;P 500: above 100, better than the S&amp;P 500</span></span>
+<span><span class="fu"><a href="reference/plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="fu"><a href="reference/relative_prices.html">relative_prices</a></span><span class="op">(</span><span class="fu"><a href="reference/normalize_prices.html">normalize_prices</a></span><span class="op">(</span><span class="va">history</span><span class="op">)</span>, <span class="st">"S&amp;P 500"</span><span class="op">)</span>, base <span class="op">=</span> <span class="st">"S&amp;P 500"</span><span class="op">)</span></span></code></pre></div>
 <p>Indices are picked by their label, such as <code>"S&amp;P 500"</code>, and <code><a href="reference/get_indices.html">get_indices()</a></code> lists all of them with their Yahoo Finance symbols. The histories are kept on disk between R sessions (see <a href="#data-source">Data Source</a>).</p>
 </div>
 <div class="section level2">
@@ -281,7 +288,7 @@
 </h3>
 <ul>
 <li>Which exchanges are open, at lunch or closed right now, and at the bottom a table of their local times, next opening or closing and regular hours</li>
-<li>A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history</li>
+<li>A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, the current run of rises or falls, how far each is from its 200-day average and its 52-week low and high, how far it is below its all-time high, that high and its date, the currency and the first day of the history</li>
 <li>The changes are shaded red for falls and green for rises</li>
 </ul>
 </div>
@@ -302,6 +309,7 @@
 <li>The vertical axes follow the days in view, so a week’s candles fill the chart; a Linear/Log switch shows the whole history in proportion</li>
 <li>Volume chart synchronized with the main chart, when the index has volume</li>
 <li>50- and 200-day moving averages; click a legend entry to hide or show a line</li>
+<li>Optional 20-day Bollinger bands, and a panel of the 14-day RSI with lines at 30 and 70</li>
 <li>Drawdown chart: how far the index is below its all-time high</li>
 </ul>
 </div>
@@ -312,6 +320,7 @@
 <li>Pick up to 10 indices and a start date</li>
 <li>Each index’s close starts at 100 on the first date all of them have data</li>
 <li>Switch between a linear and a log scale</li>
+<li>Show the indices relative to one of them: a line that rises did better than that index</li>
 </ul>
 </div>
 <div class="section level3">
@@ -326,6 +335,7 @@
 </h3>
 <ul>
 <li>The returns of complete trading days, weeks, months or years, grouped by day of the week, ISO week of the year, month or year of the US presidential cycle</li>
+<li>Or a calendar effect against the rest: the turn of the month, the days before a holiday, the Santa rally, or Sell in May (May to October against November to April)</li>
 <li>Two cards name the best and the worst group and say whether the differences could be chance, with a Kruskal-Wallis test</li>
 <li>A chart and a table of the groups</li>
 </ul>

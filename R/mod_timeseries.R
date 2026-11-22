@@ -15,9 +15,9 @@ index_choices <- function(indices) {
 #
 ##########################################################################################
 #' @title Timeseries module - UI
-#' @description An index picker, a button that downloads the index's daily
-#' prices as CSV, and a candlestick chart of those prices, with the trading
-#' volume underneath.
+#' @description An index picker, boxes that add the Bollinger bands and the
+#' RSI, a button that downloads the index's daily prices as CSV, and a
+#' candlestick chart of those prices, with the trading volume underneath.
 #' @param id Character. Module namespace id.
 #' @param indices Data frame of indices from [get_indices()], whose labels
 #'   fill the picker.
@@ -33,6 +33,8 @@ mod_timeseries_ui <- function(id, indices) {
     div(
       class = "d-flex flex-wrap align-items-end gap-3",
       selectInput(ns("index"), label = "Index", choices = index_choices(indices), selectize = FALSE, width = "14rem"),
+      checkboxGroupInput(ns("indicators"), label = "Indicators", inline = TRUE,
+                         choices = c("Bollinger bands" = "bollinger", "RSI" = "rsi")),
       div(class = "mb-3 csv-beside-inputs", downloadButton(ns("csv"), "CSV", class = "btn-sm"))
     ),
     shinycssloaders::withSpinner(
@@ -46,7 +48,8 @@ mod_timeseries_ui <- function(id, indices) {
 ##########################################################################################
 #' @title Timeseries module - server
 #' @description Gets the whole price history of the selected index, renders
-#' its candlestick chart and serves it as a CSV file named like
+#' its candlestick chart, with the Bollinger bands and the RSI when their
+#' boxes are ticked, and serves it as a CSV file named like
 #' `s-p-500-history-2026-11-07.csv`, with the columns `date`, `label`,
 #' `open`, `high`, `low`, `close` and `volume`.
 #' @param id Character. Module namespace id, must match the id used in
@@ -73,7 +76,9 @@ mod_timeseries_server <- function(id, indices, dark_mode) {
 
     output$plot <- plotly::renderPlotly({
       validate(need(history(), "Data not available for this index"))
-      plot_timeseries(history(), dark_mode())
+      plot_timeseries(history(), dark_mode(),
+        bollinger = "bollinger" %in% input$indicators, show_rsi = "rsi" %in% input$indicators
+      )
     })
 
     output$csv <- csv_download(

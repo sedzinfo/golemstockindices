@@ -118,3 +118,64 @@ test_that("seasonality_csv() names the group column after the period", {
   expect_equal(names(csv), c("month", "returns", "mean_pct", "median_pct", "up_pct", "best_pct", "worst_pct"))
   expect_equal(as.character(csv$month), month.abb)
 })
+
+test_that("period_bounds() splits the year into May to October and November to April", {
+  halves <- period_bounds(as.Date(c("2024-01-15", "2024-05-01", "2024-10-31", "2024-11-01", "2024-12-31")), "half")
+  expect_equal(halves$start, as.Date(c("2023-11-01", "2024-05-01", "2024-05-01", "2024-11-01", "2024-11-01")))
+  expect_equal(halves$end, as.Date(c("2024-04-30", "2024-10-31", "2024-10-31", "2025-04-30", "2025-04-30")))
+})
+
+test_that("effect_days() finds the turn of the month, the days before a holiday and the Santa rally", {
+  # the weekdays of December 2023 to February 2024, without Christmas, New Year's Day and Friday
+  # 16 February
+  days <- weekdays_from("2023-12-01", 65)
+  days <- days[!days %in% as.Date(c("2023-12-25", "2024-01-01", "2024-02-16"))]
+  turn <- effect_days(days, "turn")
+  january <- format(days, "%Y-%m") == "2024-01"
+  # only January is whole: December and February may be cut short
+  expect_true(all(is.na(turn[!january])))
+  expect_equal(days[january & turn %in% "Turn of the month"], as.Date(c("2024-01-02", "2024-01-03", "2024-01-04", "2024-01-31")))
+  holiday <- effect_days(days, "holiday")
+  expect_equal(days[holiday %in% "Before a holiday"], as.Date(c("2023-12-22", "2023-12-29", "2024-02-15")))
+  expect_true(is.na(utils::tail(holiday, 1)))
+  # a closure of more than 5 calendar days is a gap in the data
+  gap <- effect_days(as.Date(c("2024-03-01", "2024-03-11", "2024-03-12")), "holiday")
+  expect_true(is.na(gap[1]))
+  santa <- effect_days(days, "santa")
+  expect_equal(days[santa %in% "Santa rally"], as.Date(c("2024-01-02", "2024-01-03")))
+  # with the January after it, December is no longer the last month
+  longer <- weekdays_from("2023-11-01", 90)
+  rally <- longer[effect_days(longer, "santa") %in% "Santa rally"]
+  expect_equal(rally, as.Date(c("2023-12-25", "2023-12-26", "2023-12-27", "2023-12-28", "2023-12-29", "2024-01-01", "2024-01-02")))
+})
+
+test_that("the calendar effects compare the days of the effect with the rest", {
+  long <- garch_history(1500, seed = 3)
+  for (period in c("turn", "holiday", "santa")) {
+    analysis <- seasonality_analysis(long, period)
+    days <- seasonal_returns(long, "day")
+    expect_equal(nlevels(analysis$returns$group), 2, label = period)
+    expect_lte(nrow(analysis$returns), nrow(days))
+    expect_true(all(analysis$returns$return_pct %in% days$return_pct), label = period)
+  }
+  turn <- seasonality_analysis(long, "turn")
+  text <- seasonality_text(turn)
+  expect_match(text$groups$headline, "^Turn of the month: mean [+−-][0-9.]+% a day; rest of the month: ")
+  expect_match(text$groups$points, "last trading day of a month and the first 3", fixed = TRUE, all = FALSE)
+  expect_match(text$chance$points, "The effect got its name", fixed = TRUE, all = FALSE)
+  expect_false(is.na(turn$p_value))
+  expect_equal(names(seasonality_csv(turn))[1], "days")
+})
+
+test_that("Sell in May compares the halves of the year", {
+  long <- garch_history(1500, seed = 4)
+  returns <- seasonal_returns(long, "half")
+  expect_equal(levels(returns$group), c("May to October", "November to April"))
+  # the halves follow each other
+  expect_true(all(returns$start[-1] == returns$end[-nrow(returns)] + 1))
+  first <- returns[1, ]
+  close_on <- function(day) utils::tail(long$close[long$timestamp <= day], 1)
+  expect_equal(first$return_pct, (close_on(first$end) / close_on(first$start - 1) - 1) * 100)
+  text <- seasonality_text(seasonality_analysis(long, "half"))
+  expect_match(text$groups$headline, "a half-year; November to April:", fixed = TRUE)
+})

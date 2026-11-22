@@ -18,10 +18,20 @@ months, and the year of the 4-year US presidential cycle for years. The
 elections come in years divisible by 4, such as 2024, so 2025 was a
 post-election year, 2026 a midterm year and 2027 a pre-election year.
 
+The calendar effects put the returns in two groups: `"turn"`,
+`"holiday"` and `"santa"` the returns of the days, in or out of the turn
+of the month, the day before a holiday or the Santa rally (see
+[`effect_days()`](https://sedzinfo.github.io/golemstockindices/reference/effect_days.md)),
+and `"half"` the returns of the halves of the year, May to October and
+November to April, of "Sell in May and go away".
+
 ## Usage
 
 ``` r
-seasonal_returns(history, period = c("day", "week", "month", "year"))
+seasonal_returns(
+  history,
+  period = c("day", "week", "month", "year", "turn", "holiday", "santa", "half")
+)
 ```
 
 ## Arguments
@@ -34,7 +44,8 @@ seasonal_returns(history, period = c("day", "week", "month", "year"))
 
 - period:
 
-  `"day"`, `"week"`, `"month"` or `"year"`.
+  `"day"`, `"week"`, `"month"` or `"year"`, or a calendar effect:
+  `"turn"`, `"holiday"`, `"santa"` or `"half"`.
 
 ## Value
 

@@ -83,3 +83,26 @@
 - `run_app(analytics = TRUE)` adds Google Analytics, through the cookie
   banner of the sedzinfo.github.io sites, which loads it only after the
   visitor accepts; `app.R` turns it on for the public deployment.
+- **Seasonality** also tests four calendar effects against the rest: the
+  turn of the month (the last trading day of a month and the first 3 of
+  the next), the days before a holiday, the Santa rally (the last 5
+  trading days of December and the first 2 of January) and Sell in May
+  (May to October against November to April).
+  [`effect_days()`](https://sedzinfo.github.io/golemstockindices/reference/effect_days.md)
+  puts the days in or out of an effect.
+- **Compare** can show the indices relative to one of them, picked under
+  “Relative to”: the ratio of their lines, so a line that rises beat the
+  base, such as the Nasdaq-100 against the S&P 500.
+  [`relative_prices()`](https://sedzinfo.github.io/golemstockindices/reference/relative_prices.md)
+  does the same from R, and `plot_compare(base = )` draws it.
+- **Overview** has four more columns: the current run of rises or falls,
+  and how far the last close is from its 200-day average and from its
+  52-week low and high.
+  [`index_summary()`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)
+  returns them as `streak`, `average200` and `from_average200_pct`,
+  `low52` and `from_low52_pct`, and `high52` and `from_high52_pct`.
+- **Timeseries** can add the 20-day Bollinger bands and a panel of the
+  14-day RSI, from two boxes above the chart.
+  [`bollinger_bands()`](https://sedzinfo.github.io/golemstockindices/reference/bollinger_bands.md),
+  [`rsi()`](https://sedzinfo.github.io/golemstockindices/reference/rsi.md)
+  and `plot_timeseries(bollinger = , show_rsi = )` do the same from R.

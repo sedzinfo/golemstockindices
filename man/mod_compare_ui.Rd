@@ -23,8 +23,9 @@ Stoxx 50 and the Nikkei 225, one for each region.}
 A \code{tagList} of Shiny UI elements.
 }
 \description{
-A picker for up to 10 indices, a start date, a currency, a
-button that downloads the normalized closes as CSV, a line on what the
+A picker for up to 10 indices, a start date, a currency, an
+index to show the others relative to, a button that downloads the
+normalized closes as CSV, a line on what the
 conversion to another currency changed when it changed something, and a
 chart of the indices' closes normalized to 100.
 }

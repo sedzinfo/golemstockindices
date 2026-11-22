@@ -9,12 +9,12 @@ An interactive R Shiny application for exploring the major stock market indices 
 ## Features
 
 - **55 indices**: S&P 500, Dow Jones, Nasdaq Composite, Nasdaq-100, NYSE Composite, Russell 2000 and the VIX in the US; S&P/TSX Composite, Bovespa and IPC Mexico in the Americas; STOXX Europe 600, Euro Stoxx 50, FTSE 100, FTSE 250, FTSE All-Share, DAX, MDAX, SDAX, TecDAX, CAC 40, IBEX 35, FTSE MIB, SMI, Euronext 100, Next 150, BEL 20, AEX, ATX, ISEQ All Share, PSI, OMX Stockholm 30, OMX Copenhagen 25, OMX Helsinki 25, OSEBX, OMX Tallinn, OMX Riga, OMX Vilnius, Athens General and BIST 100 in Europe; the FTSE/JSE Top 40 in Africa; Nikkei 225, Shanghai Composite, Shenzhen Component, Hang Seng, Hang Seng China Enterprises, KOSPI, KOSDAQ, Taiwan Weighted, Sensex, Straits Times, ASX 200, All Ordinaries, NZX 50, IDX Composite and FTSE Bursa Malaysia KLCI in Asia-Pacific
-- **Overview**: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, and how far it is below its all-time high
+- **Overview**: Which exchanges are open now, every index in one table with a line of its last year, its last close, the change on the day, this year and over a year, its run of rises or falls, how far it is from its 200-day average and its 52-week low and high, and how far it is below its all-time high
 - **Performance**: The indices side by side in one chart, the best at the top, over the day, a week, 1, 3, 6 or 9 months, this year or a year
-- **Interactive Candlestick Charts**: The whole history of an index, back to 1927 for the S&P 500, with the volume, the 50- and 200-day moving averages and the drawdown
-- **Index Comparison**: Compare up to 10 indices, each starting at 100, on a linear or log scale
+- **Interactive Candlestick Charts**: The whole history of an index, back to 1927 for the S&P 500, with the volume, the 50- and 200-day moving averages, the drawdown, and optional Bollinger bands and RSI
+- **Index Comparison**: Compare up to 10 indices, each starting at 100, on a linear or log scale, or relative to one of them, such as the Nasdaq-100 against the S&P 500
 - **Returns Calendar**: Monthly returns by year
-- **Seasonality**: Whether some days of the week, weeks of the year, months or years of the US presidential cycle bring better returns than others, with a test of whether the differences could be chance
+- **Seasonality**: Whether some days of the week, weeks of the year, months or years of the US presidential cycle bring better returns than others, and the calendar effects of the turn of the month, the days before holidays, the Santa rally and Sell in May, with a test of whether the differences could be chance
 - **Volatility**: Whether the volatility of the last weeks and the move of the last days are normal, against the index's history and a GARCH model, and a forecast of the next 5 trading days with the value at risk
 - **Drawdowns**: How far the index is below its all-time high, and how deep its earlier falls went and how long they took to recover
 - **No API key**: Daily prices from Yahoo Finance, kept on disk and brought up to date once an hour
@@ -134,6 +134,7 @@ overview_table(index_summary(all))
 # one index since 2020: candlestick chart and monthly returns
 spx <- get_history("S&P 500", as.Date("2020-01-01"))
 plot_timeseries(spx)
+plot_timeseries(spx, bollinger = TRUE, show_rsi = TRUE)   # with the Bollinger bands and the RSI
 plot_returns_calendar(monthly_returns(spx), "S&P 500", mode = "dark")
 
 # the whole history of the S&P 500, since 1927
@@ -143,6 +144,9 @@ spx <- get_history("S&P 500", as.Date("1900-01-01"))
 seasons <- seasonality_analysis(spx, "year")
 seasonality_text(seasons)
 plot_seasonality(seasons)
+
+# calendar effects: "turn" of the month, days before a "holiday", "santa" rally, Sell in May ("half")
+seasonality_text(seasonality_analysis(spx, "turn"))
 
 # is the recent volatility normal? (needs more than a year of history)
 analysis <- volatility_analysis(spx)
@@ -158,6 +162,9 @@ plot_drawdowns(falls)
 # several indices over the last year, starting at 100
 history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
 plot_compare(normalize_prices(history))
+
+# the same, relative to the S&P 500: above 100, better than the S&P 500
+plot_compare(relative_prices(normalize_prices(history), "S&P 500"), base = "S&P 500")
 ```
 
 Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` lists all of them with their Yahoo Finance symbols. The histories are kept on disk between R sessions (see [Data Source](#data-source)).
@@ -166,7 +173,7 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 
 ### Overview Tab
 - Which exchanges are open, at lunch or closed right now, and at the bottom a table of their local times, next opening or closing and regular hours
-- A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, how far each is below its all-time high, that high and its date, the currency and the first day of the history
+- A table of all the indices, grouped by region: the last close and its date, a small line of the last year, the change on the day, this year and over a year, the current run of rises or falls, how far each is from its 200-day average and its 52-week low and high, how far it is below its all-time high, that high and its date, the currency and the first day of the history
 - The changes are shaded red for falls and green for rises
 
 ### Performance Tab
@@ -179,18 +186,21 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 - The vertical axes follow the days in view, so a week's candles fill the chart; a Linear/Log switch shows the whole history in proportion
 - Volume chart synchronized with the main chart, when the index has volume
 - 50- and 200-day moving averages; click a legend entry to hide or show a line
+- Optional 20-day Bollinger bands, and a panel of the 14-day RSI with lines at 30 and 70
 - Drawdown chart: how far the index is below its all-time high
 
 ### Compare Tab
 - Pick up to 10 indices and a start date
 - Each index's close starts at 100 on the first date all of them have data
 - Switch between a linear and a log scale
+- Show the indices relative to one of them: a line that rises did better than that index
 
 ### Returns Calendar Tab
 - Monthly returns by year for the index selected in the Timeseries tab
 
 ### Seasonality Tab
 - The returns of complete trading days, weeks, months or years, grouped by day of the week, ISO week of the year, month or year of the US presidential cycle
+- Or a calendar effect against the rest: the turn of the month, the days before a holiday, the Santa rally, or Sell in May (May to October against November to April)
 - Two cards name the best and the worst group and say whether the differences could be chance, with a Kruskal-Wallis test
 - A chart and a table of the groups
 

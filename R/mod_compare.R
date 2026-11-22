@@ -2,8 +2,9 @@
 #
 ##########################################################################################
 #' @title Compare module - UI
-#' @description A picker for up to 10 indices, a start date, a currency, a
-#' button that downloads the normalized closes as CSV, a line on what the
+#' @description A picker for up to 10 indices, a start date, a currency, an
+#' index to show the others relative to, a button that downloads the
+#' normalized closes as CSV, a line on what the
 #' conversion to another currency changed when it changed something, and a
 #' chart of the indices' closes normalized to 100.
 #' @param id Character. Module namespace id.
@@ -32,6 +33,8 @@ mod_compare_ui <- function(id, indices, selected = c("S&P 500", "Euro Stoxx 50",
       ),
       dateInput(ns("start"), label = "Start date", value = Sys.Date() - 365, max = Sys.Date() - 1),
       selectInput(ns("currency"), label = "Currency", choices = currency_choices, selected = "local", selectize = FALSE, width = "11rem"),
+      # filled with the selected indices by the server
+      selectInput(ns("base"), label = "Relative to", choices = c("None" = ""), selectize = FALSE, width = "14rem"),
       div(class = "mb-3 csv-beside-inputs", downloadButton(ns("csv"), "CSV", class = "btn-sm"))
     ),
     uiOutput(ns("note")),
@@ -49,7 +52,10 @@ mod_compare_ui <- function(id, indices, selected = c("S&P 500", "Euro Stoxx 50",
 #' date, converts it to the currency picked with [convert_prices()], renders
 #' the closes normalized to 100, and serves them as a CSV file named like
 #' `compare-2026-11-07.csv`, or `compare-usd-2026-11-07.csv` in US dollars,
-#' with the columns `date`, `label`, `currency`, `close` and `index`. The
+#' with the columns `date`, `label`, `currency`, `close` and `index`. With an
+#' index picked under "Relative to", the chart shows the others relative to
+#' it with [relative_prices()], and the CSV file, named like
+#' `compare-vs-s-p-500-2026-11-07.csv`, adds `base` and `relative`. The
 #' download waits until the selection has not changed for 1.5 seconds,
 #' instead of starting on every click in the picker. In another currency, a
 #' line above the chart says which indices have no exchange rates, and when
@@ -85,6 +91,22 @@ mod_compare_server <- function(id, indices, dark_mode) {
     })
     prices <- reactive(normalize_prices(converted()))
 
+    # the base can be any selected index; it stays picked while it is selected
+    observeEvent(selected(), ignoreNULL = FALSE, {
+      keep <- if (isTRUE(input$base %in% selected())) input$base else ""
+      updateSelectInput(session, "base", choices = c("None" = "", selected()), selected = keep)
+    })
+    base <- reactive({
+      base <- input$base
+      if (is.null(base) || !nzchar(base) || !base %in% selected()) NULL else base
+    })
+    relative <- reactive({
+      req(base())
+      validate(need(base() %in% prices()$label, paste("No prices of", base(), "to compare with")))
+      validate(need(length(unique(prices()$label)) >= 2, "Select another index to compare with the base"))
+      relative_prices(prices(), base())
+    })
+
     output$note <- renderUI({
       req(currency() != "local")
       # the first day every index has a price, before the conversion
@@ -99,21 +121,39 @@ mod_compare_server <- function(id, indices, dark_mode) {
       if (length(text) > 0) helpText(paste(text, collapse = " "))
     })
 
-    output$plot <- plotly::renderPlotly(plot_compare(prices(), dark_mode(), indices, currency()))
+    output$plot <- plotly::renderPlotly({
+      if (is.null(base())) {
+        plot_compare(prices(), dark_mode(), indices, currency())
+      } else {
+        plot_compare(relative(), dark_mode(), indices, currency(), base = base())
+      }
+    })
 
     output$csv <- csv_download(
       reactive({
-        local <- indices$currency[match(prices()$label, indices$label)]
-        data.frame(
-          date = prices()$timestamp,
-          label = prices()$label,
+        rows <- if (is.null(base())) prices() else relative()
+        local <- indices$currency[match(rows$label, indices$label)]
+        csv <- data.frame(
+          date = rows$timestamp,
+          label = rows$label,
           # the VIX keeps no currency
           currency = if (currency() == "local") local else ifelse(is.na(local), NA, currency()),
-          close = prices()$close,
-          index = prices()$index
+          close = rows$close,
+          index = if (is.null(base())) rows$index else rows$index * rows$base_index / 100
         )
+        if (!is.null(base())) {
+          csv$base <- rows$base
+          csv$relative <- rows$index
+        }
+        csv
       }),
-      function() paste0("compare", if (currency() != "local") paste0("-", tolower(currency())))
+      function() {
+        paste0(
+          "compare",
+          if (currency() != "local") paste0("-", tolower(currency())),
+          if (!is.null(base())) paste0("-vs-", file_stem(base()))
+        )
+      }
     )
   })
 }

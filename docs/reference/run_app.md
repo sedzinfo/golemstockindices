@@ -43,21 +43,29 @@ The application has the following tabs:
 
 - Overview:
 
-  A table of all the indices: the last close, the change on the day,
-  this year and over a year, and how far each is below its all-time
-  high.
+  Which exchanges are open, and a table of all the indices: the last
+  close, the change on the day, this year and over a year, the current
+  run of rises or falls, how far each is from its 200-day average and
+  its 52-week low and high, and how far it is below its all-time high.
+
+- Performance:
+
+  The change of every index over a day, a week, 1, 3, 6 or 9 months,
+  this year or a year, side by side, the best at the top, in its own
+  currency, US dollars or euros.
 
 - Timeseries:
 
   Candlestick chart of the daily open, high, low and close of an index
-  over its whole history, with its 50- and 200-day moving averages, and
-  charts of the volume and of the drawdown (how far the index is below
-  its all-time high) underneath.
+  over its whole history, with its 50- and 200-day moving averages,
+  optional Bollinger bands and relative strength index, and charts of
+  the volume and of the drawdown (how far the index is below its
+  all-time high) underneath.
 
 - Compare:
 
   Closes of up to 10 indices, normalized to 100 on the first date all of
-  them have data.
+  them have data, or relative to one of them.
 
 - Returns calendar:
 
@@ -66,8 +74,10 @@ The application has the following tabs:
 - Seasonality:
 
   The returns of the index selected in the Timeseries tab by day of the
-  week, week of the year, month or year of the US presidential cycle,
-  with a test of whether the differences could be chance.
+  week, week of the year, month or year of the US presidential cycle, or
+  a calendar effect against the rest (the turn of the month, the days
+  before a holiday, the Santa rally or Sell in May), with a test of
+  whether the differences could be chance.
 
 - Volatility:
 
@@ -79,6 +89,11 @@ The application has the following tabs:
 
   How far the index is below its all-time high, and how deep its earlier
   falls went and how long they took to recover.
+
+- About:
+
+  What each index measures, and how every number of the app is
+  calculated.
 
 The prices are downloaded from Yahoo Finance when an index is first
 picked and kept on disk between R sessions, so after the first download

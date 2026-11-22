@@ -85,7 +85,8 @@ test_that("price changes are shaded with see-through colors that suit both modes
 test_that("overview_table() lists the indices in their order, with their region and currency", {
   table <- overview_table(index_summary(history[order(history$label, decreasing = TRUE), ]), indices)$x$data
   expect_equal(names(table), c(
-    "Index", "Region", "Close", "Date", "Day", "Year to date", "1 year", "From high", "High", "High on", "Currency", "Since"
+    "Index", "Region", "Close", "Date", "Day", "Year to date", "1 year", "Streak", "From 200-day average",
+    "From 52-week low", "From 52-week high", "From high", "High", "High on", "Currency", "Since"
   ))
   expect_equal(table$Index, c("Alpha (A)", "Beta (B)"))
   expect_equal(table$Region, c("US", "Europe"))
@@ -178,4 +179,40 @@ test_that("the overview table draws the last year of each index when it has the 
   table <- overview_table(index_summary(history), indices, history)$x$data
   expect_equal(names(table)[1:5], c("Index", "Region", "Close", "Last year", "Date"))
   expect_match(table[["Last year"]][1], "^<svg")
+})
+
+test_that("plot_timeseries() adds the Bollinger bands and an RSI panel of a fixed range when asked", {
+  alpha <- garch_history(300)
+  alpha$open <- alpha$close
+  alpha$high <- alpha$close
+  alpha$low <- alpha$close
+  alpha$volume <- 1000
+  plain <- plotly::plotly_build(plot_timeseries(alpha))$x
+  built <- plotly::plotly_build(plot_timeseries(alpha, bollinger = TRUE, show_rsi = TRUE))$x
+  names <- vapply(built$data, function(trace) if (is.null(trace$name)) "" else trace$name, "")
+  expect_equal(sum(names == "Bollinger bands"), 3)
+  expect_false(any(grepl("Bollinger|RSI", vapply(plain$data, function(trace) trace$name, ""))))
+  # the RSI right under the prices, from 0 to 100, with lines at 30 and 70
+  rsi_trace <- built$data[[which(names == "RSI (14 days)")]]
+  expect_equal(rsi_trace$yaxis, "y2")
+  expect_equal(built$data[[which(names == "Volume")]]$yaxis, "y3")
+  expect_equal(built$layout$yaxis2$range, c(0, 100))
+  expect_true(built$layout$yaxis2$fixedrange)
+  expect_equal(vapply(built$layout$shapes, function(shape) shape$y0, 0), c(30, 70))
+  expect_match(paste(unlist(plot_timeseries(alpha, show_rsi = TRUE)$jsHooks$render), collapse = "\n"), "fixedrange", fixed = TRUE)
+})
+
+test_that("plot_compare() shows the indices relative to a base, with a line at 100", {
+  relative <- relative_prices(normalize_prices(history), "Beta (B)")
+  built <- plotly::plotly_build(plot_compare(relative, indices = indices, base = "Beta (B)"))$x
+  expect_length(built$data, 1)
+  expect_match(unname(unlist(built$layout$title))[1], "Relative to Beta (B)", fixed = TRUE)
+  expect_equal(built$layout$shapes[[1]]$y0, 100)
+  expect_null(plotly::plotly_build(plot_compare(normalize_prices(history), indices = indices))$x$layout$shapes)
+})
+
+test_that("overview_table() shows the streak in words and keeps it a number", {
+  table <- overview_table(index_summary(history), indices)
+  expect_equal(table$x$data$Streak, c(1L, -1L))
+  expect_match(paste(unlist(table$x$options$columnDefs), collapse = " "), "' down'", fixed = TRUE)
 })

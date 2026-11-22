@@ -114,3 +114,83 @@ test_that("closes_text() gives the day most indices closed on, and the others by
   summary$date[summary$label %in% c("DAX", "CAC 40", "IBEX 35", "FTSE MIB", "SMI")] <- as.Date("2026-11-05")
   expect_equal(closes_text(summary, all), "Daily closes from Yahoo Finance, up to 6 Nov 2026; 5 Nov 2026 for 5 indices")
 })
+
+test_that("streak() counts the closes in a row that rose or fell", {
+  expect_equal(streak(c(100, 99, 101, 102, 103)), 3L)
+  expect_equal(streak(c(100, 101, 99, 98)), -2L)
+  expect_equal(streak(c(1, 2, 3)), 2L)
+  # a close that did not move ends a run, and a single close has none
+  expect_equal(streak(c(1, 2, 2)), 0L)
+  expect_equal(streak(c(1, 1, 2)), 1L)
+  expect_equal(streak(5), 0L)
+})
+
+test_that("index_summary() measures the distance from the 200-day average and the 52-week low and high", {
+  trading <- function(close) data.frame(label = "Alpha (A)", timestamp = weekdays_from("2024-01-01", length(close)), close = close)
+  one <- trading(c(seq(100, 299), 250, 260))
+  summary <- index_summary(one)
+  last <- 260
+  expect_equal(summary$streak, 1L)
+  expect_equal(summary$average200, mean(utils::tail(one$close, 200)))
+  expect_equal(summary$from_average200_pct, (last / mean(utils::tail(one$close, 200)) - 1) * 100)
+  # 202 weekdays are less than a year: all of the history counts
+  expect_equal(c(summary$low52, summary$high52), c(100, 299))
+  expect_equal(summary$from_high52_pct, (last / 299 - 1) * 100)
+  expect_equal(summary$from_low52_pct, (last / 100 - 1) * 100)
+  # younger than 200 days: no average
+  expect_true(is.na(index_summary(trading(1:50))$from_average200_pct))
+  # the 52 weeks leave out the closes a year or more before
+  long <- trading(c(1000, seq(100, by = 0.1, length.out = 299)))
+  expect_equal(index_summary(long)$high52, max(long$close[-1]))
+})
+
+test_that("bollinger_bands() puts the bands two standard deviations of the window from its average", {
+  close <- c(10, 11, 12, 11, 10, 12, 14)
+  bands <- bollinger_bands(close, days = 3)
+  window <- close[5:7]
+  spread <- 2 * sqrt(mean((window - mean(window))^2))
+  expect_equal(bands$middle[7], mean(window))
+  expect_equal(c(bands$upper[7], bands$lower[7]), mean(window) + c(spread, -spread))
+  expect_true(all(is.na(bands[1:2, ])))
+  # flat prices give bands on the average
+  expect_equal(bollinger_bands(rep(50, 25))$upper[25], 50)
+  expect_equal(bollinger_bands(rep(4321.123, 25))$upper[25], 4321.123)
+  # fewer closes than the window
+  expect_true(all(is.na(bollinger_bands(1:5)$upper)))
+})
+
+test_that("rsi() follows Wilder's smoothing", {
+  close <- garch_history(200)$close
+  change <- diff(close)
+  rise <- pmax(change, 0)
+  fall <- pmax(-change, 0)
+  up <- mean(rise[1:14])
+  down <- mean(fall[1:14])
+  expected <- rep(NA_real_, length(close))
+  expected[15] <- 100 - 100 / (1 + up / down)
+  for (i in 15:length(change)) {
+    up <- (up * 13 + rise[i]) / 14
+    down <- (down * 13 + fall[i]) / 14
+    expected[i + 1] <- 100 - 100 / (1 + up / down)
+  }
+  expect_equal(rsi(close), expected)
+  expect_equal(rsi(1:10, 3)[4:10], rep(100, 7))
+  expect_equal(rsi(rep(5, 6), 3)[4:6], rep(50, 3))
+  expect_true(all(is.na(rsi(1:3, 3))))
+})
+
+test_that("relative_prices() divides by the base, carrying its last close over its holidays", {
+  prices <- data.frame(
+    label = rep(c("Alpha (A)", "Beta (B)"), c(3, 2)),
+    timestamp = as.Date("2024-01-01") + c(0:2, 0, 2),
+    close = c(10, 12, 15, 100, 50),
+    index = c(100, 120, 150, 100, 50)
+  )
+  relative <- relative_prices(prices, "Beta (B)")
+  expect_equal(relative$label, rep("Alpha (A)", 3))
+  # on 2 January Beta has no close, so its close of 1 January stands in
+  expect_equal(relative$index, c(100, 120, 300))
+  expect_equal(relative$base_index, c(100, 100, 50))
+  expect_equal(unique(relative$base), "Beta (B)")
+  expect_error(relative_prices(prices, "Gamma"), "base")
+})

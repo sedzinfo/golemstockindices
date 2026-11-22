@@ -2,8 +2,9 @@
 
 Sentences built from the numbers of
 [`seasonality_analysis()`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_analysis.md),
-for the Seasonality tab: the best and the worst group, and whether the
-differences between the groups could be chance.
+for the Seasonality tab: the best and the worst group, or for a calendar
+effect its two groups, and whether the differences between the groups
+could be chance.
 
 ## Usage
 

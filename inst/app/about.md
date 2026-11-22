@@ -93,15 +93,19 @@ Where every index stands, in one table, grouped by region.
 | `Day` | The change from the close before, in percent |
 | `Year to date` | The change since the last close of last year |
 | `1 year` | The change since the last close a year or more ago |
+| `Streak` | How many trading days in a row, up to the last close, the index rose (*3 up*) or fell (*2 down*); a close equal to the one before ends a run, and shows as *flat* |
+| `From 200-day average` | How far the last close is above or below its 200-day average, the slow line of the Timeseries tab: above it, the index trades above its trend of the last ten months or so. Empty for an index with fewer than 200 closes |
+| `From 52-week low` | How far the last close is above the lowest close of the last 52 weeks, the closes after the day a year before |
+| `From 52-week high` | How far it is below the highest close of those 52 weeks: 0% on a new high of the year |
 | `From high` | How far the last close is below the highest close in the history, the drawdown of the Timeseries tab |
 | `High` | That highest close |
 | `High on` | Its day |
 | `Currency` | The money of the shares in the index; none for the VIX |
 | `Since` | The first day of the history |
 
-The changes are shaded red for falls and green for rises, and the distance from the high red. Each column has a scale of its own, from no color near zero to the deepest shade at its largest value, as a day's moves are much smaller than a year's.
+The changes are shaded red for falls and green for rises, the streak red for falls and green for rises, the distance from the average red below it and green above it, the distance from the 52-week low green, and the distances from the highs red. Each column has a scale of its own, from no color near zero to the deepest shade at its largest value, as a day's moves are much smaller than a year's.
 
-The CSV button downloads the table with the changes over a week and 1, 3, 6 and 9 months too.
+The CSV button downloads the table with the changes over a week and 1, 3, 6 and 9 months too, and the 200-day average and the 52-week low and high themselves.
 
 <h3 id="about-performance">Performance</h3>
 
@@ -137,7 +141,27 @@ It is 0% on a day that closes at a new high, and −50% at half of it. The high 
 rise needed = (100 / (100 + from high) − 1) × 100
 ```
 
-**Zoom** with the buttons above the chart (7 days to all) or the slider under it; the averages and the drawdown always use the whole history. The buttons count back from the right edge of the chart as it is, so after dragging the slider, *7 days* shows the week before the new edge, and *all* brings back the whole history. Each vertical axis follows the days in view, from their lowest to their highest value, so the candles of a week fill the chart and their lows and highs can be compared; the volume and the drawdown keep 0 in view. Click a legend entry to hide or show its line.
+**Indicators.** Two boxes above the chart add two common tools of chart readers. Like the averages, they describe the past and do not predict.
+
+*Bollinger bands*, John Bollinger's, are a grey band around the 20-day average (the dotted line), two standard deviations of the last 20 closes above and below it:
+
+```
+middle(t) = average of the last 20 closes
+upper(t) = middle(t) + 2 × sd(last 20 closes)        lower(t) = middle(t) − 2 × sd(last 20 closes)
+```
+
+The standard deviation divides by 20, not 19, as Bollinger defined it. The band widens when the index swings and narrows when it is calm; a long narrow stretch, the *squeeze*, often comes before a larger move, in either direction. A close outside the band is far from its recent level: with normally distributed closes about 1 in 20 would be, but the closes follow trends, so in a strong rise the index can ride along the upper band for weeks.
+
+*RSI*, J. Welles Wilder's relative strength index of 1978, is a panel under the prices, from 0 to 100, of the 14-day balance of rises and falls:
+
+```
+RSI(t) = 100 − 100 / (1 + average rise(t) / average fall(t))
+average rise(t) = (13 × average rise(t−1) + rise(t)) / 14
+```
+
+A day's rise is its gain from the close before, or 0 on a fall, and its fall the loss, or 0 on a rise. The first averages are the means of the first 14 days; after that each day counts for 1/14, as Wilder smoothed them. The RSI is 100 when the index only rose, 0 when it only fell, and 50 when the rises and falls balance. Traders read above 70, the upper dashed line, as *overbought*, a run up that may pause, and below 30 as *oversold*; in a strong trend it can stay beyond either for long. Its axis always runs from 0 to 100.
+
+**Zoom** with the buttons above the chart (7 days to all) or the slider under it; the averages and the drawdown always use the whole history. The buttons count back from the right edge of the chart as it is, so after dragging the slider, *7 days* shows the week before the new edge, and *all* brings back the whole history. Each vertical axis follows the days in view, from their lowest to their highest value, so the candles of a week fill the chart and their lows and highs can be compared; the volume and the drawdown keep 0 in view, and the RSI its axis from 0 to 100. Click a legend entry to hide or show its line.
 
 **Linear and Log** switch the axis of the prices (see [Linear and log scales](#about-scales)). Over the whole history the log axis is the fairer view: on the linear one the S&P 500 of the 1950s, between 17 and 60 points, lies flat next to today's thousands, while on the log axis a 10% move is equally tall in any decade.
 
@@ -152,6 +176,14 @@ index(t) = 100 × close(t) / close(t₀)
 t₀ is the first day, on or after the start date, on which every selected index has a price; an index whose history starts after the start date moves t₀ to its first day. The chart title shows t₀. The exchanges have holidays of their own, so on some days a line has no new point.
 
 The result has no unit: it is the close as a percentage of the close on t₀. Read it as what 100 put into the index at the close of t₀ would be worth, before fees and, except for the performance indices, marked (TR) (see [The indices](#about-indices)), without the dividends: 150 means +50% since t₀, 80 means −20%, and 1,000 means ten times as much. The ratio of two lines compares two indices: when A is at 300 and B at 150, A has done twice as well as B since t₀. Each index is in its own currency, unless the currency picker converts them all to US dollars or euros (see [The indices](#about-indices)). The exchange rates start between 1996 and 2006, so in another currency t₀ is no earlier than the first rate of every index picked, and a line above the chart says so when that moves t₀ later.
+
+**Relative to.** Pick one of the selected indices as the base, and the chart shows the others relative to it, their relative strength: the ratio of the two lines, so 100 on t₀ again:
+
+```
+relative(t) = 100 × index(t) / index of the base(t)
+```
+
+A line that rises did better than the base over that stretch, one that falls did worse, and 120 means 20% better since t₀: the Nasdaq-100 against the S&P 500 shows when technology led the market, the Russell 2000 against the S&P 500 when small companies did, and the Euro Stoxx 50 against the S&P 500 when Europe did. The dashed line at 100 is where an index did as well as the base. On a day the base's exchange is closed, its last close before stands in. The ratio of two indices is in no currency, as long as both are in the same one; picked in US dollars or euros, it includes the moves of their currencies. The CSV file then holds the base and the relative line of each index next to its normalized close.
 
 The average growth per year (the compound annual growth rate) after d calendar days is
 
@@ -212,6 +244,17 @@ Do some days, weeks, months or years bring better returns than others? The tab a
 | months | the month |
 | years | the year of the 4-year US presidential cycle |
 
+Or a calendar effect, its returns against the rest, in two groups:
+
+| Effect | The returns | In the effect |
+|---|---|---|
+| days, turn of the month | of the days | the last trading day of a month and the first 3 of the next, when salaries and pension contributions tend to be invested, as Lakonishok and Smidt found in 90 years of the Dow Jones |
+| days, before a holiday | of the days | the trading day before the exchange stays shut on a weekday, such as the day before Good Friday or Christmas, for at most 5 calendar days; a longer closure is a gap in the data or a crisis |
+| days, Santa rally | of the days | the last 5 trading days of December and the first 2 of January, as Yale Hirsch defined it in the *Stock Trader's Almanac* in 1972 |
+| half-years, Sell in May | of the halves of the year | "Sell in May and go away": May to October, from the last close of April to that of October, against November to April, from there to the last close of the next April |
+
+The days of each effect are the trading days of the index itself, so each exchange's own holidays count. The first and the last month of the history, which may be cut short, are left out of the turn of the month and the Santa rally, as the place of a day in its month is not known, and the last day out of the days before a holiday, as the next trading day is not known. The turn of the month and the Santa rally compare a few days with many, so their cards and table give the mean of a day, not of the whole stretch: four days of +0.1% are about +0.4% over the turn of a month.
+
 Each return covers a whole period, from the last close of the period before to the last close of the period:
 
 ```
@@ -222,9 +265,9 @@ The markets close at weekends and on holidays, so a day's return runs from the c
 
 **The presidential cycle.** US presidential elections come every four years, in years divisible by 4, and many investors see a 4-year cycle in the market around them: weak in the first two years of a presidency, strong in the year before the next election. The tab puts each year in it: *Post-election* (2017, 2021, 2025), *Midterm*, the year of the elections to Congress (2018, 2022, 2026), *Pre-election* (2019, 2023, 2027) and *Election year* (2016, 2020, 2024). The cycle is American, but as the other markets tend to follow Wall Street, it is applied to every index. Only the S&P 500 goes back far enough for about 24 returns per year of the cycle; for the indices that start in the 1990s or later, each year of the cycle has a handful, too few for firm conclusions.
 
-**Best and worst.** The first card names the groups with the highest and lowest mean return, with their median and how often they rose. The mean is the average return, and one huge month can carry it, as a crash or a rebound does; the median, the middle return, is the typical one. When the two disagree, the median is the safer guide. Groups with fewer than half the returns of the others, such as week 53, are left out of the best and the worst, as a group of one or two returns ranks by luck. The last point gives the same numbers for all the returns together, to compare each group with.
+**Best and worst.** The first card names the groups with the highest and lowest mean return, with their median and how often they rose. The mean is the average return, and one huge month can carry it, as a crash or a rebound does; the median, the middle return, is the typical one. When the two disagree, the median is the safer guide. Groups with fewer than half the returns of the others, such as week 53, are left out of the best and the worst, as a group of one or two returns ranks by luck. A calendar effect instead compares its two groups, however few the days of the effect, and the card ends with how the effect is defined. The last point gives the same numbers for all the returns together, to compare each group with.
 
-**Chance.** Any history has a best and a worst group, so the second card asks whether the differences are larger than chance would give. The Kruskal-Wallis test compares the ranks of the returns of the groups rather than their values, so a few extreme returns do not decide it. Its p-value is the probability of differences at least as large as these in a history in which the group made no difference: below 0.05 they are unlikely to be chance alone, above it they could well be. A p-value says nothing about the size of a difference, nor whether it will last: the "weekend effect", Mondays weaker than the other days, was strong in the S&P 500 for decades and has faded since it became widely known. The test takes the returns as independent, which market returns are only roughly, as calm and wild stretches come in runs, and the more groups there are, the more one of them stands out by luck: with 52 weeks to choose from, the best week of an index's history usually looks remarkable.
+**Chance.** Any history has a best and a worst group, so the second card asks whether the differences are larger than chance would give. The Kruskal-Wallis test compares the ranks of the returns of the groups rather than their values, so a few extreme returns do not decide it. Its p-value is the probability of differences at least as large as these in a history in which the group made no difference: below 0.05 they are unlikely to be chance alone, above it they could well be. A p-value says nothing about the size of a difference, nor whether it will last: the "weekend effect", Mondays weaker than the other days, was strong in the S&P 500 for decades and has faded since it became widely known. The test takes the returns as independent, which market returns are only roughly, as calm and wild stretches come in runs, and the more groups there are, the more one of them stands out by luck: with 52 weeks to choose from, the best week of an index's history usually looks remarkable. A calendar effect has only two groups, but it got its name because traders saw it in past prices, so the same prices tend to confirm it; the test is then the same as the Wilcoxon rank-sum test.
 
 **The chart.** At the top, the mean return of each group as a bar, green for gains and red for losses, with the median as a diamond. At the bottom, the share of the group's returns that were gains, with a dashed line at 50%. Hover over a bar for all the numbers of its group.
 

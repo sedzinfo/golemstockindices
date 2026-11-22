@@ -15,8 +15,9 @@ A list with \code{groups} and \code{chance}, each with a \code{headline} and
 }
 \description{
 Sentences built from the numbers of \code{\link[=seasonality_analysis]{seasonality_analysis()}},
-for the Seasonality tab: the best and the worst group, and whether the
-differences between the groups could be chance.
+for the Seasonality tab: the best and the worst group, or for a calendar
+effect its two groups, and whether the differences between the groups
+could be chance.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

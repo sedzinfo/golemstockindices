@@ -6,11 +6,36 @@
 #' table and the CSV file, and the words of the text.
 #' @noRd
 seasonality_periods <- list(
-  day = list(group = "Day of the week", unit = "day", units = "days", groups = "days of the week", title = "returns by day of the week"),
-  week = list(group = "Week of the year", unit = "week", units = "weeks", groups = "weeks of the year", title = "returns by week of the year"),
-  month = list(group = "Month", unit = "month", units = "months", groups = "months", title = "returns by month"),
-  year = list(group = "Year of the cycle", unit = "year", units = "years", groups = "years of the cycle", title = "returns by year of the cycle")
+  day = list(group = "Day of the week", unit = "day", units = "days", groups = "days of the week", title = "returns by day of the week", digits = 2),
+  week = list(group = "Week of the year", unit = "week", units = "weeks", groups = "weeks of the year", title = "returns by week of the year", digits = 1),
+  month = list(group = "Month", unit = "month", units = "months", groups = "months", title = "returns by month", digits = 1),
+  year = list(group = "Year of the cycle", unit = "year", units = "years", groups = "years of the cycle", title = "returns by year of the cycle", digits = 1),
+  turn = list(
+    group = "Days", unit = "day", units = "days", groups = "turn of the month and the rest of the month",
+    title = "the turn of the month", digits = 2, effect = TRUE, per = "a day",
+    about = "The turn of the month is the last trading day of a month and the first 3 of the next, when salaries and pension contributions tend to be invested."
+  ),
+  holiday = list(
+    group = "Days", unit = "day", units = "days", groups = "days before a holiday and the other days",
+    title = "the days before a holiday", digits = 2, effect = TRUE, per = "a day",
+    about = "A day before a holiday is a trading day after which the exchange stays shut on a weekday, such as the day before Good Friday or Christmas. A closure of more than 5 calendar days, which only a gap in the data or a crisis leaves, does not count."
+  ),
+  santa = list(
+    group = "Days", unit = "day", units = "days", groups = "days of the Santa rally and the other days",
+    title = "the Santa rally", digits = 2, effect = TRUE, per = "a day",
+    about = "The Santa rally is the last 5 trading days of December and the first 2 of January, as Yale Hirsch defined it in 1972."
+  ),
+  half = list(
+    group = "Half of the year", unit = "half-year", units = "half-years", groups = "two halves of the year",
+    title = "Sell in May, May to October against November to April", digits = 1, effect = TRUE, per = "a half-year",
+    about = "\"Sell in May and go away\": May to October runs from the last close of April to the last close of October, and November to April from there to the last close of the next April."
+  )
 )
+#' @title The periods of the seasonality analysis that compare a calendar effect with the rest
+#' @description The effects of single days, whose returns are those of the
+#' days, put in two groups by [effect_days()].
+#' @noRd
+effect_day_periods <- c("turn", "holiday", "santa")
 #' @noRd
 weekday_names <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
 #' @title The years of the US presidential cycle, in the order of a term
@@ -27,25 +52,33 @@ cycle_years <- c("Election year", "Post-election", "Midterm", "Pre-election")
 #' @description Weeks run from Monday to Sunday, as in ISO 8601. Weekdays are
 #' worked out from the date itself, not from the names of the locale.
 #' @param date Dates.
-#' @param period `"day"`, `"week"`, `"month"` or `"year"`.
+#' @param period `"day"`, `"week"`, `"month"`, `"year"` or `"half"`, the
+#'   halves of the year from May to October and from November to April.
 #' @return A list with the `start` and the `end` of the period of each date.
 #' @keywords internal
 #' @examples
 #' golemstockindices:::period_bounds(as.Date(c("2024-02-14", "2024-12-31")), "week")
 period_bounds <- function(date, period) {
   date <- as.Date(date)
+  year <- as.POSIXlt(date)$year + 1900
+  month <- as.POSIXlt(date)$mon + 1
   start <- switch(period,
     day = date,
     week = date - (as.POSIXlt(date)$wday + 6) %% 7,
     month = as.Date(format(date, "%Y-%m-01")),
-    year = as.Date(format(date, "%Y-01-01"))
+    year = as.Date(format(date, "%Y-01-01")),
+    half = as.Date(ifelse(month %in% 5:10, paste0(year, "-05-01"), paste0(year - (month <= 4), "-11-01")))
   )
   end <- switch(period,
     day = date,
     week = start + 6,
     # the first of the next month, less a day
     month = as.Date(format(start + 31, "%Y-%m-01")) - 1,
-    year = as.Date(format(date, "%Y-12-31"))
+    year = as.Date(format(date, "%Y-12-31")),
+    half = {
+      start_year <- as.POSIXlt(start)$year + 1900
+      as.Date(ifelse(as.POSIXlt(start)$mon == 4, paste0(start_year, "-10-31"), paste0(start_year + 1, "-04-30")))
+    }
   )
   list(start = start, end = end)
 }
@@ -69,6 +102,72 @@ iso_week <- function(date) {
 ##########################################################################################
 #
 ##########################################################################################
+#' @title Weekdays from a Monday of 1970 up to each date
+#' @description For counting the weekdays between two dates: the difference
+#' of their counts.
+#' @param date Dates, before 1970 too.
+#' @return Numbers, as many as `date`.
+#' @noRd
+weekday_count <- function(date) {
+  # days since Monday 5 January 1970; %/% and %% round down, before 1970 too
+  days <- as.numeric(as.Date(date) - as.Date("1970-01-05"))
+  5 * (days %/% 7) + pmin(days %% 7 + 1, 5)
+}
+##########################################################################################
+#
+##########################################################################################
+#' @title The group of each trading day in a calendar effect
+#' @description Puts each trading day of an index in or out of a calendar
+#' effect, counting the trading days of the index itself, so its own holidays:
+#' \describe{
+#'   \item{turn}{The turn of the month: the last trading day of a month and
+#'     the first 3 of the next.}
+#'   \item{holiday}{The day before a holiday: a trading day after which the
+#'     exchange stays shut on at least one weekday, for at most 5 calendar
+#'     days; a longer closure is a gap in the data or a crisis.}
+#'   \item{santa}{The Santa rally: the last 5 trading days of December and
+#'     the first 2 of January.}
+#' }
+#' The first and the last month of the history, which may be cut short, have
+#' no group for the turn of the month and the Santa rally, as the place of a
+#' day in its month is not known, and the last day has none before a
+#' holiday, as the next trading day is not known.
+#' @param date The trading days, sorted.
+#' @param period `"turn"`, `"holiday"` or `"santa"`.
+#' @return A factor as long as `date`, the days in the effect first, `NA`
+#'   for a day whose group is not known.
+#' @keywords internal
+#' @examples
+#' days <- as.Date("2024-03-25") + 0:14
+#' days <- days[as.POSIXlt(days)$wday %in% 1:5 & days != as.Date("2024-03-29")]
+#' data.frame(days, group = golemstockindices:::effect_days(days, "holiday"))
+effect_days <- function(date, period = c("turn", "holiday", "santa")) {
+  period <- match.arg(period)
+  date <- as.Date(date)
+  n <- length(date)
+  if (period == "holiday") {
+    after <- c(date[-1], NA)
+    gap <- as.numeric(after - date)
+    shut <- weekday_count(after - 1) - weekday_count(date)
+    group <- ifelse(shut == 0, "Other days", ifelse(gap <= 5, "Before a holiday", NA))
+    return(factor(group, levels = c("Before a holiday", "Other days")))
+  }
+  month <- format(date, "%Y-%m")
+  from_start <- stats::ave(seq_len(n), month, FUN = seq_along)
+  from_end <- stats::ave(seq_len(n), month, FUN = function(i) rev(seq_along(i)))
+  calendar_month <- as.POSIXlt(date)$mon + 1
+  levels <- switch(period, turn = c("Turn of the month", "Rest of the month"), santa = c("Santa rally", "Other days"))
+  inside <- switch(period,
+    turn = from_start <= 3 | from_end == 1,
+    santa = (calendar_month == 12 & from_end <= 5) | (calendar_month == 1 & from_start <= 2)
+  )
+  group <- ifelse(inside, levels[1], levels[2])
+  group[month == month[1] | month == month[n]] <- NA
+  factor(group, levels = levels)
+}
+##########################################################################################
+#
+##########################################################################################
 #' @title The return of each complete period of an index
 #' @description A period's return is its last close relative to the last
 #' close of the period before, in percent, as in [monthly_returns()]. Markets
@@ -85,9 +184,16 @@ iso_week <- function(date) {
 #' the year of the 4-year US presidential cycle for years. The elections come
 #' in years divisible by 4, such as 2024, so 2025 was a post-election year,
 #' 2026 a midterm year and 2027 a pre-election year.
+#'
+#' The calendar effects put the returns in two groups: `"turn"`, `"holiday"`
+#' and `"santa"` the returns of the days, in or out of the turn of the month,
+#' the day before a holiday or the Santa rally (see [effect_days()]), and
+#' `"half"` the returns of the halves of the year, May to October and
+#' November to April, of "Sell in May and go away".
 #' @param history Price history of one index from [get_history()], with
 #'   `timestamp` and `close` columns.
-#' @param period `"day"`, `"week"`, `"month"` or `"year"`.
+#' @param period `"day"`, `"week"`, `"month"` or `"year"`, or a calendar
+#'   effect: `"turn"`, `"holiday"`, `"santa"` or `"half"`.
 #' @return A data frame with a row per complete period, the oldest first:
 #'   `start` and `end`, the first and last day of the period, `group`, a
 #'   factor with the groups in their natural order, and `return_pct`.
@@ -99,11 +205,19 @@ iso_week <- function(date) {
 #' history <- data.frame(timestamp = days, close = 100 * 1.001^seq_along(days))
 #' seasonal_returns(history, "month")
 #' head(seasonal_returns(history, "day"))
-seasonal_returns <- function(history, period = c("day", "week", "month", "year")) {
+seasonal_returns <- function(history, period = c("day", "week", "month", "year", "turn", "holiday", "santa", "half")) {
   period <- match.arg(period)
   check_one_index(history)
   history <- history[is.finite(history$close) & history$close > 0, ]
   history <- history[order(history$timestamp), ]
+  if (period %in% effect_day_periods) {
+    returns <- seasonal_returns(history, "day")
+    date <- as.Date(history$timestamp)
+    returns$group <- effect_days(date, period)[match(returns$start, date)]
+    returns <- returns[!is.na(returns$group), ]
+    rownames(returns) <- NULL
+    return(returns)
+  }
   date <- as.Date(history$timestamp)
   bounds <- period_bounds(date, period)
   # the last close of each period
@@ -127,7 +241,8 @@ seasonal_returns <- function(history, period = c("day", "week", "month", "year")
     previous_start <- switch(period,
       week = start - 7,
       month = as.Date(format(start - 1, "%Y-%m-01")),
-      year = as.Date(paste0(as.integer(format(start, "%Y")) - 1, "-01-01"))
+      year = as.Date(paste0(as.integer(format(start, "%Y")) - 1, "-01-01")),
+      half = period_bounds(start - 1, "half")$start
     )
     c(FALSE, start[-n] == previous_start[-1])
   }
@@ -140,7 +255,9 @@ seasonal_returns <- function(history, period = c("day", "week", "month", "year")
     day = factor(weekday_names[(as.POSIXlt(returns$start)$wday + 6) %% 7 + 1], levels = weekday_names),
     week = factor(iso_week(returns$start), levels = 1:53),
     month = factor(month.abb[as.POSIXlt(returns$start)$mon + 1], levels = month.abb),
-    year = factor(cycle_years[(as.POSIXlt(returns$start)$year + 1900) %% 4 + 1], levels = cycle_names)
+    year = factor(cycle_years[(as.POSIXlt(returns$start)$year + 1900) %% 4 + 1], levels = cycle_names),
+    half = factor(ifelse(as.POSIXlt(returns$start)$mon == 4, "May to October", "November to April"),
+                  levels = c("May to October", "November to April"))
   )
   # a price on a weekend, which some old histories have, belongs to no weekday
   returns <- returns[!is.na(returns$group), ]
@@ -159,9 +276,15 @@ seasonal_returns <- function(history, period = c("day", "week", "month", "year")
 #' returns, so a few extreme months do not decide it, but it takes the
 #' returns as independent, which market returns are only roughly: calm and
 #' wild stretches come in runs.
+#'
+#' The calendar effects (`"turn"`, `"holiday"`, `"santa"` and `"half"`, see
+#' [seasonal_returns()]) have two groups, the returns in the effect and the
+#' rest, for which the test is the same as a Wilcoxon rank-sum test.
 #' @param history Price history of one index from [get_history()], with all
 #'   of it.
-#' @param period `"day"`, `"week"`, `"month"` or `"year"`.
+#' @param period `"day"`, `"week"`, `"month"` or `"year"`, or a calendar
+#'   effect: `"turn"` (the turn of the month), `"holiday"` (the day before a
+#'   holiday), `"santa"` (the Santa rally) or `"half"` (Sell in May).
 #' @return `NULL` when the history has no complete period with one before
 #'   it, or a list with:
 #'   \describe{
@@ -182,7 +305,7 @@ seasonal_returns <- function(history, period = c("day", "week", "month", "year")
 #' analysis$groups
 #' analysis$p_value
 #' seasonality_text(analysis)
-seasonality_analysis <- function(history, period = c("day", "week", "month", "year")) {
+seasonality_analysis <- function(history, period = c("day", "week", "month", "year", "turn", "holiday", "santa", "half")) {
   period <- match.arg(period)
   returns <- seasonal_returns(history, period)
   if (nrow(returns) == 0) {
@@ -220,7 +343,7 @@ p_text <- function(p) {
   if (p < 0.001) "p < 0.001" else paste("p =", format(signif(p, 2), scientific = FALSE))
 }
 #' @noRd
-return_digits <- function(period) if (period == "day") 2 else 1
+return_digits <- function(period) seasonality_periods[[period]]$digits
 #' @noRd
 group_label <- function(group, period) {
   switch(period,
@@ -244,8 +367,9 @@ group_line <- function(row, period) {
 ##########################################################################################
 #' @title The seasonality analysis in words
 #' @description Sentences built from the numbers of [seasonality_analysis()],
-#' for the Seasonality tab: the best and the worst group, and whether the
-#' differences between the groups could be chance.
+#' for the Seasonality tab: the best and the worst group, or for a calendar
+#' effect its two groups, and whether the differences between the groups
+#' could be chance.
 #' @param analysis The result of [seasonality_analysis()].
 #' @return A list with `groups` and `chance`, each with a `headline` and
 #'   `points`, a character vector of sentences.
@@ -262,7 +386,9 @@ seasonality_text <- function(analysis) {
 #' @title The best and the worst group in words
 #' @description By the mean return, among the groups with at least half the
 #' returns of the largest group: week 53, which only some years have, would
-#' otherwise often come first or last by luck.
+#' otherwise often come first or last by luck. A calendar effect gives both
+#' of its groups, however few the returns of the effect, and how the effect
+#' is defined.
 #' @param analysis The result of [seasonality_analysis()].
 #' @return A list with a `headline` and `points`.
 #' @keywords internal
@@ -273,13 +399,33 @@ seasonality_groups_text <- function(analysis) {
   words <- seasonality_periods[[analysis$period]]
   digits <- return_digits(analysis$period)
   groups <- analysis$groups
+  label <- function(group) group_label(group, analysis$period)
+  all <- analysis$all
+  together <- sprintf(
+    "All %s %s together: mean %s%%, median %s%%, up %s%% of the time.",
+    fmt(all$returns, 0), words$units, signed(all$mean_pct, digits), signed(all$median_pct, digits), fmt(all$up_pct, 0)
+  )
+  if (isTRUE(words$effect)) {
+    # "rest of the month" in the middle of a sentence, but "November to April"
+    lower <- function(text) if (analysis$period == "half") text else tolower(text)
+    # the effect against the rest: both groups, however few the returns of the effect
+    points <- c(vapply(seq_len(nrow(groups)), function(i) group_line(groups[i, ], analysis$period), ""), together, words$about)
+    headline <- if (nrow(groups) == 2) {
+      sprintf(
+        "%s: mean %s%% %s; %s: %s%%",
+        label(groups$group[1]), signed(groups$mean_pct[1], digits), words$per,
+        lower(label(groups$group[2])), signed(groups$mean_pct[2], digits)
+      )
+    } else {
+      sprintf("Only %s so far: mean %s%% %s", lower(label(groups$group[1])), signed(groups$mean_pct[1], digits), words$per)
+    }
+    return(list(headline = headline, points = points))
+  }
   # a group with few returns, such as week 53, which only some years have, owes its rank to luck
   few <- groups$returns < max(groups$returns) / 2
   ranked <- groups[!few, ]
   best <- ranked[which.max(ranked$mean_pct), ]
   worst <- ranked[which.min(ranked$mean_pct), ]
-  label <- function(group) group_label(group, analysis$period)
-  all <- analysis$all
   points <- c(
     group_line(best, analysis$period),
     if (nrow(ranked) > 1) group_line(worst, analysis$period),
@@ -289,10 +435,7 @@ seasonality_groups_text <- function(analysis) {
         paste0(label(groups$group[few]), " (", groups$returns[few], ")", collapse = ", ")
       )
     },
-    sprintf(
-      "All %s %s together: mean %s%%, median %s%%, up %s%% of the time.",
-      fmt(all$returns, 0), words$units, signed(all$mean_pct, digits), signed(all$median_pct, digits), fmt(all$up_pct, 0)
-    ),
+    together,
     if (analysis$period == "year") {
       "The cycle follows the US presidential elections, held in years divisible by 4 such as 2016, 2020 and 2024: the year after is post-election (2017, 2021, 2025), then midterm (2018, 2022, 2026) and pre-election (2019, 2023, 2027)."
     }
@@ -334,10 +477,14 @@ seasonality_chance_text <- function(analysis) {
       points = c(span, sprintf("Testing whether the %s differ takes returns in at least two of them, and two in one.", words$groups))
     ))
   }
-  luck <- sprintf(
-    "With %d %s to pick from, the best one looks good partly by luck, and a pattern of the past need not hold: markets change, and a pattern that traders know about tends to fade.",
-    nrow(groups), words$groups
-  )
+  luck <- if (isTRUE(words$effect)) {
+    "The effect got its name because traders saw it in past prices, so the same prices tend to confirm it, and a pattern of the past need not hold: markets change, and a pattern that traders know about tends to fade."
+  } else {
+    sprintf(
+      "With %d %s to pick from, the best one looks good partly by luck, and a pattern of the past need not hold: markets change, and a pattern that traders know about tends to fade.",
+      nrow(groups), words$groups
+    )
+  }
   test <- sprintf(
     "A Kruskal-Wallis test asks whether the returns of the %s could all come from the same distribution: %s, so differences as large as these would turn up %s.",
     words$groups, p_text(p),

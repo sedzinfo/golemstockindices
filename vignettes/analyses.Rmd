@@ -129,6 +129,13 @@ To list smaller falls as well, lower `min_depth`, for example `drawdown_analysis
 - `"month"`, the months;
 - `"year"`, the years of the US presidential cycle.
 
+or a calendar effect, its returns against the rest:
+
+- `"turn"`, the turn of the month: the last trading day of a month and the first 3 of the next;
+- `"holiday"`, the trading days before a holiday;
+- `"santa"`, the Santa rally: the last 5 trading days of December and the first 2 of January;
+- `"half"`, Sell in May: May to October against November to April.
+
 A Kruskal-Wallis test then asks whether the differences could be chance.
 
 ```{r seasonality}
@@ -158,6 +165,14 @@ The other periods work the same way, for example the days of the week:
 
 ```{r seasonality-day}
 plot_seasonality(seasonality_analysis(spx, "day"))
+```
+
+and the calendar effects, for example the turn of the month, whose two groups are the days of the turn and the rest of the month:
+
+```{r seasonality-turn}
+turn <- seasonality_analysis(spx, "turn")
+seasonality_text(turn)$groups$headline
+seasonality_text(turn)$chance$headline
 ```
 
 ## Dark mode and saving

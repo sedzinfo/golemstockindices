@@ -1,7 +1,8 @@
 # Timeseries module - server
 
 Gets the whole price history of the selected index, renders its
-candlestick chart and serves it as a CSV file named like
+candlestick chart, with the Bollinger bands and the RSI when their boxes
+are ticked, and serves it as a CSV file named like
 `s-p-500-history-2026-11-07.csv`, with the columns `date`, `label`,
 `open`, `high`, `low`, `close` and `volume`.
 

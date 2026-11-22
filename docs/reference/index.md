@@ -14,6 +14,8 @@
 
 ## Calculations
 
+- [`bollinger_bands()`](https://sedzinfo.github.io/golemstockindices/reference/bollinger_bands.md)
+  : Bollinger bands of prices
 - [`convert_prices()`](https://sedzinfo.github.io/golemstockindices/reference/convert_prices.md)
   : Convert the prices of indices to one currency
 - [`drawdown()`](https://sedzinfo.github.io/golemstockindices/reference/drawdown.md)
@@ -34,6 +36,10 @@
   : Moving average of prices
 - [`normalize_prices()`](https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.md)
   : Normalize close prices to 100
+- [`relative_prices()`](https://sedzinfo.github.io/golemstockindices/reference/relative_prices.md)
+  : Normalized prices relative to one of the indices
+- [`rsi()`](https://sedzinfo.github.io/golemstockindices/reference/rsi.md)
+  : Relative strength index of prices
 - [`seasonal_returns()`](https://sedzinfo.github.io/golemstockindices/reference/seasonal_returns.md)
   : The return of each complete period of an index
 - [`seasonality_analysis()`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_analysis.md)

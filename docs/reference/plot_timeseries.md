@@ -5,7 +5,9 @@ through the close, its moving averages, date range buttons and a range
 slider. Underneath, smaller charts show the trading volume, when the
 history has any, and the drawdown: how far the index is below its
 all-time high so far. A click on a legend entry hides or shows that
-line.
+line. On request, the Bollinger bands are drawn around the prices, and a
+panel of the relative strength index, whose axis always runs from 0 to
+100, right under them.
 
 The vertical axes follow the days in view: zoomed in, each runs from the
 lowest to the highest value of those days, so a week's candles fill the
@@ -21,7 +23,9 @@ plot_timeseries(
   history,
   mode = "light",
   averages = c(50, 200),
-  show_drawdown = TRUE
+  show_drawdown = TRUE,
+  bollinger = FALSE,
+  show_rsi = FALSE
 )
 ```
 
@@ -49,6 +53,18 @@ plot_timeseries(
   `TRUE` to add the drawdown chart (see
   [`drawdown()`](https://sedzinfo.github.io/golemstockindices/reference/drawdown.md)).
 
+- bollinger:
+
+  `TRUE` to add the 20-day Bollinger bands to the prices (see
+  [`bollinger_bands()`](https://sedzinfo.github.io/golemstockindices/reference/bollinger_bands.md)).
+
+- show_rsi:
+
+  `TRUE` to add a chart of the 14-day relative strength index under the
+  prices (see
+  [`rsi()`](https://sedzinfo.github.io/golemstockindices/reference/rsi.md)),
+  with dashed lines at 30 and 70.
+
 ## Value
 
 A plotly object.
@@ -61,5 +77,7 @@ spx <- get_history("S&P 500", as.Date("1950-01-01"))
 plot_timeseries(spx)
 # shorter averages, and no drawdown chart
 plot_timeseries(spx, averages = c(20, 100), show_drawdown = FALSE)
+# with the Bollinger bands and the RSI
+plot_timeseries(spx, bollinger = TRUE, show_rsi = TRUE)
 }
 ```

@@ -12,7 +12,12 @@ Each return is put in a group: the day of the week for days, the ISO 8601
 week of the year for weeks (Monday to Sunday), the month for months, and
 the year of the 4-year US presidential cycle for years. The elections come
 in years divisible by 4, such as 2024, so 2025 was a post-election year,
-2026 a midterm year and 2027 a pre-election year."><meta property="og:description" content="A period's return is its last close relative to the last
+2026 a midterm year and 2027 a pre-election year.
+The calendar effects put the returns in two groups: &quot;turn&quot;, &quot;holiday&quot;
+and &quot;santa&quot; the returns of the days, in or out of the turn of the month,
+the day before a holiday or the Santa rally (see effect_days()), and
+&quot;half&quot; the returns of the halves of the year, May to October and
+November to April, of &quot;Sell in May and go away&quot;."><meta property="og:description" content="A period's return is its last close relative to the last
 close of the period before, in percent, as in monthly_returns(). Markets
 close at weekends and on holidays, so a day's return runs from the close of
 the trading day before, as long as it is at most 4 calendar days earlier: a
@@ -25,7 +30,12 @@ Each return is put in a group: the day of the week for days, the ISO 8601
 week of the year for weeks (Monday to Sunday), the month for months, and
 the year of the 4-year US presidential cycle for years. The elections come
 in years divisible by 4, such as 2024, so 2025 was a post-election year,
-2026 a midterm year and 2027 a pre-election year."><meta property="og:image" content="https://sedzinfo.github.io/golemstockindices/card.png"><meta property="og:image:alt" content="golemstockindices: Interactive Explorer of the Major Stock Market Indices, with the candlestick, volume and drawdown chart of the S&amp;P 500 since 1927"></head><body>
+2026 a midterm year and 2027 a pre-election year.
+The calendar effects put the returns in two groups: &quot;turn&quot;, &quot;holiday&quot;
+and &quot;santa&quot; the returns of the days, in or out of the turn of the month,
+the day before a holiday or the Santa rally (see effect_days()), and
+&quot;half&quot; the returns of the halves of the year, May to October and
+November to April, of &quot;Sell in May and go away&quot;."><meta property="og:image" content="https://sedzinfo.github.io/golemstockindices/card.png"><meta property="og:image:alt" content="golemstockindices: Interactive Explorer of the Major Stock Market Indices, with the candlestick, volume and drawdown chart of the S&amp;P 500 since 1927"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -80,11 +90,19 @@ week of the year for weeks (Monday to Sunday), the month for months, and
 the year of the 4-year US presidential cycle for years. The elections come
 in years divisible by 4, such as 2024, so 2025 was a post-election year,
 2026 a midterm year and 2027 a pre-election year.</p>
+<p>The calendar effects put the returns in two groups: <code>"turn"</code>, <code>"holiday"</code>
+and <code>"santa"</code> the returns of the days, in or out of the turn of the month,
+the day before a holiday or the Santa rally (see <code><a href="effect_days.html">effect_days()</a></code>), and
+<code>"half"</code> the returns of the halves of the year, May to October and
+November to April, of "Sell in May and go away".</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">seasonal_returns</span><span class="op">(</span><span class="va">history</span>, period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"week"</span>, <span class="st">"month"</span>, <span class="st">"year"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">seasonal_returns</span><span class="op">(</span></span>
+<span>  <span class="va">history</span>,</span>
+<span>  period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"week"</span>, <span class="st">"month"</span>, <span class="st">"year"</span>, <span class="st">"turn"</span>, <span class="st">"holiday"</span>, <span class="st">"santa"</span>, <span class="st">"half"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -97,7 +115,8 @@ in years divisible by 4, such as 2024, so 2025 was a post-election year,
 
 
 <dt id="arg-period">period<a class="anchor" aria-label="anchor" href="#arg-period"></a></dt>
-<dd><p><code>"day"</code>, <code>"week"</code>, <code>"month"</code> or <code>"year"</code>.</p></dd>
+<dd><p><code>"day"</code>, <code>"week"</code>, <code>"month"</code> or <code>"year"</code>, or a calendar
+effect: <code>"turn"</code>, <code>"holiday"</code>, <code>"santa"</code> or <code>"half"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -1,8 +1,8 @@
 # Timeseries module - UI
 
-An index picker, a button that downloads the index's daily prices as
-CSV, and a candlestick chart of those prices, with the trading volume
-underneath.
+An index picker, boxes that add the Bollinger bands and the RSI, a
+button that downloads the index's daily prices as CSV, and a candlestick
+chart of those prices, with the trading volume underneath.
 
 ## Usage
 

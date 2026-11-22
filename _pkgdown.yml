@@ -34,6 +34,7 @@ reference:
       - get_indices
   - title: Calculations
     contents:
+      - bollinger_bands
       - convert_prices
       - drawdown
       - drawdown_analysis
@@ -44,6 +45,8 @@ reference:
       - monthly_returns
       - moving_average
       - normalize_prices
+      - relative_prices
+      - rsi
       - seasonal_returns
       - seasonality_analysis
       - seasonality_text

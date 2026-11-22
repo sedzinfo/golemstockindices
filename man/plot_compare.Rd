@@ -8,7 +8,8 @@ plot_compare(
   prices,
   mode = "light",
   indices = get_indices(),
-  currency = "local"
+  currency = "local",
+  base = NULL
 )
 }
 \arguments{
@@ -23,6 +24,10 @@ to mark (TR).}
 \item{currency}{\code{"local"} for prices in the money of each index, or the
 currency they were converted to with \code{\link[=convert_prices]{convert_prices()}}, \code{"USD"} or
 \code{"EUR"}, for the title.}
+
+\item{base}{\code{NULL} for the normalized prices, or the label of the index
+that \code{prices}, from \code{\link[=relative_prices]{relative_prices()}}, are relative to, for the title
+and a dashed line at 100, where an index did as well as the base.}
 }
 \value{
 A plotly object.
@@ -38,5 +43,7 @@ history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
 plot_compare(normalize_prices(history))
 # in US dollars
 plot_compare(normalize_prices(convert_prices(history, "USD")), currency = "USD")
+# against the S&P 500
+plot_compare(relative_prices(normalize_prices(history), "S&P 500"), base = "S&P 500")
 \dontshow{\}) # examplesIf}
 }

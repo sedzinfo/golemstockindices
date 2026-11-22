@@ -69,6 +69,14 @@
 <li>Each index’s history is downloaded once and kept on disk between R sessions; after an hour only its last two weeks are downloaded again. Set <code>options(stockindices.cache_dir = )</code> to keep it elsewhere.</li>
 <li>
 <code>run_app(analytics = TRUE)</code> adds Google Analytics, through the cookie banner of the sedzinfo.github.io sites, which loads it only after the visitor accepts; <code>app.R</code> turns it on for the public deployment.</li>
+<li>
+<strong>Seasonality</strong> also tests four calendar effects against the rest: the turn of the month (the last trading day of a month and the first 3 of the next), the days before a holiday, the Santa rally (the last 5 trading days of December and the first 2 of January) and Sell in May (May to October against November to April). <code><a href="../reference/effect_days.html">effect_days()</a></code> puts the days in or out of an effect.</li>
+<li>
+<strong>Compare</strong> can show the indices relative to one of them, picked under “Relative to”: the ratio of their lines, so a line that rises beat the base, such as the Nasdaq-100 against the S&amp;P 500. <code><a href="../reference/relative_prices.html">relative_prices()</a></code> does the same from R, and <code>plot_compare(base = )</code> draws it.</li>
+<li>
+<strong>Overview</strong> has four more columns: the current run of rises or falls, and how far the last close is from its 200-day average and from its 52-week low and high. <code><a href="../reference/index_summary.html">index_summary()</a></code> returns them as <code>streak</code>, <code>average200</code> and <code>from_average200_pct</code>, <code>low52</code> and <code>from_low52_pct</code>, and <code>high52</code> and <code>from_high52_pct</code>.</li>
+<li>
+<strong>Timeseries</strong> can add the 20-day Bollinger bands and a panel of the 14-day RSI, from two boxes above the chart. <code><a href="../reference/bollinger_bands.html">bollinger_bands()</a></code>, <code><a href="../reference/rsi.html">rsi()</a></code> and <code>plot_timeseries(bollinger = , show_rsi = )</code> do the same from R.</li>
 </ul></div>
   </main></div>
 

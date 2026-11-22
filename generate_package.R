@@ -4,6 +4,7 @@
 # R CMD check golemstockindices
 # R CMD Rd2pdf golemstockindices
 # R CMD build golemstockindices --resave-data
+# .rs.restartR()
 library(devtools)
 library(roxygen2)
 rm(list = ls())

@@ -4,13 +4,18 @@
 \alias{seasonality_analysis}
 \title{Seasonality analysis of an index}
 \usage{
-seasonality_analysis(history, period = c("day", "week", "month", "year"))
+seasonality_analysis(
+  history,
+  period = c("day", "week", "month", "year", "turn", "holiday", "santa", "half")
+)
 }
 \arguments{
 \item{history}{Price history of one index from \code{\link[=get_history]{get_history()}}, with all
 of it.}
 
-\item{period}{\code{"day"}, \code{"week"}, \code{"month"} or \code{"year"}.}
+\item{period}{\code{"day"}, \code{"week"}, \code{"month"} or \code{"year"}, or a calendar
+effect: \code{"turn"} (the turn of the month), \code{"holiday"} (the day before a
+holiday), \code{"santa"} (the Santa rally) or \code{"half"} (Sell in May).}
 }
 \value{
 \code{NULL} when the history has no complete period with one before
@@ -36,6 +41,10 @@ larger than chance would give. The test compares the ranks of the
 returns, so a few extreme months do not decide it, but it takes the
 returns as independent, which market returns are only roughly: calm and
 wild stretches come in runs.
+
+The calendar effects (\code{"turn"}, \code{"holiday"}, \code{"santa"} and \code{"half"}, see
+\code{\link[=seasonal_returns]{seasonal_returns()}}) have two groups, the returns in the effect and the
+rest, for which the test is the same as a Wilcoxon rank-sum test.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

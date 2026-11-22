@@ -8,16 +8,24 @@ index_summary(history)
 }
 \arguments{
 \item{history}{Price history from \code{\link[=get_history]{get_history()}}, with \code{label},
-\code{timestamp} and \code{close} columns.}
+\code{timestamp} and \code{close} columns.
+
+It also gives the trend of the last year: the current run of rises or
+falls (see \code{\link[=streak]{streak()}}), how far the last close is from its 200-day
+average (see \code{\link[=moving_average]{moving_average()}}), and from the lowest and the highest
+close of the last 52 weeks, the closes after the day a year before.}
 }
 \value{
 A data frame with a row per index, in the order of their first
 rows in \code{history}: \code{label}, \code{date} and \code{close} of the last day,
 \code{day_pct}, \code{week_pct}, \code{month_pct}, \code{month3_pct}, \code{month6_pct},
 \code{month9_pct}, \code{ytd_pct}, \code{year_pct}, \code{high} and
-\code{high_date} of the highest close, \code{from_high_pct} (from -100 to 0) and
-\code{first_date}, the first day of the history. A change is \code{NA} when the
-history does not go back far enough.
+\code{high_date} of the highest close, \code{from_high_pct} (from -100 to 0),
+\code{first_date}, the first day of the history, \code{streak}, \code{average200}
+and \code{from_average200_pct}, \code{low52} and \code{from_low52_pct} (0 or more),
+and \code{high52} and \code{from_high52_pct} (from -100 to 0). A change is \code{NA}
+when the history does not go back far enough, and the average when it
+has fewer than 200 closes.
 }
 \description{
 For each index of a price history: its last close, and the

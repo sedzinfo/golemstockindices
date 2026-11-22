@@ -28,19 +28,24 @@ below its all-time high.
   Asia-Pacific
 - **Overview**: Which exchanges are open now, every index in one table
   with a line of its last year, its last close, the change on the day,
-  this year and over a year, and how far it is below its all-time high
+  this year and over a year, its run of rises or falls, how far it is
+  from its 200-day average and its 52-week low and high, and how far it
+  is below its all-time high
 - **Performance**: The indices side by side in one chart, the best at
   the top, over the day, a week, 1, 3, 6 or 9 months, this year or a
   year
 - **Interactive Candlestick Charts**: The whole history of an index,
   back to 1927 for the S&P 500, with the volume, the 50- and 200-day
-  moving averages and the drawdown
+  moving averages, the drawdown, and optional Bollinger bands and RSI
 - **Index Comparison**: Compare up to 10 indices, each starting at 100,
-  on a linear or log scale
+  on a linear or log scale, or relative to one of them, such as the
+  Nasdaq-100 against the S&P 500
 - **Returns Calendar**: Monthly returns by year
 - **Seasonality**: Whether some days of the week, weeks of the year,
   months or years of the US presidential cycle bring better returns than
-  others, with a test of whether the differences could be chance
+  others, and the calendar effects of the turn of the month, the days
+  before holidays, the Santa rally and Sell in May, with a test of
+  whether the differences could be chance
 - **Volatility**: Whether the volatility of the last weeks and the move
   of the last days are normal, against the index’s history and a GARCH
   model, and a forecast of the next 5 trading days with the value at
@@ -77,7 +82,13 @@ installs the packages golemstockindices needs.
 
 #### From R-universe (recommended)
 
-[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(`` `` ``"golemstockindices"``,`` `` repos ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"https://sedzinfo.r-universe.dev"``, ``"https://cloud.r-project.org"``)`` ``)`
+``` r
+
+install.packages(
+  "golemstockindices",
+  repos = c("https://sedzinfo.r-universe.dev", "https://cloud.r-project.org")
+)
+```
 
 [R-universe](https://sedzinfo.r-universe.dev/golemstockindices) builds
 golemstockindices from this repository after every change, ready to
@@ -86,7 +97,11 @@ needs.
 
 #### From GitHub
 
-[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"pak"``)`` ``# once`` ``pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"sedzinfo/golemstockindices"``)`
+``` r
+
+install.packages("pak")   # once
+pak::pak("sedzinfo/golemstockindices")
+```
 
 #### From the release tarball
 
@@ -95,7 +110,11 @@ release](https://github.com/sedzinfo/golemstockindices/releases/tag/latest)
 has the source tarball and the PDF manual, rebuilt from `main` on every
 change:
 
-[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"pak"``)`` ``# once`` ``pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"url::https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz"``)`
+``` r
+
+install.packages("pak")   # once
+pak::pak("url::https://github.com/sedzinfo/golemstockindices/releases/download/latest/golemstockindices_0.1.0.tar.gz")
+```
 
 #### From a clone of the repository
 
@@ -106,13 +125,21 @@ plain clone with [Git](https://git-scm.com/downloads) has everything:
 git clone https://github.com/sedzinfo/golemstockindices.git
 ```
 
-[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"pak"``)`` ``# once`` ``pak``::`[`local_install`](https://pak.r-lib.org/reference/local_install.html)`(``"path/to/golemstockindices"``)`
+``` r
+
+install.packages("pak")   # once
+pak::local_install("path/to/golemstockindices")
+```
 
 ## Usage
 
 Launch the Shiny app with just two lines of code:
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`golemstockindices`](https://sedzinfo.github.io/golemstockindices/)`)`` `[`run_app`](https://sedzinfo.github.io/golemstockindices/reference/run_app.md)`(``)`
+``` r
+
+library(golemstockindices)
+run_app()
+```
 
 The application will open in your default web browser. No API key is
 needed. Any
@@ -220,7 +247,50 @@ the high and a table of the falls
 The data, calculations and charts of the app are also available as
 functions, for scripts and R Markdown reports:
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`golemstockindices`](https://sedzinfo.github.io/golemstockindices/)`)`` `` ``# the indices, and where each stands`` `[`get_indices`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)`(``)`` ``all`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(`[`get_indices`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)`(``)``$``label``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"1900-01-01"``)``)`` `[`overview_table`](https://sedzinfo.github.io/golemstockindices/reference/overview_table.md)`(`[`index_summary`](https://sedzinfo.github.io/golemstockindices/reference/index_summary.md)`(``all``)``)`` `` ``# one index since 2020: candlestick chart and monthly returns`` ``spx`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(``"S&P 500"``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"2020-01-01"``)``)`` `[`plot_timeseries`](https://sedzinfo.github.io/golemstockindices/reference/plot_timeseries.md)`(``spx``)`` `[`plot_returns_calendar`](https://sedzinfo.github.io/golemstockindices/reference/plot_returns_calendar.md)`(`[`monthly_returns`](https://sedzinfo.github.io/golemstockindices/reference/monthly_returns.md)`(``spx``)``, ``"S&P 500"``, mode ``=`` ``"dark"``)`` `` ``# the whole history of the S&P 500, since 1927`` ``spx`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(``"S&P 500"``, `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``"1900-01-01"``)``)`` `` ``# are some days, months or years of the presidential cycle better than others?`` ``seasons`` ``<-`` `[`seasonality_analysis`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_analysis.md)`(``spx``, ``"year"``)`` `[`seasonality_text`](https://sedzinfo.github.io/golemstockindices/reference/seasonality_text.md)`(``seasons``)`` `[`plot_seasonality`](https://sedzinfo.github.io/golemstockindices/reference/plot_seasonality.md)`(``seasons``)`` `` ``# is the recent volatility normal? (needs more than a year of history)`` ``analysis`` ``<-`` `[`volatility_analysis`](https://sedzinfo.github.io/golemstockindices/reference/volatility_analysis.md)`(``spx``)`` `[`volatility_text`](https://sedzinfo.github.io/golemstockindices/reference/volatility_text.md)`(``analysis``)`` ``analysis``$``forecast``$``days`` ``# the 95% range of the next 5 closes`` `[`plot_volatility`](https://sedzinfo.github.io/golemstockindices/reference/plot_volatility.md)`(``analysis``)`` `` ``# how far below its all-time high, against its earlier falls`` ``falls`` ``<-`` `[`drawdown_analysis`](https://sedzinfo.github.io/golemstockindices/reference/drawdown_analysis.md)`(``spx``)`` `[`drawdown_text`](https://sedzinfo.github.io/golemstockindices/reference/drawdown_text.md)`(``falls``)`` `[`plot_drawdowns`](https://sedzinfo.github.io/golemstockindices/reference/plot_drawdowns.md)`(``falls``)`` `` ``# several indices over the last year, starting at 100`` ``history`` ``<-`` `[`get_history`](https://sedzinfo.github.io/golemstockindices/reference/get_history.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"S&P 500"``, ``"Euro Stoxx 50"``, ``"Nikkei 225"``)``)`` `[`plot_compare`](https://sedzinfo.github.io/golemstockindices/reference/plot_compare.md)`(`[`normalize_prices`](https://sedzinfo.github.io/golemstockindices/reference/normalize_prices.md)`(``history``)``)`
+``` r
+
+library(golemstockindices)
+
+# the indices, and where each stands
+get_indices()
+all <- get_history(get_indices()$label, as.Date("1900-01-01"))
+overview_table(index_summary(all))
+
+# one index since 2020: candlestick chart and monthly returns
+spx <- get_history("S&P 500", as.Date("2020-01-01"))
+plot_timeseries(spx)
+plot_timeseries(spx, bollinger = TRUE, show_rsi = TRUE)   # with the Bollinger bands and the RSI
+plot_returns_calendar(monthly_returns(spx), "S&P 500", mode = "dark")
+
+# the whole history of the S&P 500, since 1927
+spx <- get_history("S&P 500", as.Date("1900-01-01"))
+
+# are some days, months or years of the presidential cycle better than others?
+seasons <- seasonality_analysis(spx, "year")
+seasonality_text(seasons)
+plot_seasonality(seasons)
+
+# calendar effects: "turn" of the month, days before a "holiday", "santa" rally, Sell in May ("half")
+seasonality_text(seasonality_analysis(spx, "turn"))
+
+# is the recent volatility normal? (needs more than a year of history)
+analysis <- volatility_analysis(spx)
+volatility_text(analysis)
+analysis$forecast$days   # the 95% range of the next 5 closes
+plot_volatility(analysis)
+
+# how far below its all-time high, against its earlier falls
+falls <- drawdown_analysis(spx)
+drawdown_text(falls)
+plot_drawdowns(falls)
+
+# several indices over the last year, starting at 100
+history <- get_history(c("S&P 500", "Euro Stoxx 50", "Nikkei 225"))
+plot_compare(normalize_prices(history))
+
+# the same, relative to the S&P 500: above 100, better than the S&P 500
+plot_compare(relative_prices(normalize_prices(history), "S&P 500"), base = "S&P 500")
+```
 
 Indices are picked by their label, such as `"S&P 500"`, and
 [`get_indices()`](https://sedzinfo.github.io/golemstockindices/reference/get_indices.md)
@@ -236,8 +306,10 @@ kept on disk between R sessions (see [Data Source](#data-source)).
   regular hours
 - A table of all the indices, grouped by region: the last close and its
   date, a small line of the last year, the change on the day, this year
-  and over a year, how far each is below its all-time high, that high
-  and its date, the currency and the first day of the history
+  and over a year, the current run of rises or falls, how far each is
+  from its 200-day average and its 52-week low and high, how far it is
+  below its all-time high, that high and its date, the currency and the
+  first day of the history
 - The changes are shaded red for falls and green for rises
 
 ### Performance Tab
@@ -260,6 +332,8 @@ kept on disk between R sessions (see [Data Source](#data-source)).
   volume
 - 50- and 200-day moving averages; click a legend entry to hide or show
   a line
+- Optional 20-day Bollinger bands, and a panel of the 14-day RSI with
+  lines at 30 and 70
 - Drawdown chart: how far the index is below its all-time high
 
 ### Compare Tab
@@ -268,6 +342,8 @@ kept on disk between R sessions (see [Data Source](#data-source)).
 - Each index’s close starts at 100 on the first date all of them have
   data
 - Switch between a linear and a log scale
+- Show the indices relative to one of them: a line that rises did better
+  than that index
 
 ### Returns Calendar Tab
 
@@ -278,6 +354,9 @@ kept on disk between R sessions (see [Data Source](#data-source)).
 - The returns of complete trading days, weeks, months or years, grouped
   by day of the week, ISO week of the year, month or year of the US
   presidential cycle
+- Or a calendar effect against the rest: the turn of the month, the days
+  before a holiday, the Santa rally, or Sell in May (May to October
+  against November to April)
 - Two cards name the best and the worst group and say whether the
   differences could be chance, with a Kruskal-Wallis test
 - A chart and a table of the groups
