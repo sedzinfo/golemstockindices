@@ -162,6 +162,9 @@ test_that("the drawdowns module explains, charts and lists the falls of the sele
     expect_true(all(csv$fall_pct <= -20))
     session$setInputs(min_depth = "10")
     expect_gt(nrow(utils::read.csv(output$csv)), nrow(csv))
+    session$setInputs(min_depth = "40")
+    expect_true(all(utils::read.csv(output$csv)$fall_pct <= -40))
+    expect_match(output$summary$html, "of 40% or more")
   })
   one_day <- reactive(history[history$label == "Alpha (A)", ][1, ])
   testServer(mod_drawdowns_server, args = list(history = one_day, dark_mode = light), {
@@ -250,4 +253,12 @@ test_that("the performance and compare tabs convert the indices to the currency 
     expect_match(output$note$html, "No exchange rates for Beta (B) right now, so it is left out.", fixed = TRUE)
     expect_equal(utils::read.csv(output$csv)$label, "Alpha (A)")
   })
+})
+
+test_that("the drawdowns picker offers falls of 10%, 20%, 30%, 40% or 50% or more, 20% at first", {
+  html <- as.character(mod_drawdowns_ui("drawdowns"))
+  for (depth in c(10, 20, 30, 40, 50)) {
+    expect_match(html, sprintf('<option value="%d"', depth), fixed = TRUE, label = depth)
+  }
+  expect_match(html, '<option value="20" selected>', fixed = TRUE)
 })

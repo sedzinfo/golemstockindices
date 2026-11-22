@@ -15,6 +15,7 @@ cat("\014")
 ##########################################################################################
 directory <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(directory)
+# usethis::create_package("golemstockindices")
 document()
 if ("golemstockindices" %in% loadedNamespaces()) unloadNamespace("golemstockindices")
 if ("golemstockindices" %in% rownames(installed.packages())) remove.packages("golemstockindices")

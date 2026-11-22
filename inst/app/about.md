@@ -348,7 +348,7 @@ and its days are calendar days: from the peak to the trough, from the trough bac
 
 **Now.** How far the last close is below the all-time high, and the rise it needs to get back there (the formula of the Timeseries tab). The lowest close since the high gives the depth of the current fall so far, which ranks it among all the falls of the history, and the card lists the earlier falls that went at least as deep: how many days they took to get back to their high, from the peak and from the trough. Every earlier fall did get back, as only the last fall can still be open. The days of the earlier falls describe the past, not when the current one will end.
 
-**The history.** The falls of 10%, 20% (the default), 30% or 50% or more, as picked above the cards: how many there were, the deepest, the median fall with the median days to its trough and back to its high, the share of trading days that closed that far below the high, and the days that closed at a new all-time high.
+**The history.** The falls of 10%, 20% (the default), 30%, 40% or 50% or more, as picked above the cards: how many there were, the deepest, the median fall with the median days to its trough and back to its high, the share of trading days that closed that far below the high, and the days that closed at a new all-time high.
 
 **The chart.** At the top, the close on a log scale, on which equal distances are equal percentages, with the all-time high so far as a dotted line. At the bottom, how far each close is below that high, with a dashed line at the depth picked. Each fall of that depth or more is shaded from its peak to its recovery, the current one in amber, and its trough carries its rank; hover over a trough for its dates.
 

@@ -212,7 +212,7 @@ Indices are picked by their label, such as `"S&P 500"`, and `get_indices()` list
 
 ### Drawdowns Tab
 - Two cards say how far the index is below its all-time high, the rise it needs to get back there, and how long the earlier falls that went as deep took to recover
-- A chart of the close on a log scale and of how far it is below its high, with each fall of 10%, 20%, 30% or 50% or more shaded
+- A chart of the close on a log scale and of how far it is below its high, with each fall of 10%, 20%, 30%, 40% or 50% or more shaded
 - A table of those falls, the deepest first
 
 ### About Tab

@@ -382,7 +382,7 @@ kept on disk between R sessions (see [Data Source](#data-source)).
   it needs to get back there, and how long the earlier falls that went
   as deep took to recover
 - A chart of the close on a log scale and of how far it is below its
-  high, with each fall of 10%, 20%, 30% or 50% or more shaded
+  high, with each fall of 10%, 20%, 30%, 40% or 50% or more shaded
 - A table of those falls, the deepest first
 
 ### About Tab
